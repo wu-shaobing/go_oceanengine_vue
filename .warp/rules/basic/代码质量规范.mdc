@@ -1,0 +1,451 @@
+---
+alwaysApply: true
+---
+
+# 代码质量规范
+
+## 文件和函数复杂度限制
+
+### 强制行为
+- 单个文件不得超过 **500 行**（不含注释和空行）
+- 单个函数不得超过 **100 行**
+- 单个类不得超过 **300 行**
+- 函数参数不得超过 **4 个**（超过时使用对象传参）
+- 条件嵌套不得超过 **3 层**
+- 圈复杂度不得超过 **10**
+
+### 超限处理策略
+```typescript
+// ❌ 错误：函数过长
+function processUserData(user: User) {
+  // 100+ 行代码...
+}
+
+// ✅ 正确：拆分为多个函数
+function processUserData(user: User) {
+  validateUser(user);
+  enrichUserData(user);
+  saveUserData(user);
+  notifyUserCreated(user);
+}
+
+function validateUser(user: User) {
+  // 验证逻辑
+}
+
+function enrichUserData(user: User) {
+  // 数据增强逻辑
+}
+```
+
+## 命名规范
+
+### 变量命名
+```typescript
+// ✅ 正确：清晰的语义化命名
+const userList: User[] = [];
+const isActive: boolean = true;
+const maxRetryCount: number = 3;
+const API_BASE_URL: string = 'https://api.example.com';
+
+// ❌ 错误：无意义的命名
+const list = [];
+const flag = true;
+const num = 3;
+const url = 'https://api.example.com';
+```
+
+### 函数命名
+```typescript
+// ✅ 正确：动词开头，清晰表达意图
+function getUserById(id: string): Promise<User> {}
+function validateEmail(email: string): boolean {}
+function handleSubmit(data: FormData): void {}
+function calculateTotalPrice(items: CartItem[]): number {}
+
+// ❌ 错误：名词或不清晰
+function user(id: string) {}
+function email(email: string) {}
+function submit(data: any) {}
+function price(items: any[]) {}
+```
+
+### 常量命名
+```typescript
+// ✅ 正确：全大写下划线分隔
+const MAX_RETRY_COUNT = 3;
+const API_TIMEOUT = 5000;
+const USER_STATUS = {
+  ACTIVE: 1,
+  INACTIVE: 0,
+  PENDING: 2,
+} as const;
+
+// ❌ 错误：小写或驼峰
+const maxRetryCount = 3;
+const apiTimeout = 5000;
+```
+
+### 类和组件命名
+```typescript
+// ✅ 正确：PascalCase
+class UserService {}
+class HttpClient {}
+const UserProfile: React.FC = () => {};
+const DataTable: React.FC = () => {};
+
+// ❌ 错误：camelCase 或其他
+class userService {}
+const user_profile = () => {};
+```
+
+### 文件命名
+```bash
+# ✅ 正确
+user-service.ts          # kebab-case
+UserProfile.tsx          # PascalCase（组件）
+use-user-list.ts         # kebab-case（hooks）
+user.types.ts            # kebab-case
+api.config.ts            # kebab-case
+
+# ❌ 错误
+UserService.ts           # 非组件不用 PascalCase
+user_service.ts          # 不用下划线
+userService.ts           # 不用 camelCase
+```
+
+## 类型安全
+
+### 强制行为
+```typescript
+// ✅ 正确：明确的类型定义
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  age: number;
+}
+
+function getUser(id: string): Promise<User> {
+  return fetch(`/api/users/${id}`).then(res => res.json());
+}
+
+// ✅ 使用 unknown 代替 any
+function processData(data: unknown) {
+  if (typeof data === 'string') {
+    return data.toUpperCase();
+  }
+  throw new Error('Invalid data type');
+}
+
+// ✅ 使用类型守卫
+function isUser(obj: unknown): obj is User {
+  return (
+    typeof obj === 'object' &&
+    obj !== null &&
+    'id' in obj &&
+    'name' in obj
+  );
+}
+```
+
+### 禁止行为
+```typescript
+// ❌ 禁止使用 any
+function getData(id: any): any {
+  return fetch(`/api/data/${id}`);
+}
+
+// ❌ 禁止类型断言 as any
+const user = data as any;
+
+// ❌ 禁止 @ts-ignore（用 @ts-expect-error 并说明原因）
+// @ts-ignore
+const result = someFunction();
+
+// ✅ 如必须忽略，使用 @ts-expect-error 并说明
+// @ts-expect-error - 第三方库类型定义不完整，已提 issue
+const result = someFunction();
+```
+
+## 错误处理
+
+### 异步错误处理
+```typescript
+// ✅ 正确：完整的错误处理
+async function fetchUserData(userId: string): Promise<User> {
+  try {
+    const response = await fetch(`/api/users/${userId}`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('fetchUserData failed:', error);
+    
+    if (error instanceof Error) {
+      throw new Error(`获取用户数据失败: ${error.message}`);
+    }
+    
+    throw new Error('获取用户数据失败: 未知错误');
+  }
+}
+
+// ❌ 错误：没有错误处理
+async function fetchUserData(userId: string) {
+  const response = await fetch(`/api/users/${userId}`);
+  return response.json();
+}
+```
+
+### 同步错误处理
+```typescript
+// ✅ 正确：输入验证和错误处理
+function calculateDiscount(price: number, discountRate: number): number {
+  if (price < 0) {
+    throw new Error('价格不能为负数');
+  }
+  
+  if (discountRate < 0 || discountRate > 1) {
+    throw new Error('折扣率必须在 0-1 之间');
+  }
+  
+  return price * (1 - discountRate);
+}
+
+// ❌ 错误：没有输入验证
+function calculateDiscount(price: number, discountRate: number) {
+  return price * (1 - discountRate);
+}
+```
+
+## 代码安全
+
+### 禁止行为
+```typescript
+// ❌ 禁止硬编码敏感信息
+const API_KEY = 'sk-1234567890abcdef';
+const PASSWORD = 'admin123';
+const DATABASE_URL = 'mongodb://user:pass@localhost:27017';
+
+// ✅ 正确：使用环境变量
+const API_KEY = process.env.API_KEY;
+const PASSWORD = process.env.PASSWORD;
+const DATABASE_URL = process.env.DATABASE_URL;
+
+// ❌ 禁止使用 eval
+eval('console.log("hello")');
+
+// ❌ 禁止 SQL 拼接
+const query = `SELECT * FROM users WHERE id = ${userId}`;
+
+// ✅ 正确：使用参数化查询
+const query = 'SELECT * FROM users WHERE id = ?';
+db.query(query, [userId]);
+```
+
+### XSS 防护
+```typescript
+// ❌ 危险：直接插入 HTML
+element.innerHTML = userInput;
+
+// ✅ 正确：转义或使用安全 API
+element.textContent = userInput;
+// 或使用 DOMPurify 等库
+element.innerHTML = DOMPurify.sanitize(userInput);
+```
+
+## 注释规范
+
+### 函数注释
+```typescript
+/**
+ * 获取用户信息
+ * @param userId - 用户 ID
+ * @returns 用户信息对象
+ * @throws {Error} 当用户不存在时抛出错误
+ * @example
+ * ```typescript
+ * const user = await getUserById('123');
+ * console.log(user.name);
+ * ```
+ */
+async function getUserById(userId: string): Promise<User> {
+  // 实现...
+}
+```
+
+### 复杂逻辑注释
+```typescript
+function calculateShippingFee(order: Order): number {
+  // 订单金额超过 99 元免运费
+  if (order.totalAmount >= 99) {
+    return 0;
+  }
+  
+  // 根据重量计算运费：首重 5 元（1kg），续重 2 元/kg
+  const baseWeight = 1;
+  const baseFee = 5;
+  const additionalFee = 2;
+  
+  if (order.weight <= baseWeight) {
+    return baseFee;
+  }
+  
+  const extraWeight = Math.ceil(order.weight - baseWeight);
+  return baseFee + extraWeight * additionalFee;
+}
+```
+
+### 待办注释
+```typescript
+// TODO: 优化性能，考虑使用缓存
+// FIXME: 修复并发情况下的数据竞争问题
+// HACK: 临时方案，等待后端接口修复
+// NOTE: 此处逻辑较复杂，需要详细理解业务规则
+```
+
+## 代码坏味道
+
+### 避免魔法数字
+```typescript
+// ❌ 错误：魔法数字
+if (user.status === 1) {
+  // ...
+}
+
+setTimeout(() => {}, 5000);
+
+// ✅ 正确：使用常量
+const USER_STATUS = {
+  ACTIVE: 1,
+  INACTIVE: 0,
+} as const;
+
+if (user.status === USER_STATUS.ACTIVE) {
+  // ...
+}
+
+const NOTIFICATION_DELAY = 5000;
+setTimeout(() => {}, NOTIFICATION_DELAY);
+```
+
+### 避免重复代码
+```typescript
+// ❌ 错误：重复代码
+function createUser(data: CreateUserDto) {
+  if (!data.name) throw new Error('姓名不能为空');
+  if (!data.email) throw new Error('邮箱不能为空');
+  if (!data.phone) throw new Error('手机号不能为空');
+  // ...
+}
+
+function updateUser(data: UpdateUserDto) {
+  if (!data.name) throw new Error('姓名不能为空');
+  if (!data.email) throw new Error('邮箱不能为空');
+  if (!data.phone) throw new Error('手机号不能为空');
+  // ...
+}
+
+// ✅ 正确：提取公共逻辑
+function validateUserData(data: Partial<User>) {
+  if (!data.name) throw new Error('姓名不能为空');
+  if (!data.email) throw new Error('邮箱不能为空');
+  if (!data.phone) throw new Error('手机号不能为空');
+}
+
+function createUser(data: CreateUserDto) {
+  validateUserData(data);
+  // ...
+}
+
+function updateUser(data: UpdateUserDto) {
+  validateUserData(data);
+  // ...
+}
+```
+
+### 避免深度嵌套
+```typescript
+// ❌ 错误：深度嵌套
+function processOrder(order: Order) {
+  if (order) {
+    if (order.items.length > 0) {
+      for (const item of order.items) {
+        if (item.quantity > 0) {
+          if (item.price > 0) {
+            // 处理逻辑
+          }
+        }
+      }
+    }
+  }
+}
+
+// ✅ 正确：提前返回
+function processOrder(order: Order) {
+  if (!order || order.items.length === 0) {
+    return;
+  }
+  
+  for (const item of order.items) {
+    if (item.quantity <= 0 || item.price <= 0) {
+      continue;
+    }
+    
+    // 处理逻辑
+  }
+}
+```
+
+## 性能考量
+
+### 避免不必要的计算
+```typescript
+// ❌ 错误：每次渲染都计算
+function UserList({ users }: Props) {
+  const sortedUsers = users.sort((a, b) => a.name.localeCompare(b.name));
+  return <div>{/* render */}</div>;
+}
+
+// ✅ 正确：使用 useMemo 缓存
+function UserList({ users }: Props) {
+  const sortedUsers = useMemo(
+    () => users.sort((a, b) => a.name.localeCompare(b.name)),
+    [users]
+  );
+  return <div>{/* render */}</div>;
+}
+```
+
+### 合理使用数据结构
+```typescript
+// ❌ 错误：频繁查找数组
+function findUser(users: User[], id: string) {
+  return users.find(u => u.id === id); // O(n)
+}
+
+// ✅ 正确：使用 Map
+const userMap = new Map(users.map(u => [u.id, u]));
+function findUser(id: string) {
+  return userMap.get(id); // O(1)
+}
+```
+
+## 质量检查清单
+
+在提交代码前，确保：
+
+- [ ] 无 TypeScript 类型错误
+- [ ] 无 ESLint 警告
+- [ ] 无硬编码的敏感信息
+- [ ] 所有异步操作都有错误处理
+- [ ] 函数和变量命名清晰
+- [ ] 复杂逻辑有注释说明
+- [ ] 无重复代码
+- [ ] 无魔法数字
+- [ ] 无深度嵌套（超过 3 层）
+- [ ] 文件和函数长度在限制范围内

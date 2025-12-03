@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="巨量引擎 - V3项目管理，查看和管理广告投放项目">
+    <meta name="theme-color" content="#3b82f6">
+    <title>项目管理 - 巨量引擎管理平台</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1>
+                    <p class="text-xs text-gray-500">Ad Engine Management</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="max-w-7xl mx-auto p-6">
+        <div class="flex items-center text-sm text-gray-500 mb-4">
+            <a href="index.html" class="hover:text-blue-600">首页</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span class="text-gray-900">项目管理</span>
+        </div>
+
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">项目管理</h1>
+                <p class="mt-2 text-gray-600">V3 API 项目列表，统一管理广告投放项目</p>
+            </div>
+            <a href="project-create.html" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                创建项目
+            </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                <p class="text-sm text-gray-600 mb-1">全部项目</p>
+                <p class="text-2xl font-bold text-gray-900">24</p>
+            </div>
+            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                <p class="text-sm text-gray-600 mb-1">进行中</p>
+                <p class="text-2xl font-bold text-green-600">18</p>
+            </div>
+            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                <p class="text-sm text-gray-600 mb-1">已暂停</p>
+                <p class="text-2xl font-bold text-orange-600">4</p>
+            </div>
+            <div class="bg-white rounded-lg border border-gray-200 p-4">
+                <p class="text-sm text-gray-600 mb-1">已结束</p>
+                <p class="text-2xl font-bold text-gray-600">2</p>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="bg-white rounded-lg border border-gray-200 p-4 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <input type="text" placeholder="搜索项目名称" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    <option>全部状态</option>
+                    <option>进行中</option>
+                    <option>已暂停</option>
+                    <option>已结束</option>
+                </select>
+                <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    <option>全部广告主</option>
+                    <option>美妆旗舰店</option>
+                    <option>数码专营店</option>
+                </select>
+                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">查询</button>
+            </div>
+        </div>
+
+        <!-- Projects Table -->
+        <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+            <table class="w-full">
+                <thead class="bg-gray-50 border-b border-gray-200">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">项目名称</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">广告主</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">状态</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">预算</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">已消耗</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">创建时间</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">操作</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4">
+                            <div>
+                                <p class="font-medium text-gray-900">2025春节大促项目</p>
+                                <p class="text-sm text-gray-500">PRJ_20250109_001</p>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-900">美妆旗舰店</td>
+                        <td class="px-6 py-4">
+                            <span class="px-2 py-1 text-xs font-medium bg-green-50 text-green-700 rounded-full">进行中</span>
+                        </td>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">¥500,000</td>
+                        <td class="px-6 py-4 text-sm text-gray-900">¥245,680</td>
+                        <td class="px-6 py-4 text-sm text-gray-500">2025-01-09</td>
+                        <td class="px-6 py-4 text-sm">
+                            <div class="flex gap-2">
+                                <a href="project-detail.html?id=PRJ_20250109_001" class="text-blue-600 hover:underline">详情</a>
+                                <button class="text-orange-600 hover:underline">暂停</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4">
+                            <div>
+                                <p class="font-medium text-gray-900">新品推广项目</p>
+                                <p class="text-sm text-gray-500">PRJ_20250108_002</p>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-900">数码专营店</td>
+                        <td class="px-6 py-4">
+                            <span class="px-2 py-1 text-xs font-medium bg-green-50 text-green-700 rounded-full">进行中</span>
+                        </td>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">¥300,000</td>
+                        <td class="px-6 py-4 text-sm text-gray-900">¥158,420</td>
+                        <td class="px-6 py-4 text-sm text-gray-500">2025-01-08</td>
+                        <td class="px-6 py-4 text-sm">
+                            <div class="flex gap-2">
+                                <a href="project-detail.html?id=PRJ_20250108_002" class="text-blue-600 hover:underline">详情</a>
+                                <button class="text-orange-600 hover:underline">暂停</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex items-center justify-between mt-6">
+            <p class="text-sm text-gray-600">显示 1-2 条，共 24 条记录</p>
+            <div class="flex gap-2">
+                <button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50" disabled>上一页</button>
+                <button class="px-3 py-2 bg-blue-600 text-white rounded-lg">1</button>
+                <button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">2</button>
+                <button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">下一页</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

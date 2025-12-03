@@ -1,0 +1,106 @@
+version: '3.8'
+
+services:
+  # API 服务
+  oceanengine-api:
+    build:
+      context: ../..
+      dockerfile: deployments/docker/Dockerfile
+    container_name: oceanengine-api
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - TZ=Asia/Shanghai
+      - DATABASE_HOST=mysql
+      - DATABASE_PORT=3306
+      - DATABASE_DATABASE=oceanengine
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=root123456
+      - REDIS_ADDR=redis:6379
+    volumes:
+      - ./config:/app/config:ro
+      - ./logs:/app/logs
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - oceanengine-network
+
+  # 定时任务服务
+  oceanengine-task:
+    build:
+      context: ../..
+      dockerfile: deployments/docker/Dockerfile
+    container_name: oceanengine-task
+    restart: unless-stopped
+    command: ["./task", "-config", "config/settings.yml"]
+    environment:
+      - TZ=Asia/Shanghai
+      - DATABASE_HOST=mysql
+      - DATABASE_PORT=3306
+      - DATABASE_DATABASE=oceanengine
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=root123456
+      - REDIS_ADDR=redis:6379
+    volumes:
+      - ./config:/app/config:ro
+      - ./logs:/app/logs
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - oceanengine-network
+
+  # MySQL 数据库
+  mysql:
+    image: mysql:8.0
+    container_name: oceanengine-mysql
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123456
+      - MYSQL_DATABASE=oceanengine
+      - MYSQL_CHARACTER_SET_SERVER=utf8mb4
+      - MYSQL_COLLATION_SERVER=utf8mb4_unicode_ci
+      - TZ=Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ../../scripts/sql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - oceanengine-network
+
+  # Redis 缓存
+  redis:
+    image: redis:7-alpine
+    container_name: oceanengine-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - oceanengine-network
+
+networks:
+  oceanengine-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  redis_data:

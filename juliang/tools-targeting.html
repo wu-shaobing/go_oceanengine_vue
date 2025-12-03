@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="巨量引擎 - 定向工具，受众分析、兴趣标签和行为特征">
+    <meta name="theme-color" content="#3b82f6">
+    <title>定向工具 - 巨量引擎管理平台</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1>
+                    <p class="text-xs text-gray-500">Ad Engine Management</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="max-w-7xl mx-auto p-6">
+        <div class="flex items-center text-sm text-gray-500 mb-4">
+            <a href="index.html" class="hover:text-blue-600">首页</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span class="text-gray-900">定向工具</span>
+        </div>
+
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold">定向工具</h1>
+            <p class="mt-2 text-gray-600">帮助您精准定位目标受众，提升广告投放效果</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="bg-white rounded-lg border mb-6">
+            <div class="flex border-b">
+                <button class="px-6 py-3 border-b-2 border-blue-600 text-blue-600 font-medium" onclick="switchTab(event, 'audience')">受众分析</button>
+                <button class="px-6 py-3 text-gray-600 hover:text-gray-900" onclick="switchTab(event, 'region')">地域热力图</button>
+                <button class="px-6 py-3 text-gray-600 hover:text-gray-900" onclick="switchTab(event, 'interest')">兴趣标签库</button>
+                <button class="px-6 py-3 text-gray-600 hover:text-gray-900" onclick="switchTab(event, 'behavior')">行为特征</button>
+            </div>
+        </div>
+
+        <!-- Audience Analysis Tab -->
+        <div id="audience-tab" class="space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left Panel -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Audience Size Estimator -->
+                    <div class="bg-white rounded-lg border p-6">
+                        <h2 class="text-lg font-bold mb-4">受众规模预估</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">地域选择</label>
+                                <select class="w-full px-3 py-2 border rounded-lg">
+                                    <option>全国</option>
+                                    <option>北京市</option>
+                                    <option>上海市</option>
+                                    <option>广东省</option>
+                                    <option>浙江省</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">性别</label>
+                                <div class="flex gap-2">
+                                    <label class="flex-1 flex items-center justify-center p-3 border rounded-lg cursor-pointer bg-blue-50 border-blue-600">
+                                        <input type="checkbox" class="mr-2" checked>
+                                        <span>不限</span>
+                                    </label>
+                                    <label class="flex-1 flex items-center justify-center p-3 border rounded-lg cursor-pointer">
+                                        <input type="checkbox" class="mr-2">
+                                        <span>男</span>
+                                    </label>
+                                    <label class="flex-1 flex items-center justify-center p-3 border rounded-lg cursor-pointer">
+                                        <input type="checkbox" class="mr-2">
+                                        <span>女</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">年龄范围</label>
+                                <div class="flex gap-3 items-center">
+                                    <select class="flex-1 px-3 py-2 border rounded-lg">
+                                        <option>18岁</option>
+                                        <option>20岁</option>
+                                        <option>25岁</option>
+                                        <option>30岁</option>
+                                    </select>
+                                    <span class="text-gray-500">-</span>
+                                    <select class="flex-1 px-3 py-2 border rounded-lg">
+                                        <option>30岁</option>
+                                        <option>40岁</option>
+                                        <option>50岁</option>
+                                        <option>60岁以上</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">兴趣标签</label>
+                                <div class="flex flex-wrap gap-2 mb-2">
+                                    <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm flex items-center">
+                                        美妆护肤
+                                        <svg class="w-4 h-4 ml-2 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <button class="px-4 py-2 border rounded-lg hover:bg-gray-50 text-sm">+ 添加标签</button>
+                            </div>
+                            <button class="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">开始分析</button>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Results -->
+                    <div class="bg-white rounded-lg border p-6">
+                        <h2 class="text-lg font-bold mb-4">分析结果</h2>
+                        <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-6 mb-4">
+                            <div class="text-center">
+                                <p class="text-sm text-gray-600 mb-2">预估受众规模</p>
+                                <p class="text-4xl font-bold text-blue-600 mb-1">2,500,000+</p>
+                                <p class="text-sm text-gray-500">覆盖用户数</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <p class="text-2xl font-bold text-gray-900">35%</p>
+                                <p class="text-sm text-gray-600 mt-1">活跃度</p>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <p class="text-2xl font-bold text-gray-900">4.2</p>
+                                <p class="text-sm text-gray-600 mt-1">竞争指数</p>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <p class="text-2xl font-bold text-gray-900">¥5.8</p>
+                                <p class="text-sm text-gray-600 mt-1">建议CPC</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Demographics Breakdown -->
+                    <div class="bg-white rounded-lg border p-6">
+                        <h2 class="text-lg font-bold mb-4">人群特征分布</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span class="text-gray-600">18-24岁</span>
+                                    <span class="font-medium">28%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-600 h-2 rounded-full" style="width: 28%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span class="text-gray-600">25-34岁</span>
+                                    <span class="font-medium">42%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-600 h-2 rounded-full" style="width: 42%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span class="text-gray-600">35-44岁</span>
+                                    <span class="font-medium">22%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-600 h-2 rounded-full" style="width: 22%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span class="text-gray-600">45岁以上</span>
+                                    <span class="font-medium">8%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-600 h-2 rounded-full" style="width: 8%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel -->
+                <div class="space-y-6">
+                    <!-- Quick Tips -->
+                    <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-lg border border-yellow-200 p-6">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-yellow-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <div>
+                                <h3 class="font-bold mb-2">优化建议</h3>
+                                <ul class="text-sm space-y-2 text-gray-700">
+                                    <li>• 目标人群规模合适</li>
+                                    <li>• 建议增加行为定向</li>
+                                    <li>• 竞争度适中</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Saved Audiences -->
+                    <div class="bg-white rounded-lg border p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold">已保存受众</h3>
+                            <a href="audiences.html" class="text-sm text-blue-600 hover:underline">查看全部</a>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <p class="font-medium text-sm">美妆高消费人群</p>
+                                <p class="text-xs text-gray-500 mt-1">2.8M 用户</p>
+                            </div>
+                            <div class="p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <p class="font-medium text-sm">25-35岁女性</p>
+                                <p class="text-xs text-gray-500 mt-1">5.2M 用户</p>
+                            </div>
+                            <button class="w-full py-2 border-2 border-dashed rounded-lg text-sm text-gray-500 hover:border-blue-600 hover:text-blue-600">
+                                保存当前配置
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Related Tools -->
+                    <div class="bg-white rounded-lg border p-6">
+                        <h3 class="font-bold mb-4">相关工具</h3>
+                        <div class="space-y-2">
+                            <a href="audiences.html" class="block p-3 border rounded-lg hover:bg-blue-50 hover:border-blue-600 transition">
+                                <p class="font-medium text-sm">人群包管理</p>
+                                <p class="text-xs text-gray-500 mt-1">创建和管理自定义人群包</p>
+                            </a>
+                            <a href="ad-create.html" class="block p-3 border rounded-lg hover:bg-blue-50 hover:border-blue-600 transition">
+                                <p class="font-medium text-sm">创建广告</p>
+                                <p class="text-xs text-gray-500 mt-1">使用定向配置创建广告</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Region Tab (Hidden by default) -->
+        <div id="region-tab" class="hidden">
+            <div class="bg-white rounded-lg border p-6">
+                <h2 class="text-lg font-bold mb-4">地域热力分析</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2">
+                        <div class="bg-gray-100 rounded-lg p-12 text-center">
+                            <svg class="w-16 h-16 mx-auto text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                            </svg>
+                            <p class="text-gray-600">地图可视化组件</p>
+                            <p class="text-sm text-gray-500 mt-1">实际项目可接入高德/百度地图API</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold mb-3">热门地域 TOP5</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+                                <span class="font-medium">北京市</span>
+                                <span class="text-sm text-red-600">热度: 98</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+                                <span class="font-medium">上海市</span>
+                                <span class="text-sm text-orange-600">热度: 95</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                                <span class="font-medium">广州市</span>
+                                <span class="text-sm text-yellow-600">热度: 88</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                <span class="font-medium">深圳市</span>
+                                <span class="text-sm text-blue-600">热度: 85</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                <span class="font-medium">杭州市</span>
+                                <span class="text-sm text-green-600">热度: 78</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interest Tab (Hidden by default) -->
+        <div id="interest-tab" class="hidden">
+            <div class="bg-white rounded-lg border p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-lg font-bold">兴趣标签库</h2>
+                    <input type="text" placeholder="搜索标签..." class="px-3 py-2 border rounded-lg w-64">
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="font-medium mb-3 flex items-center">
+                            <span class="w-1 h-5 bg-blue-600 rounded mr-2"></span>
+                            美妆护肤
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-blue-50 hover:border-blue-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">口红</span>
+                            </label>
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-blue-50 hover:border-blue-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">护肤品</span>
+                            </label>
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-blue-50 hover:border-blue-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">彩妆</span>
+                            </label>
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-blue-50 hover:border-blue-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">面膜</span>
+                            </label>
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-blue-50 hover:border-blue-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">精华液</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-medium mb-3 flex items-center">
+                            <span class="w-1 h-5 bg-purple-600 rounded mr-2"></span>
+                            时尚穿搭
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-purple-50 hover:border-purple-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">女装</span>
+                            </label>
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-purple-50 hover:border-purple-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">男装</span>
+                            </label>
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-purple-50 hover:border-purple-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">鞋靴</span>
+                            </label>
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-purple-50 hover:border-purple-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">配饰</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="font-medium mb-3 flex items-center">
+                            <span class="w-1 h-5 bg-green-600 rounded mr-2"></span>
+                            生活方式
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-green-50 hover:border-green-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">健身运动</span>
+                            </label>
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-green-50 hover:border-green-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">旅游</span>
+                            </label>
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-green-50 hover:border-green-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">美食</span>
+                            </label>
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-green-50 hover:border-green-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">阅读</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="font-medium mb-3 flex items-center">
+                            <span class="w-1 h-5 bg-orange-600 rounded mr-2"></span>
+                            数码科技
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-orange-50 hover:border-orange-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">手机</span>
+                            </label>
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-orange-50 hover:border-orange-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">电脑</span>
+                            </label>
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-orange-50 hover:border-orange-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">智能硬件</span>
+                            </label>
+                            <label class="px-4 py-2 border rounded-full cursor-pointer hover:bg-orange-50 hover:border-orange-600 flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">摄影</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                    <p class="text-sm text-gray-700">已选择 <span class="font-bold text-blue-600">0</span> 个标签</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Behavior Tab (Hidden by default) -->
+        <div id="behavior-tab" class="hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg border p-6">
+                    <h2 class="text-lg font-bold mb-4">用户行为特征</h2>
+                    <div class="space-y-4">
+                        <div class="p-4 border rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" class="mr-3">
+                                    <span class="font-medium">购物行为</span>
+                                </label>
+                            </div>
+                            <div class="ml-7 space-y-2">
+                                <label class="flex items-center text-sm text-gray-600">
+                                    <input type="checkbox" class="mr-2">
+                                    最近7天下单
+                                </label>
+                                <label class="flex items-center text-sm text-gray-600">
+                                    <input type="checkbox" class="mr-2">
+                                    加购未下单
+                                </label>
+                                <label class="flex items-center text-sm text-gray-600">
+                                    <input type="checkbox" class="mr-2">
+                                    复购用户
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="p-4 border rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" class="mr-3">
+                                    <span class="font-medium">内容互动</span>
+                                </label>
+                            </div>
+                            <div class="ml-7 space-y-2">
+                                <label class="flex items-center text-sm text-gray-600">
+                                    <input type="checkbox" class="mr-2">
+                                    点赞评论
+                                </label>
+                                <label class="flex items-center text-sm text-gray-600">
+                                    <input type="checkbox" class="mr-2">
+                                    转发分享
+                                </label>
+                                <label class="flex items-center text-sm text-gray-600">
+                                    <input type="checkbox" class="mr-2">
+                                    观看完播
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="p-4 border rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" class="mr-3">
+                                    <span class="font-medium">直播行为</span>
+                                </label>
+                            </div>
+                            <div class="ml-7 space-y-2">
+                                <label class="flex items-center text-sm text-gray-600">
+                                    <input type="checkbox" class="mr-2">
+                                    观看直播
+                                </label>
+                                <label class="flex items-center text-sm text-gray-600">
+                                    <input type="checkbox" class="mr-2">
+                                    直播间下单
+                                </label>
+                                <label class="flex items-center text-sm text-gray-600">
+                                    <input type="checkbox" class="mr-2">
+                                    打赏互动
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg border p-6">
+                    <h2 class="text-lg font-bold mb-4">活跃时段分析</h2>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span>00:00 - 06:00</span>
+                                <span class="text-gray-500">低活跃</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-gray-400 h-2 rounded-full" style="width: 15%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span>06:00 - 12:00</span>
+                                <span class="text-blue-600">中活跃</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-600 h-2 rounded-full" style="width: 55%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span>12:00 - 18:00</span>
+                                <span class="text-orange-600">高活跃</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-orange-600 h-2 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span>18:00 - 24:00</span>
+                                <span class="text-red-600">极高活跃</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-red-600 h-2 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-sm font-medium mb-2">💡 投放建议</p>
+                        <p class="text-sm text-gray-700">建议在 <span class="font-bold">18:00-24:00</span> 时段加大投放，用户活跃度最高</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function switchTab(e, tabName) {
+            // Hide all tabs
+            document.getElementById('audience-tab').classList.add('hidden');
+            document.getElementById('region-tab').classList.add('hidden');
+            document.getElementById('interest-tab').classList.add('hidden');
+            document.getElementById('behavior-tab').classList.add('hidden');
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.remove('hidden');
+
+            // Update tab buttons
+            const buttons = document.querySelectorAll('.flex.border-b button');
+            buttons.forEach(btn => {
+                btn.classList.remove('border-b-2', 'border-blue-600', 'text-blue-600');
+                btn.classList.add('text-gray-600');
+            });
+            e.target.classList.add('border-b-2', 'border-blue-600', 'text-blue-600');
+            e.target.classList.remove('text-gray-600');
+        }
+    </script>
+</body>
+</html>

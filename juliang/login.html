@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="巨量引擎管理平台 - OAuth 2.0 标准授权登录">
+    <meta name="theme-color" content="#3b82f6">
+    <title>登录 - 巨量引擎管理平台</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        border: 'hsl(214.3, 31.8%, 91.4%)',
+                        input: 'hsl(214.3, 31.8%, 91.4%)',
+                        ring: 'hsl(221.2, 83.2%, 53.3%)',
+                        background: 'hsl(0, 0%, 100%)',
+                        foreground: 'hsl(222.2, 84%, 4.9%)',
+                        primary: {
+                            DEFAULT: 'hsl(221.2, 83.2%, 53.3%)',
+                            foreground: 'hsl(210, 40%, 98%)',
+                        },
+                        secondary: {
+                            DEFAULT: 'hsl(210, 40%, 96.1%)',
+                            foreground: 'hsl(222.2, 47.4%, 11.2%)',
+                        },
+                        muted: {
+                            DEFAULT: 'hsl(210, 40%, 96.1%)',
+                            foreground: 'hsl(215.4, 16.3%, 46.9%)',
+                        },
+                        accent: {
+                            DEFAULT: 'hsl(210, 40%, 96.1%)',
+                            foreground: 'hsl(222.2, 47.4%, 11.2%)',
+                        },
+                        destructive: {
+                            DEFAULT: 'hsl(0, 84.2%, 60.2%)',
+                            foreground: 'hsl(210, 40%, 98%)',
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .animate-delay-100 {
+            animation-delay: 0.1s;
+            opacity: 0;
+        }
+        
+        .animate-delay-200 {
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+        
+        .animate-delay-300 {
+            animation-delay: 0.3s;
+            opacity: 0;
+        }
+        
+        /* Smooth scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Glass morphism effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <!-- Background decorations -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-blue-300/10 to-purple-300/10 rounded-full blur-3xl"></div>
+        
+        <!-- Floating dots -->
+        <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-500 rounded-full animate-ping"></div>
+        <div class="absolute top-3/4 right-1/4 w-3 h-3 bg-purple-500 rounded-full animate-ping" style="animation-delay: 0.5s;"></div>
+        <div class="absolute top-1/2 right-1/3 w-2 h-2 bg-pink-500 rounded-full animate-ping" style="animation-delay: 1.5s;"></div>
+    </div>
+
+    <!-- Main container -->
+    <div class="relative z-10 min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-7xl">
+            <div class="grid lg:grid-cols-5 gap-8 items-center">
+                
+                <!-- Left side - Branding (3 columns) -->
+                <div class="hidden lg:block lg:col-span-3 space-y-8 animate-fade-in">
+                    
+                    <!-- Logo & Title -->
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="relative">
+                                <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl blur-lg opacity-50"></div>
+                                <div class="relative flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 shadow-xl">
+                                    <svg class="h-11 w-11 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div>
+                                <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                    巨量引擎SDK管理平台
+                                </h1>
+                                <p class="text-base text-gray-600 mt-2">
+                                    Ad Engine SDK Management Platform
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <h2 class="text-3xl font-bold text-gray-900 leading-tight">
+                            智能广告投放，助力业务增长
+                        </h2>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            专为广告主打造的一站式管理平台，提供账户管理、广告投放、数据分析等全流程服务，让广告投放更简单、更高效。
+                        </p>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-4 animate-fade-in animate-delay-100">
+                        <div class="group relative overflow-hidden rounded-xl glass border border-gray-200 p-6 transition-all duration-300 hover:shadow-lg hover:scale-105 hover:-translate-y-1">
+                            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="relative space-y-2">
+                                <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                                <p class="text-3xl font-bold text-gray-900">10,000+</p>
+                                <p class="text-sm text-gray-600">广告主</p>
+                            </div>
+                        </div>
+                        
+                        <div class="group relative overflow-hidden rounded-xl glass border border-gray-200 p-6 transition-all duration-300 hover:shadow-lg hover:scale-105 hover:-translate-y-1">
+                            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="relative space-y-2">
+                                <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                                </svg>
+                                <p class="text-3xl font-bold text-gray-900">¥500万+</p>
+                                <p class="text-sm text-gray-600">日均投放</p>
+                            </div>
+                        </div>
+                        
+                        <div class="group relative overflow-hidden rounded-xl glass border border-gray-200 p-6 transition-all duration-300 hover:shadow-lg hover:scale-105 hover:-translate-y-1">
+                            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="relative space-y-2">
+                                <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <p class="text-3xl font-bold text-gray-900">35%</p>
+                                <p class="text-sm text-gray-600">转化率提升</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="space-y-4 animate-fade-in animate-delay-200">
+                        <h3 class="text-xl font-semibold text-gray-900">核心功能</h3>
+                        <div class="grid gap-4">
+                            
+                            <div class="group flex items-start gap-4 p-5 rounded-xl glass border border-gray-200 transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
+                                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 shadow-lg flex-shrink-0">
+                                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-gray-900 mb-1">企业级安全</h4>
+                                    <p class="text-sm text-gray-600">OAuth 2.0 标准授权，数据加密传输</p>
+                                </div>
+                                <svg class="h-5 w-5 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </div>
+                            
+                            <div class="group flex items-start gap-4 p-5 rounded-xl glass border border-gray-200 transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
+                                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 shadow-lg flex-shrink-0">
+                                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-gray-900 mb-1">智能分析</h4>
+                                    <p class="text-sm text-gray-600">实时数据报表，深度洞察广告效果</p>
+                                </div>
+                                <svg class="h-5 w-5 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </div>
+                            
+                            <div class="group flex items-start gap-4 p-5 rounded-xl glass border border-gray-200 transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
+                                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-red-500 shadow-lg flex-shrink-0">
+                                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-gray-900 mb-1">高效投放</h4>
+                                    <p class="text-sm text-gray-600">一站式管理，快速创建和优化广告</p>
+                                </div>
+                                <svg class="h-5 w-5 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <!-- Testimonials -->
+                    <div class="space-y-4 animate-fade-in animate-delay-300">
+                        <h3 class="text-xl font-semibold text-gray-900">用户评价</h3>
+                        <div class="grid gap-3">
+                            
+                            <div class="flex items-start gap-3 p-4 rounded-lg glass border border-gray-200/50">
+                                <div class="flex-shrink-0">
+                                    <div class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-semibold text-sm">
+                                        电
+                                    </div>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <p class="text-sm font-medium text-gray-900">电商品牌 A</p>
+                                        <div class="flex gap-0.5">
+                                            <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                            <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                            <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                            <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                            <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-gray-600">投放效率提升 50%，ROI 显著改善</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3 p-4 rounded-lg glass border border-gray-200/50">
+                                <div class="flex-shrink-0">
+                                    <div class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-semibold text-sm">
+                                        本
+                                    </div>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <p class="text-sm font-medium text-gray-900">本地生活 B</p>
+                                        <div class="flex gap-0.5">
+                                            <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                            <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                            <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                            <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                            <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-gray-600">界面简洁易用，数据分析很专业</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3 p-4 rounded-lg glass border border-gray-200/50">
+                                <div class="flex-shrink-0">
+                                    <div class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-semibold text-sm">
+                                        教
+                                    </div>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <p class="text-sm font-medium text-gray-900">教育机构 C</p>
+                                        <div class="flex gap-0.5">
+                                            <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                            <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                            <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                            <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                            <svg class="h-3 w-3 fill-yellow-400 text-yellow-400" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-gray-600">客服响应快，功能持续优化</p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- Right side - Login card (2 columns) -->
+                <div class="lg:col-span-2 flex items-center justify-center">
+                    <div class="w-full max-w-md shadow-2xl rounded-lg border border-gray-200 glass">
+                        <div class="p-8 space-y-6">
+                            
+                            <!-- Mobile logo -->
+                            <div class="lg:hidden text-center space-y-3">
+                                <div class="relative inline-block">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl blur-md opacity-50"></div>
+                                    <div class="relative mx-auto flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-purple-600">
+                                        <svg class="h-9 w-9 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <h2 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                    千川SDK管理平台
+                                </h2>
+                                <p class="text-sm text-gray-600">
+                                    广告投放全流程管理系统
+                                </p>
+                            </div>
+
+                            <!-- Welcome text -->
+                            <div class="space-y-2 text-center">
+                                <h3 class="text-2xl font-bold text-gray-900">
+                                    欢迎回来 👋
+                                </h3>
+                                <p class="text-sm text-gray-600">
+                                    使用千川账号登录以继续
+                                </p>
+                            </div>
+
+                            <!-- Features list for mobile -->
+                            <div class="lg:hidden space-y-3 py-2">
+                                <div class="flex items-center gap-3 text-sm">
+                                    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100">
+                                        <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-600">OAuth 2.0 安全认证</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-sm">
+                                    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100">
+                                        <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-600">实时数据报表分析</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-sm">
+                                    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100">
+                                        <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-600">一站式广告投放</span>
+                                </div>
+                            </div>
+
+                            <!-- Login button -->
+                            <button 
+                                onclick="handleOAuthLogin()"
+                                class="w-full h-14 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg flex items-center justify-center gap-2"
+                            >
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                                </svg>
+                                使用千川账号登录
+                            </button>
+
+                            <!-- Divider -->
+                            <div class="relative">
+                                <div class="absolute inset-0 flex items-center">
+                                    <div class="w-full border-t border-gray-300"></div>
+                                </div>
+                                <div class="relative flex justify-center text-xs">
+                                    <span class="bg-white px-2 text-gray-500">安全登录</span>
+                                </div>
+                            </div>
+
+                            <!-- Info text -->
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-center gap-2 text-xs text-gray-600 bg-blue-50 rounded-lg p-3">
+                                    <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                    </svg>
+                                    <span>首次使用需要授权访问千川广告账户</span>
+                                </div>
+                                <p class="text-center text-xs text-gray-500 leading-relaxed">
+                                    登录即表示您同意我们的
+                                    <a href="#" class="text-blue-600 hover:underline">服务条款</a>
+                                    和
+                                    <a href="#" class="text-blue-600 hover:underline">隐私政策</a>
+                                </p>
+                            </div>
+
+                            <!-- Mobile stats -->
+                            <div class="lg:hidden grid grid-cols-3 gap-3 pt-2">
+                                <div class="text-center">
+                                    <p class="text-lg font-bold text-gray-900">10,000+</p>
+                                    <p class="text-xs text-gray-600">广告主</p>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-lg font-bold text-gray-900">¥500万+</p>
+                                    <p class="text-xs text-gray-600">日均投放</p>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-lg font-bold text-gray-900">35%</p>
+                                    <p class="text-xs text-gray-600">转化率提升</p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="fixed bottom-6 left-0 right-0 text-center z-20">
+        <p class="text-sm text-gray-600">
+            © 2025 千川SDK管理平台 · Powered by 
+            <span class="font-semibold text-blue-600">Qianchuan API</span>
+        </p>
+    </div>
+
+    <script>
+        // OAuth登录处理
+        function handleOAuthLogin() {
+            // 从环境变量或配置获取 (这里使用示例值)
+            const APP_ID = 'YOUR_APP_ID'; // 需要替换为实际的APP_ID
+            const REDIRECT_URI = encodeURIComponent(window.location.origin + '/callback.html');
+            const SCOPE = encodeURIComponent('[20120000,22000000]'); // 千川广告权限
+            const STATE = generateRandomState();
+            
+            // 存储state用于回调验证
+            sessionStorage.setItem('oauth_state', STATE);
+            
+            // 构建OAuth授权URL
+            const oauthUrl = `https://open.oceanengine.com/oauth/connect?app_id=${APP_ID}&state=${STATE}&scope=${SCOPE}&redirect_uri=${REDIRECT_URI}`;
+            
+            // 跳转到千川OAuth授权页
+            window.location.href = oauthUrl;
+        }
+        
+        // 生成随机state
+        function generateRandomState() {
+            return Math.random().toString(36).substring(2, 15) + 
+                   Math.random().toString(36).substring(2, 15);
+        }
+        
+        // 页面加载动画
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

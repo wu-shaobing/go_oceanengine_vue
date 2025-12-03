@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPA商品列表 - 巨量引擎</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#f1f5f9}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}</style>
+</head>
+<body class="bg-gray-50">
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <div class="hidden md:block"><h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1></div>
+            </div>
+        </div>
+    </header>
+    <div class="flex">
+        <aside class="w-64 bg-white border-r border-gray-200 min-h-[calc(100vh-64px)] sticky top-16">
+            <nav class="p-4"><div><h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase">商品广告</h3><ul class="space-y-1"><li><a href="dpa-product-list.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white font-medium shadow-sm"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg><span>商品库</span></a></li><li><a href="dpa-template.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg><span>DPA模板</span></a></li></ul></div></nav>
+        </aside>
+        <main class="flex-1 p-8">
+            <div class="max-w-7xl mx-auto space-y-6">
+                <div class="flex items-center justify-between"><div><h1 class="text-3xl font-bold text-gray-900">DPA商品库</h1><p class="mt-2 text-gray-600">管理动态商品广告素材</p></div><div class="flex gap-3"><button class="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>批量导入</button><button class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>添加商品</button></div></div>
+                <div class="bg-white rounded-lg border border-gray-200">
+                    <div class="p-6 bg-gray-50 border-b border-gray-200"><div class="grid grid-cols-1 md:grid-cols-4 gap-4"><div><input type="text" class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg" placeholder="商品名称或ID"></div><div><select class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg"><option>全部类目</option><option>服装</option><option>数码</option><option>家居</option></select></div><div><select class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg"><option>全部状态</option><option>在售</option><option>下架</option></select></div><div class="flex gap-2"><button class="flex-1 h-10 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700">查询</button><button class="h-10 px-4 bg-white border border-gray-300 text-gray-700 rounded-lg">重置</button></div></div></div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-100 border-b border-gray-200"><tr><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase"><input type="checkbox" class="rounded border-gray-300"></th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">商品信息</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">商品ID</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">价格</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">库存</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">展现量</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">点击量</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">状态</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">操作</th></tr></thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="hover:bg-blue-50"><td class="px-6 py-4"><input type="checkbox" class="rounded border-gray-300"></td><td class="px-6 py-4"><div class="flex items-center"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect width='60' height='60' fill='%23ddd'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999' font-size='12'%3E商品%3C/text%3E%3C/svg%3E" class="w-15 h-15 rounded object-cover"><div class="ml-4"><div class="text-sm font-medium text-gray-900">春季新款连衣裙</div><div class="text-sm text-gray-500">类目：女装</div></div></div></td><td class="px-6 py-4 text-sm text-gray-900">P10001</td><td class="px-6 py-4 text-sm text-gray-900">¥299.00</td><td class="px-6 py-4 text-sm text-gray-900">1,256</td><td class="px-6 py-4 text-sm text-gray-900">45,680</td><td class="px-6 py-4 text-sm text-gray-900">3,456</td><td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">在售</span></td><td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-900 mr-2">编辑</button><button class="text-gray-600 hover:text-gray-900">下架</button></td></tr>
+                                <tr class="hover:bg-blue-50"><td class="px-6 py-4"><input type="checkbox" class="rounded border-gray-300"></td><td class="px-6 py-4"><div class="flex items-center"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect width='60' height='60' fill='%23ddd'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999' font-size='12'%3E商品%3C/text%3E%3C/svg%3E" class="w-15 h-15 rounded object-cover"><div class="ml-4"><div class="text-sm font-medium text-gray-900">智能手表Pro</div><div class="text-sm text-gray-500">类目：数码</div></div></div></td><td class="px-6 py-4 text-sm text-gray-900">P10002</td><td class="px-6 py-4 text-sm text-gray-900">¥1,999.00</td><td class="px-6 py-4 text-sm text-gray-900">856</td><td class="px-6 py-4 text-sm text-gray-900">32,890</td><td class="px-6 py-4 text-sm text-gray-900">2,234</td><td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">在售</span></td><td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-900 mr-2">编辑</button><button class="text-gray-600 hover:text-gray-900">下架</button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex items-center justify-between px-6 py-4 border-t border-gray-200"><div class="text-sm text-gray-600">显示 1 到 10 条，共 2,345 条</div><div class="flex gap-2"><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50" disabled>上一页</button><button class="px-3 py-2 bg-blue-600 text-white rounded-lg">1</button><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">2</button><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">下一页</button></div></div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

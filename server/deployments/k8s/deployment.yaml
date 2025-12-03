@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oceanengine-api
+  labels:
+    app: oceanengine-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: oceanengine-api
+  template:
+    metadata:
+      labels:
+        app: oceanengine-api
+    spec:
+      containers:
+        - name: api
+          image: ccr.ccs.tencentyun.com/your-namespace/oceanengine-api:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SERVER_PORT
+              value: "8080"
+            - name: SERVER_MODE
+              value: "release"
+            - name: OCEANENGINE_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: oceanengine-secrets
+                  key: app-id
+            - name: OCEANENGINE_APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: oceanengine-secrets
+                  key: app-secret
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10

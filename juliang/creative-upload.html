@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="巨量引擎 - 上传广告创意素材，支持图片和视频">
+    <meta name="theme-color" content="#3b82f6">
+    <title>上传创意 - 巨量引擎管理平台</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .upload-area.dragover { @apply border-blue-500 bg-blue-50; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1>
+                    <p class="text-xs text-gray-500">Ad Engine Management</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="max-w-4xl mx-auto p-6">
+        <div class="flex items-center text-sm text-gray-500 mb-4">
+            <a href="index.html" class="hover:text-blue-600">首页</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <a href="creatives.html" class="hover:text-blue-600">创意管理</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span class="text-gray-900">上传创意</span>
+        </div>
+
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold text-gray-900">上传创意</h1>
+            <p class="mt-2 text-gray-600">上传图片或视频素材，创建广告创意</p>
+        </div>
+
+        <form id="creativeForm" class="space-y-6">
+            <!-- Upload Area -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6">
+                <h2 class="text-lg font-bold text-gray-900 mb-4">上传素材</h2>
+                
+                <div id="uploadArea" class="upload-area border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-all">
+                    <input type="file" id="fileInput" class="hidden" accept="image/*,video/*" multiple>
+                    <div id="uploadPrompt">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                        </svg>
+                        <p class="mt-4 text-sm text-gray-600">
+                            <span class="font-semibold text-blue-600">点击上传</span> 或拖拽文件到这里
+                        </p>
+                        <p class="mt-2 text-xs text-gray-500">支持 JPG, PNG, GIF, MP4 (最大 100MB)</p>
+                    </div>
+                </div>
+
+                <!-- Preview Area -->
+                <div id="previewArea" class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 hidden"></div>
+            </div>
+
+            <!-- Creative Info -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6">
+                <h2 class="text-lg font-bold text-gray-900 mb-4">创意信息</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            创意标题 <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" required maxlength="30" placeholder="输入创意标题，不超过30字" 
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <p class="mt-1 text-xs text-gray-500">简洁有力，突出产品特点</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">创意描述</label>
+                        <textarea rows="3" maxlength="100" placeholder="补充说明，不超过100字" 
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">关联计划</label>
+                            <select class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="">选择关联的广告计划</option>
+                                <option value="CMP001">春节大促-美妆品类</option>
+                                <option value="CMP002">新品推广-视频广告</option>
+                                <option value="CMP003">品牌曝光-信息流</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">创意类型</label>
+                            <select class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="image">图片广告</option>
+                                <option value="video">视频广告</option>
+                                <option value="carousel">轮播广告</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Landing Page -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6">
+                <h2 class="text-lg font-bold text-gray-900 mb-4">落地页设置</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            落地页URL <span class="text-red-500">*</span>
+                        </label>
+                        <input type="url" required placeholder="https://" 
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">行动号召</label>
+                        <select class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="learn_more">了解更多</option>
+                            <option value="buy_now">立即购买</option>
+                            <option value="download">立即下载</option>
+                            <option value="register">立即注册</option>
+                            <option value="contact">联系我们</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center gap-2 p-4 bg-blue-50 rounded-lg">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <p class="text-sm text-blue-800">落地页需要备案，且与广告内容相符，否则可能审核不通过</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Settings -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-bold text-gray-900">高级设置</h2>
+                    <button type="button" onclick="toggleAdvanced()" class="text-sm text-blue-600 hover:underline">
+                        展开/收起
+                    </button>
+                </div>
+                
+                <div id="advancedSettings" class="space-y-4 hidden">
+                    <div>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                            <span class="text-sm text-gray-700">启用智能优化（AI自动调整素材展示）</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                            <span class="text-sm text-gray-700">允许系统自动生成创意标题</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">投放时段</label>
+                        <select class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="all_day">全天投放</option>
+                            <option value="peak">高峰时段 (10:00-22:00)</option>
+                            <option value="custom">自定义时段</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="flex justify-end gap-3 pt-4">
+                <a href="creatives.html" class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                    取消
+                </a>
+                <button type="submit" class="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                    </svg>
+                    提交审核
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const previewArea = document.getElementById('previewArea');
+        const uploadPrompt = document.getElementById('uploadPrompt');
+        let uploadedFiles = [];
+
+        // Click to upload
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        // File input change
+        fileInput.addEventListener('change', handleFiles);
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            handleFiles({ target: { files: e.dataTransfer.files } });
+        });
+
+        function handleFiles(e) {
+            const files = Array.from(e.target.files);
+            uploadedFiles = [...uploadedFiles, ...files];
+            
+            if (uploadedFiles.length > 0) {
+                uploadPrompt.classList.add('hidden');
+                previewArea.classList.remove('hidden');
+                renderPreviews();
+            }
+        }
+
+        function renderPreviews() {
+            previewArea.innerHTML = '';
+            uploadedFiles.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const div = document.createElement('div');
+                    div.className = 'relative group';
+                    
+                    const isVideo = file.type.startsWith('video/');
+                    const preview = isVideo 
+                        ? `<video src="${e.target.result}" class="w-full aspect-square object-cover rounded-lg"></video>`
+                        : `<img src="${e.target.result}" class="w-full aspect-square object-cover rounded-lg">`;
+                    
+                    div.innerHTML = `
+                        ${preview}
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <button type="button" onclick="removeFile(${index})" class="px-3 py-1.5 bg-red-600 text-white rounded text-sm">删除</button>
+                        </div>
+                        <div class="absolute bottom-2 left-2 right-2">
+                            <div class="bg-black/70 text-white text-xs px-2 py-1 rounded truncate">${file.name}</div>
+                        </div>
+                    `;
+                    previewArea.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function removeFile(index) {
+            uploadedFiles.splice(index, 1);
+            if (uploadedFiles.length === 0) {
+                uploadPrompt.classList.remove('hidden');
+                previewArea.classList.add('hidden');
+            } else {
+                renderPreviews();
+            }
+        }
+
+        function toggleAdvanced() {
+            document.getElementById('advancedSettings').classList.toggle('hidden');
+        }
+
+        document.getElementById('creativeForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (uploadedFiles.length === 0) {
+                alert('请至少上传一个素材文件');
+                return;
+            }
+            
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> 上传中...';
+            
+            setTimeout(() => {
+                alert('创意上传成功，等待审核！');
+                window.location.href = 'creatives.html';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

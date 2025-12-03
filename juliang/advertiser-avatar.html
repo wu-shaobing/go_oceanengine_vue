@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="巨量引擎 - 广告主头像管理，上传更新账户头像">
+    <meta name="theme-color" content="#3b82f6">
+    <title>广告主头像管理 - 巨量引擎管理平台</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            transition: all 0.3s;
+        }
+        .upload-area:hover {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        .avatar-preview {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1>
+                    <p class="text-xs text-gray-500">Ad Engine Management</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <button class="relative flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors">
+                    <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                    </svg>
+                </button>
+                <div class="relative">
+                    <button class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
+                        </div>
+                        <span class="hidden text-sm font-medium md:inline-block">管理员</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-gray-200 min-h-[calc(100vh-64px)] sticky top-16">
+            <nav class="p-4 space-y-6">
+                <div>
+                    <h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">概览</h3>
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="dashboard.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                                </svg>
+                                <span>工作台</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">账户服务</h3>
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="advertisers.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                </svg>
+                                <span>广告主列表</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="advertiser-qualification.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                </svg>
+                                <span>资质管理</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="advertiser-avatar.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white font-medium shadow-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                                <span>头像管理</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="main-content" class="flex-1 p-8">
+            <div class="max-w-4xl mx-auto space-y-6">
+                <!-- Page Header -->
+                <div>
+                    <div class="flex items-center text-sm text-gray-500 mb-2">
+                        <a href="index.html" class="hover:text-blue-600">首页</a>
+                        <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                        <a href="advertisers.html" class="hover:text-blue-600">账户服务</a>
+                        <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                        <span class="text-gray-900">广告主头像管理</span>
+                    </div>
+                    <h1 class="text-3xl font-bold text-gray-900">广告主头像管理</h1>
+                    <p class="mt-2 text-gray-600">上传和更新广告主账户头像</p>
+                </div>
+
+                <!-- Select Advertiser -->
+                <div class="bg-white rounded-lg border border-gray-200 p-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-3">选择广告主</label>
+                    <select class="w-full h-12 px-4 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-base">
+                        <option value="">请选择广告主账户</option>
+                        <option value="1">北京科技有限公司 (ID: 1234567)</option>
+                        <option value="2">上海网络公司 (ID: 1234568)</option>
+                        <option value="3">深圳电商公司 (ID: 1234569)</option>
+                    </select>
+                </div>
+
+                <!-- Current Avatar -->
+                <div class="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-6">当前头像</h2>
+                    <div class="flex items-center gap-8">
+                        <div class="flex-shrink-0">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Crect width='160' height='160' fill='%233b82f6'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-size='60' font-family='sans-serif'%3E企%3C/text%3E%3C/svg%3E" 
+                                 alt="Current Avatar" 
+                                 class="avatar-preview border-4 border-gray-200 shadow-lg">
+                        </div>
+                        <div class="flex-1">
+                            <dl class="space-y-3">
+                                <div>
+                                    <dt class="text-sm font-medium text-gray-500">头像ID</dt>
+                                    <dd class="text-base text-gray-900 mt-1">AVATAR-12345678</dd>
+                                </div>
+                                <div>
+                                    <dt class="text-sm font-medium text-gray-500">上传时间</dt>
+                                    <dd class="text-base text-gray-900 mt-1">2025-01-10 14:30:25</dd>
+                                </div>
+                                <div>
+                                    <dt class="text-sm font-medium text-gray-500">状态</dt>
+                                    <dd class="mt-1">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                                            已启用
+                                        </span>
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload New Avatar -->
+                <div class="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-6">上传新头像</h2>
+                    
+                    <!-- Upload Area -->
+                    <div class="upload-area rounded-lg p-12 text-center mb-6">
+                        <div class="flex flex-col items-center">
+                            <svg class="w-16 h-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                            </svg>
+                            <p class="text-base font-medium text-gray-700 mb-2">点击上传或拖拽图片到此处</p>
+                            <p class="text-sm text-gray-500">支持 JPG、PNG 格式，建议尺寸 400x400px，文件大小不超过 2MB</p>
+                            <input type="file" class="hidden" accept="image/jpeg,image/png" id="avatarUpload">
+                            <label for="avatarUpload" class="mt-4 px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer transition-colors">
+                                选择文件
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Preview -->
+                    <div class="border-t border-gray-200 pt-6">
+                        <h3 class="text-base font-medium text-gray-900 mb-4">预览效果</h3>
+                        <div class="grid grid-cols-4 gap-6">
+                            <div class="text-center">
+                                <div class="inline-flex w-20 h-20 rounded-full bg-gray-200 items-center justify-center mb-2">
+                                    <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-xs text-gray-600">大尺寸 (80x80)</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="inline-flex w-16 h-16 rounded-full bg-gray-200 items-center justify-center mb-2">
+                                    <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-xs text-gray-600">中尺寸 (64x64)</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="inline-flex w-12 h-12 rounded-full bg-gray-200 items-center justify-center mb-2">
+                                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-xs text-gray-600">小尺寸 (48x48)</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="inline-flex w-8 h-8 rounded-full bg-gray-200 items-center justify-center mb-2">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-xs text-gray-600">迷你 (32x32)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-3 mt-6 pt-6 border-t border-gray-200">
+                        <button class="flex-1 h-12 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors">
+                            提交头像
+                        </button>
+                        <button class="h-12 px-6 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors">
+                            取消
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tips -->
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0">
+                            <svg class="h-6 w-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-sm font-medium text-yellow-900 mb-1">头像上传规范</h3>
+                            <ul class="text-sm text-yellow-800 space-y-1">
+                                <li>• 头像图片需清晰、无水印、无边框</li>
+                                <li>• 建议使用企业 LOGO 或品牌标识</li>
+                                <li>• 头像审核时间约 2-4 小时</li>
+                                <li>• 新头像生效后，将在所有广告展示位置显示</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avatar History -->
+                <div class="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-6">历史头像</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div class="border border-gray-200 rounded-lg p-4 text-center hover:border-blue-500 transition-colors cursor-pointer">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect width='80' height='80' fill='%236366f1'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-size='30' font-family='sans-serif'%3E企%3C/text%3E%3C/svg%3E" 
+                                 alt="History Avatar" 
+                                 class="w-20 h-20 rounded-full mx-auto mb-2">
+                            <p class="text-xs text-gray-600">2025-01-05</p>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4 text-center hover:border-blue-500 transition-colors cursor-pointer">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect width='80' height='80' fill='%2310b981'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-size='30' font-family='sans-serif'%3E企%3C/text%3E%3C/svg%3E" 
+                                 alt="History Avatar" 
+                                 class="w-20 h-20 rounded-full mx-auto mb-2">
+                            <p class="text-xs text-gray-600">2024-12-20</p>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4 text-center hover:border-blue-500 transition-colors cursor-pointer">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect width='80' height='80' fill='%23f59e0b'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-size='30' font-family='sans-serif'%3E企%3C/text%3E%3C/svg%3E" 
+                                 alt="History Avatar" 
+                                 class="w-20 h-20 rounded-full mx-auto mb-2">
+                            <p class="text-xs text-gray-600">2024-12-01</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

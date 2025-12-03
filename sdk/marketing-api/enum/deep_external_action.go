@@ -1,0 +1,23 @@
+package enum
+
+// DeepExternalAction 深度转化的转化目标
+type DeepExternalAction string
+
+const (
+	// DeepExternalAction_AD_CONVERT_TYPE_ACTIVE_REGISTER 注册
+	DeepExternalAction_AD_CONVERT_TYPE_ACTIVE_REGISTER DeepExternalAction = "AD_CONVERT_TYPE_ACTIVE_REGISTER"
+	// DeepExternalAction_AD_CONVERT_TYPE_NEXT_DAY_OPEN 次留
+	DeepExternalAction_AD_CONVERT_TYPE_NEXT_DAY_OPEN DeepExternalAction = "AD_CONVERT_TYPE_NEXT_DAY_OPEN"
+	// DeepExternalAction_AD_CONVERT_TYPE_LT_ROI 广告变现ROI
+	DeepExternalAction_AD_CONVERT_TYPE_LT_ROI DeepExternalAction = "AD_CONVERT_TYPE_LT_ROI"
+	// DeepExternalAction_AD_CONVERT_TYPE_PURCHASE_ROI 付费ROI
+	DeepExternalAction_AD_CONVERT_TYPE_PURCHASE_ROI DeepExternalAction = "AD_CONVERT_TYPE_PURCHASE_ROI"
+	// DeepExternalAction_AD_CONVERT_TYPE_GAME_ADDICTION 关键行为
+	DeepExternalAction_AD_CONVERT_TYPE_GAME_ADDICTION DeepExternalAction = "AD_CONVERT_TYPE_GAME_ADDICTION"
+	// DeepExternalAction_AD_CONVERT_TYPE_RETENTION_7D 7日留存
+	DeepExternalAction_AD_CONVERT_TYPE_RETENTION_7D DeepExternalAction = "AD_CONVERT_TYPE_RETENTION_7D"
+	// DeepExternalAction_AD_CONVERT_TYPE_RETENTION_DAYS 留存天数
+	DeepExternalAction_AD_CONVERT_TYPE_RETENTION_DAYS DeepExternalAction = "AD_CONVERT_TYPE_RETENTION_DAYS"
+	// DeepExternalAction_AD_CONVERT_TYPE_ARPU0ARPU
+	DeepExternalAction_AD_CONVERT_TYPE_ARPU0 DeepExternalAction = "AD_CONVERT_TYPE_ARPU0"
+)

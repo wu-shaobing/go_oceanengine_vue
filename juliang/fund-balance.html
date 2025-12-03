@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="巨量引擎 - 账户余额管理，查询广告主账户余额、可用余额、锁定余额">
+    <title>账户余额 - 巨量引擎管理平台</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1>
+                    <p class="text-xs text-gray-500">Ad Engine Management</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <button class="relative flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors">
+                    <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                    </svg>
+                    <span class="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-red-500"></span>
+                </button>
+                <div class="relative">
+                    <button class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
+                        </div>
+                        <span class="hidden text-sm font-medium md:inline-block">管理员</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-gray-200 min-h-[calc(100vh-64px)] sticky top-16">
+            <nav class="p-4 space-y-6">
+                <div>
+                    <h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">概览</h3>
+                    <ul class="space-y-1">
+                        <li><a href="dashboard.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                            <span>工作台</span>
+                        </a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">资金管理</h3>
+                    <ul class="space-y-1">
+                        <li><a href="fund-balance.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white font-medium shadow-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>账户余额</span>
+                        </a></li>
+                        <li><a href="fund-transfer.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+                            <span>转账管理</span>
+                        </a></li>
+                        <li><a href="fund-transaction.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                            <span>流水明细</span>
+                        </a></li>
+                        <li><a href="shared-wallet.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                            <span>共享钱包</span>
+                        </a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">广告管理</h3>
+                    <ul class="space-y-1">
+                        <li><a href="advertisers.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                            <span>广告主</span>
+                        </a></li>
+                        <li><a href="campaigns.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+                            <span>广告计划</span>
+                        </a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="main-content" class="flex-1 p-8">
+            <div class="max-w-7xl mx-auto space-y-6">
+                <!-- Page Header -->
+                <div>
+                    <nav class="flex items-center text-sm text-gray-500 mb-2">
+                        <a href="index.html" class="hover:text-blue-600">首页</a>
+                        <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        <a href="#" class="hover:text-blue-600">资金管理</a>
+                        <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        <span class="text-gray-900">账户余额</span>
+                    </nav>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-900">账户余额</h1>
+                            <p class="mt-2 text-gray-600">查询和管理广告主账户余额信息</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                                导出数据
+                            </button>
+                            <button class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                刷新
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-lg bg-blue-50">
+                                <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                        </div>
+                        <p class="text-sm font-medium text-gray-600">账户总数</p>
+                        <p class="text-2xl font-bold text-gray-900 mt-1">128</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-lg bg-green-50">
+                                <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                        </div>
+                        <p class="text-sm font-medium text-gray-600">总余额</p>
+                        <p class="text-2xl font-bold text-gray-900 mt-1">¥2,458,920.50</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-lg bg-purple-50">
+                                <svg class="h-6 w-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            </div>
+                        </div>
+                        <p class="text-sm font-medium text-gray-600">可用余额</p>
+                        <p class="text-2xl font-bold text-gray-900 mt-1">¥2,185,450.30</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-lg bg-orange-50">
+                                <svg class="h-6 w-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                            </div>
+                        </div>
+                        <p class="text-sm font-medium text-gray-600">锁定余额</p>
+                        <p class="text-2xl font-bold text-gray-900 mt-1">¥273,470.20</p>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="bg-white rounded-lg border border-gray-200 p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">广告主ID</label>
+                            <input type="text" placeholder="输入广告主ID" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">广告主名称</label>
+                            <input type="text" placeholder="输入广告主名称" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">余额范围</label>
+                            <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option>全部</option>
+                                <option>0-10000</option>
+                                <option>10000-50000</option>
+                                <option>50000以上</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end gap-2">
+                            <button class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">查询</button>
+                            <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">重置</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Balance Table -->
+                <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-lg font-semibold text-gray-900">账户余额列表</h2>
+                            <div class="flex items-center gap-2">
+                                <span class="text-sm text-gray-600">共 128 条</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">广告主ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">广告主名称</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">账户余额</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">可用余额</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">锁定余额</th>
+                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-4"><input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1234567890</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">品牌官方旗舰店</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-semibold text-gray-900">¥125,800.50</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-right text-green-600">¥118,300.20</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-right text-orange-600">¥7,500.30</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                                        <span class="px-2.5 py-0.5 text-xs font-medium text-green-700 bg-green-50 rounded-full ring-1 ring-inset ring-green-600/20">正常</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
+                                        <button class="text-blue-600 hover:text-blue-900 font-medium">详情</button>
+                                        <span class="mx-2 text-gray-300">|</span>
+                                        <button class="text-blue-600 hover:text-blue-900 font-medium">流水</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-4"><input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1234567891</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">时尚潮流馆</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-semibold text-gray-900">¥89,450.00</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-right text-green-600">¥85,200.00</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-right text-orange-600">¥4,250.00</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                                        <span class="px-2.5 py-0.5 text-xs font-medium text-green-700 bg-green-50 rounded-full ring-1 ring-inset ring-green-600/20">正常</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
+                                        <button class="text-blue-600 hover:text-blue-900 font-medium">详情</button>
+                                        <span class="mx-2 text-gray-300">|</span>
+                                        <button class="text-blue-600 hover:text-blue-900 font-medium">流水</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-4"><input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1234567892</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">美妆护肤专营</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-semibold text-gray-900">¥3,820.30</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-right text-green-600">¥2,100.00</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-right text-orange-600">¥1,720.30</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                                        <span class="px-2.5 py-0.5 text-xs font-medium text-yellow-700 bg-yellow-50 rounded-full ring-1 ring-inset ring-yellow-600/20">余额不足</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
+                                        <button class="text-blue-600 hover:text-blue-900 font-medium">详情</button>
+                                        <span class="mx-2 text-gray-300">|</span>
+                                        <button class="text-blue-600 hover:text-blue-900 font-medium">流水</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-700">显示</span>
+                            <select class="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option>10</option>
+                                <option>20</option>
+                                <option>50</option>
+                                <option>100</option>
+                            </select>
+                            <span class="text-sm text-gray-700">条/页</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">上一页</button>
+                            <button class="px-3 py-1 bg-blue-600 text-white rounded-lg text-sm font-medium">1</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">2</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">3</button>
+                            <span class="px-2 text-gray-500">...</span>
+                            <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">13</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">下一页</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Info -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div class="flex-1">
+                            <h4 class="text-sm font-semibold text-blue-900 mb-1">相关API方法</h4>
+                            <ul class="text-sm text-blue-800 space-y-1">
+                                <li><code class="px-2 py-0.5 bg-white rounded text-xs">advertiser.FundGet()</code> - 查询单个账号余额</li>
+                                <li><code class="px-2 py-0.5 bg-white rounded text-xs">advertiser.AccountFundGet()</code> - 批量查询账户余额</li>
+                                <li><code class="px-2 py-0.5 bg-white rounded text-xs">advertiser.TransferableFundGet()</code> - 查询账户可转余额</li>
+                                <li><code class="px-2 py-0.5 bg-white rounded text-xs">sharedwallet.BalanceGet()</code> - 获取共享钱包余额</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

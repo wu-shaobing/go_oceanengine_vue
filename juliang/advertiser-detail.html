@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="巨量引擎 - 查看广告主详细信息、账户余额和活跃计划">
+    <meta name="theme-color" content="#3b82f6">
+    <title>广告主详情 - 巨量引擎管理平台</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1>
+                    <p class="text-xs text-gray-500">Ad Engine Management</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="max-w-7xl mx-auto p-6">
+        <div class="flex items-center text-sm text-gray-500 mb-4">
+            <a href="index.html" class="hover:text-blue-600">首页</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <a href="advertisers.html" class="hover:text-blue-600">广告主管理</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span class="text-gray-900">广告主详情</span>
+        </div>
+
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <div class="flex items-center gap-3">
+                    <h1 class="text-3xl font-bold">美妆旗舰店</h1>
+                    <span class="px-3 py-1 text-sm bg-green-50 text-green-700 rounded-full">已启用</span>
+                </div>
+                <p class="mt-2 text-gray-600">ID: ADV1001 • 创建于 2024-06-15</p>
+            </div>
+            <div class="flex gap-2">
+                <a href="advertisers.html" class="px-4 py-2 border rounded-lg hover:bg-gray-50">返回列表</a>
+                <a href="advertiser-detail.html?id=ADV1001&mode=edit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">编辑信息</a>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Left Column -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Account Info -->
+                <div class="bg-white rounded-lg border p-6">
+                    <h2 class="text-lg font-bold mb-4">账户信息</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm text-gray-600">公司名称</p>
+                            <p class="font-medium">美妆旗舰店有限公司</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">行业分类</p>
+                            <p class="font-medium">美妆护肤</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">联系人</p>
+                            <p class="font-medium">张经理</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">联系电话</p>
+                            <p class="font-medium">138****8888</p>
+                        </div>
+                        <div class="col-span-2">
+                            <p class="text-sm text-gray-600">注册地址</p>
+                            <p class="font-medium">上海市浦东新区张江高科技园区</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Authorization Status -->
+                <div class="bg-white rounded-lg border p-6">
+                    <h2 class="text-lg font-bold mb-4">授权状态</h2>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <div>
+                                    <p class="font-medium">OAuth授权</p>
+                                    <p class="text-sm text-gray-600">已授权 • 有效期至 2025-12-31</p>
+                                </div>
+                            </div>
+                            <button class="text-sm text-green-700 hover:underline">续期</button>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <div>
+                                    <p class="font-medium">广告投放权限</p>
+                                    <p class="text-sm text-gray-600">scope: [20120000, 22000000]</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                </svg>
+                                <div>
+                                    <p class="font-medium">资质认证</p>
+                                    <p class="text-sm text-gray-600">营业执照、行业资质已认证</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Balance Details -->
+                <div class="bg-white rounded-lg border p-6">
+                    <h2 class="text-lg font-bold mb-4">余额明细</h2>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-4 border rounded-lg">
+                            <div>
+                                <p class="text-sm text-gray-600">账户余额</p>
+                                <p class="text-2xl font-bold text-gray-900">¥125,680.50</p>
+                            </div>
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">充值</button>
+                        </div>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="p-3 bg-gray-50 rounded-lg text-center">
+                                <p class="text-sm text-gray-600">今日消耗</p>
+                                <p class="text-lg font-bold">¥12,450</p>
+                            </div>
+                            <div class="p-3 bg-gray-50 rounded-lg text-center">
+                                <p class="text-sm text-gray-600">本月消耗</p>
+                                <p class="text-lg font-bold">¥285,230</p>
+                            </div>
+                            <div class="p-3 bg-gray-50 rounded-lg text-center">
+                                <p class="text-sm text-gray-600">总消耗</p>
+                                <p class="text-lg font-bold">¥2.8M</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Campaigns -->
+                <div class="bg-white rounded-lg border p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-bold">活跃计划</h2>
+                        <a href="campaigns.html" class="text-sm text-blue-600 hover:underline">查看全部</a>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="p-4 border rounded-lg hover:bg-gray-50">
+                            <div class="flex items-center justify-between mb-2">
+                                <p class="font-medium">春节大促-美妆品类-01-09</p>
+                                <span class="px-2 py-1 text-xs bg-green-50 text-green-700 rounded-full">投放中</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2 text-sm">
+                                <div>
+                                    <span class="text-gray-600">预算: </span>
+                                    <span class="font-medium">¥5,000</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-600">消耗: </span>
+                                    <span class="font-medium">¥3,245</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-600">ROI: </span>
+                                    <span class="font-medium text-green-600">2.85</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 border rounded-lg hover:bg-gray-50">
+                            <div class="flex items-center justify-between mb-2">
+                                <p class="font-medium">新品推广-视频广告</p>
+                                <span class="px-2 py-1 text-xs bg-green-50 text-green-700 rounded-full">投放中</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2 text-sm">
+                                <div>
+                                    <span class="text-gray-600">预算: </span>
+                                    <span class="font-medium">¥8,000</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-600">消耗: </span>
+                                    <span class="font-medium">¥6,120</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-600">ROI: </span>
+                                    <span class="font-medium text-green-600">3.12</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="space-y-6">
+                <!-- Quick Stats -->
+                <div class="bg-white rounded-lg border p-6">
+                    <h3 class="font-bold mb-4">快速统计</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600">活跃计划</span>
+                                <span class="font-medium">12</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-600 h-2 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600">创意数量</span>
+                                <span class="font-medium">45</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-600 h-2 rounded-full" style="width: 60%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600">素材库</span>
+                                <span class="font-medium">128</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-purple-600 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-lg border p-6">
+                    <h3 class="font-bold mb-4">快速操作</h3>
+                    <div class="space-y-2">
+                        <a href="campaign-create.html?advertiser=ADV1001" class="w-full px-4 py-2 text-left text-sm border rounded-lg hover:bg-gray-50 flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                            创建新计划
+                        </a>
+                        <a href="reports.html?advertiser=ADV1001" class="w-full px-4 py-2 text-left text-sm border rounded-lg hover:bg-gray-50 flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                            查看报表
+                        </a>
+                        <a href="creative-upload.html?advertiser=ADV1001" class="w-full px-4 py-2 text-left text-sm border rounded-lg hover:bg-gray-50 flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                            </svg>
+                            上传创意
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Operation Log -->
+                <div class="bg-white rounded-lg border p-6">
+                    <h3 class="font-bold mb-4">操作日志</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex gap-3">
+                            <div class="w-2 h-2 mt-1.5 rounded-full bg-blue-500"></div>
+                            <div class="flex-1">
+                                <p class="font-medium">余额充值</p>
+                                <p class="text-gray-500 text-xs">2025-01-09 14:30</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <div class="w-2 h-2 mt-1.5 rounded-full bg-green-500"></div>
+                            <div class="flex-1">
+                                <p class="font-medium">创建新计划</p>
+                                <p class="text-gray-500 text-xs">2025-01-09 10:30</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <div class="w-2 h-2 mt-1.5 rounded-full bg-blue-500"></div>
+                            <div class="flex-1">
+                                <p class="font-medium">更新授权</p>
+                                <p class="text-gray-500 text-xs">2025-01-08 16:20</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

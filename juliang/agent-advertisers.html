@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>广告主管理 - 巨量引擎</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:#f1f5f9}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}</style>
+</head>
+<body class="bg-gray-50">
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1>
+                    <p class="text-xs text-gray-500">Ad Engine Management</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="flex">
+        <aside class="w-64 bg-white border-r border-gray-200 min-h-[calc(100vh-64px)] sticky top-16">
+            <nav class="p-4"><div><h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase">代理商中心</h3><ul class="space-y-1"><li><a href="agent-dashboard.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg><span>工作台</span></a></li><li><a href="agent-advertisers.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white font-medium shadow-sm"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg><span>广告主管理</span></a></li></ul></div></nav>
+        </aside>
+        <main class="flex-1 p-8">
+            <div class="max-w-7xl mx-auto space-y-6">
+                <div class="flex items-center justify-between"><div><h1 class="text-3xl font-bold text-gray-900">广告主管理</h1><p class="mt-2 text-gray-600">管理和查看所有广告主账户</p></div><button class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>新建广告主</button></div>
+                <div class="bg-white rounded-lg border border-gray-200">
+                    <div class="p-6 bg-gray-50 border-b border-gray-200"><div class="grid grid-cols-1 md:grid-cols-4 gap-4"><div><label class="block text-sm font-medium text-gray-700 mb-2">广告主名称</label><input type="text" class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg" placeholder="搜索广告主"></div><div><label class="block text-sm font-medium text-gray-700 mb-2">账户状态</label><select class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg"><option>全部状态</option><option>正常</option><option>余额不足</option><option>已暂停</option></select></div><div><label class="block text-sm font-medium text-gray-700 mb-2">创建时间</label><input type="date" class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg"></div><div class="flex items-end gap-2"><button class="flex-1 h-10 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700">查询</button><button class="h-10 px-4 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">重置</button></div></div></div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-100 border-b border-gray-200"><tr><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase"><input type="checkbox" class="rounded border-gray-300"></th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">广告主</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">账户ID</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">账户余额</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">今日消耗</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">状态</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">创建时间</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">操作</th></tr></thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="hover:bg-blue-50"><td class="px-6 py-4"><input type="checkbox" class="rounded border-gray-300"></td><td class="px-6 py-4"><div class="flex items-center"><div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center"><span class="text-blue-600 font-medium text-sm">北</span></div><div class="ml-4"><div class="text-sm font-medium text-gray-900">北京科技有限公司</div><div class="text-sm text-gray-500">行业：互联网</div></div></div></td><td class="px-6 py-4 text-sm text-gray-900">1234567</td><td class="px-6 py-4 text-sm text-gray-900">¥1,250,000</td><td class="px-6 py-4 text-sm text-gray-900">¥45,680</td><td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">正常</span></td><td class="px-6 py-4 text-sm text-gray-600">2025-01-05</td><td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-900 mr-3">查看</button><button class="text-gray-600 hover:text-gray-900">编辑</button></td></tr>
+                                <tr class="hover:bg-blue-50"><td class="px-6 py-4"><input type="checkbox" class="rounded border-gray-300"></td><td class="px-6 py-4"><div class="flex items-center"><div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center"><span class="text-green-600 font-medium text-sm">上</span></div><div class="ml-4"><div class="text-sm font-medium text-gray-900">上海网络公司</div><div class="text-sm text-gray-500">行业：电商</div></div></div></td><td class="px-6 py-4 text-sm text-gray-900">1234568</td><td class="px-6 py-4 text-sm text-gray-900">¥850,000</td><td class="px-6 py-4 text-sm text-gray-900">¥38,920</td><td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">正常</span></td><td class="px-6 py-4 text-sm text-gray-600">2025-01-03</td><td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-900 mr-3">查看</button><button class="text-gray-600 hover:text-gray-900">编辑</button></td></tr>
+                                <tr class="hover:bg-blue-50"><td class="px-6 py-4"><input type="checkbox" class="rounded border-gray-300"></td><td class="px-6 py-4"><div class="flex items-center"><div class="h-10 w-10 rounded-full bg-yellow-100 flex items-center justify-center"><span class="text-yellow-600 font-medium text-sm">深</span></div><div class="ml-4"><div class="text-sm font-medium text-gray-900">深圳电商公司</div><div class="text-sm text-gray-500">行业：零售</div></div></div></td><td class="px-6 py-4 text-sm text-gray-900">1234569</td><td class="px-6 py-4 text-sm text-yellow-600 font-medium">¥180,000</td><td class="px-6 py-4 text-sm text-gray-900">¥52,340</td><td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">余额不足</span></td><td class="px-6 py-4 text-sm text-gray-600">2025-01-01</td><td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-900 mr-3">查看</button><button class="text-orange-600 hover:text-orange-900">充值</button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex items-center justify-between px-6 py-4 border-t border-gray-200"><div class="text-sm text-gray-600">显示 1 到 10 条，共 1234 条</div><div class="flex gap-2"><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50" disabled>上一页</button><button class="px-3 py-2 bg-blue-600 text-white border border-blue-600 rounded-lg">1</button><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">2</button><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">3</button><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">下一页</button></div></div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="巨量引擎管理平台 - OAuth 2.0 授权回调处理">
+    <meta name="theme-color" content="#3b82f6">
+    <title>OAuth回调 - 巨量引擎管理平台</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen flex items-center justify-center">
+    <div class="max-w-md w-full mx-4">
+        <div class="bg-white rounded-lg shadow-2xl p-8 text-center">
+            <div id="loading" class="space-y-6">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100">
+                    <svg class="animate-spin h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">正在登录...</h2>
+                    <p class="text-gray-600">正在处理您的授权信息，请稍候</p>
+                </div>
+                <div class="flex justify-center gap-2">
+                    <div class="w-2 h-2 bg-blue-600 rounded-full animate-bounce"></div>
+                    <div class="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                    <div class="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                </div>
+            </div>
+            <div id="error" class="hidden space-y-6">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100">
+                    <svg class="h-8 w-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">授权失败</h2>
+                    <p class="text-gray-600" id="errorMessage">授权过程出现错误，请重试</p>
+                </div>
+                <a href="login.html" class="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">返回登录</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+        const state = params.get('state');
+        const savedState = sessionStorage.getItem('oauth_state');
+
+        if (!code || !state || state !== savedState) {
+            showError('授权状态不匹配，请重新登录');
+        } else {
+            fetch('/api/oauth/exchange', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ code })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.code === 0) {
+                    sessionStorage.removeItem('oauth_state');
+                    setTimeout(() => window.location.href = 'dashboard.html', 1000);
+                } else {
+                    showError(data.message || '登录失败，请重试');
+                }
+            })
+            .catch(() => showError('网络错误，请稍后重试'));
+        }
+
+        function showError(message) {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('error').classList.remove('hidden');
+            document.getElementById('errorMessage').textContent = message;
+        }
+    </script>
+</body>
+</html>

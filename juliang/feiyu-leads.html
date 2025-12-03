@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>飞鱼线索 - 巨量引擎</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#f1f5f9}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}</style>
+</head>
+<body class="bg-gray-50">
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <div class="hidden md:block"><h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1></div>
+            </div>
+        </div>
+    </header>
+    <div class="flex">
+        <aside class="w-64 bg-white border-r border-gray-200 min-h-[calc(100vh-64px)] sticky top-16">
+            <nav class="p-4"><div><h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase">线索管理</h3><ul class="space-y-1"><li><a href="feiyu-leads.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white font-medium shadow-sm"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg><span>飞鱼线索</span></a></li><li><a href="qingniao-form.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg><span>青鸟表单</span></a></li></ul></div></nav>
+        </aside>
+        <main class="flex-1 p-8">
+            <div class="max-w-7xl mx-auto space-y-6">
+                <div class="flex items-center justify-between"><div><h1 class="text-3xl font-bold text-gray-900">飞鱼线索管理</h1><p class="mt-2 text-gray-600">管理和追踪广告线索</p></div><button class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4-4m0 0L8 8m4-4v12"/></svg>导出线索</button></div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-lg border border-gray-200 p-6"><div class="flex items-center justify-between mb-2"><span class="text-gray-600 text-sm">今日线索</span><svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div><p class="text-2xl font-bold text-gray-900">1,234</p><p class="text-xs text-gray-600 mt-1">+18.5% vs昨日</p></div>
+                    <div class="bg-white rounded-lg border border-gray-200 p-6"><div class="flex items-center justify-between mb-2"><span class="text-gray-600 text-sm">有效线索</span><svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><p class="text-2xl font-bold text-gray-900">956</p><p class="text-xs text-gray-600 mt-1">有效率 77.5%</p></div>
+                    <div class="bg-white rounded-lg border border-gray-200 p-6"><div class="flex items-center justify-between mb-2"><span class="text-gray-600 text-sm">待跟进</span><svg class="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><p class="text-2xl font-bold text-gray-900">456</p><p class="text-xs text-gray-600 mt-1">需要及时跟进</p></div>
+                    <div class="bg-white rounded-lg border border-gray-200 p-6"><div class="flex items-center justify-between mb-2"><span class="text-gray-600 text-sm">已转化</span><svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><p class="text-2xl font-bold text-gray-900">89</p><p class="text-xs text-gray-600 mt-1">转化率 7.2%</p></div>
+                </div>
+                <div class="bg-white rounded-lg border border-gray-200">
+                    <div class="p-6 bg-gray-50 border-b border-gray-200"><div class="grid grid-cols-1 md:grid-cols-5 gap-4"><div><input type="text" class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg" placeholder="搜索姓名或电话"></div><div><select class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg"><option>全部状态</option><option>待跟进</option><option>跟进中</option><option>已转化</option><option>无效</option></select></div><div><input type="date" class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg"></div><div><input type="date" class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg"></div><div class="flex gap-2"><button class="flex-1 h-10 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700">查询</button><button class="h-10 px-4 bg-white border border-gray-300 text-gray-700 rounded-lg">重置</button></div></div></div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-100 border-b border-gray-200"><tr><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase"><input type="checkbox" class="rounded border-gray-300"></th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">线索ID</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">客户信息</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">来源广告</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">状态</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">创建时间</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">操作</th></tr></thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="hover:bg-blue-50"><td class="px-6 py-4"><input type="checkbox" class="rounded border-gray-300"></td><td class="px-6 py-4 text-sm font-mono text-gray-900">L20250105001</td><td class="px-6 py-4"><div class="text-sm font-medium text-gray-900">张三</div><div class="text-sm text-gray-500">138****5678</div></td><td class="px-6 py-4 text-sm text-gray-900">春季促销活动</td><td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">待跟进</span></td><td class="px-6 py-4 text-sm text-gray-600">2025-01-05 10:25</td><td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-900 mr-2">查看</button><button class="text-gray-600 hover:text-gray-900">跟进</button></td></tr>
+                                <tr class="hover:bg-blue-50"><td class="px-6 py-4"><input type="checkbox" class="rounded border-gray-300"></td><td class="px-6 py-4 text-sm font-mono text-gray-900">L20250105002</td><td class="px-6 py-4"><div class="text-sm font-medium text-gray-900">李四</div><div class="text-sm text-gray-500">159****8765</div></td><td class="px-6 py-4 text-sm text-gray-900">产品介绍页</td><td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">跟进中</span></td><td class="px-6 py-4 text-sm text-gray-600">2025-01-05 11:40</td><td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-900 mr-2">查看</button><button class="text-gray-600 hover:text-gray-900">跟进</button></td></tr>
+                                <tr class="hover:bg-blue-50"><td class="px-6 py-4"><input type="checkbox" class="rounded border-gray-300"></td><td class="px-6 py-4 text-sm font-mono text-gray-900">L20250105003</td><td class="px-6 py-4"><div class="text-sm font-medium text-gray-900">王五</div><div class="text-sm text-gray-500">186****2345</div></td><td class="px-6 py-4 text-sm text-gray-900">品牌宣传</td><td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">已转化</span></td><td class="px-6 py-4 text-sm text-gray-600">2025-01-05 14:20</td><td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-900">查看详情</button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex items-center justify-between px-6 py-4 border-t border-gray-200"><div class="text-sm text-gray-600">显示 1 到 10 条，共 1,234 条</div><div class="flex gap-2"><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50" disabled>上一页</button><button class="px-3 py-2 bg-blue-600 text-white rounded-lg">1</button><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">2</button><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">下一页</button></div></div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

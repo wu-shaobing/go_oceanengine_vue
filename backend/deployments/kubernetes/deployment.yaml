@@ -1,0 +1,163 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oceanengine-api
+  namespace: oceanengine
+  labels:
+    app: oceanengine-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: oceanengine-api
+  template:
+    metadata:
+      labels:
+        app: oceanengine-api
+    spec:
+      containers:
+        - name: oceanengine-api
+          image: oceanengine-api:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: TZ
+              value: "Asia/Shanghai"
+            - name: DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: oceanengine-config
+                  key: database_host
+            - name: DATABASE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: oceanengine-config
+                  key: database_port
+            - name: DATABASE_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: oceanengine-config
+                  key: database_name
+            - name: DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: oceanengine-secret
+                  key: database_username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: oceanengine-secret
+                  key: database_password
+            - name: REDIS_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: oceanengine-config
+                  key: redis_addr
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          volumeMounts:
+            - name: config
+              mountPath: /app/config
+              readOnly: true
+            - name: logs
+              mountPath: /app/logs
+      volumes:
+        - name: config
+          configMap:
+            name: oceanengine-config-files
+        - name: logs
+          emptyDir: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oceanengine-task
+  namespace: oceanengine
+  labels:
+    app: oceanengine-task
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oceanengine-task
+  template:
+    metadata:
+      labels:
+        app: oceanengine-task
+    spec:
+      containers:
+        - name: oceanengine-task
+          image: oceanengine-api:latest
+          imagePullPolicy: IfNotPresent
+          command: ["./task", "-config", "config/settings.yml"]
+          env:
+            - name: TZ
+              value: "Asia/Shanghai"
+            - name: DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: oceanengine-config
+                  key: database_host
+            - name: DATABASE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: oceanengine-config
+                  key: database_port
+            - name: DATABASE_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: oceanengine-config
+                  key: database_name
+            - name: DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: oceanengine-secret
+                  key: database_username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: oceanengine-secret
+                  key: database_password
+            - name: REDIS_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: oceanengine-config
+                  key: redis_addr
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+          volumeMounts:
+            - name: config
+              mountPath: /app/config
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: oceanengine-config-files

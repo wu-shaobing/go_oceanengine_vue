@@ -1,0 +1,305 @@
+{
+  "metadata": {
+    "total_pages": 198,
+    "generated_date": "2025-11-11",
+    "template_version": "1.0"
+  },
+  "templates": {
+    "list": "列表页模板（筛选+表格+分页）",
+    "form": "表单页模板（多步骤表单+验证）",
+    "detail": "详情页模板（信息卡片+数据展示）",
+    "tool": "工具页模板（配置面板+查询结果）",
+    "dashboard": "仪表盘模板（数据卡片+图表）"
+  },
+  "pages": [
+    {
+      "priority": "P0",
+      "module": "agent",
+      "pages": [
+        {"name": "agent-child-agents", "title": "二级代理商列表", "template": "list", "description": "查看和管理二级代理商"},
+        {"name": "agent-info", "title": "代理商信息", "template": "detail", "description": "查看代理商详细信息"},
+        {"name": "agent-advertiser-copy", "title": "广告主账户复制", "template": "form", "description": "复制广告主账户配置"},
+        {"name": "agent-risk-promotions", "title": "广告违规信息", "template": "list", "description": "查询广告违规信息列表"}
+      ]
+    },
+    {
+      "priority": "P0",
+      "module": "advertiser",
+      "pages": [
+        {"name": "advertiser-budget", "title": "账户日预算管理", "template": "form", "description": "设置和管理账户日预算"},
+        {"name": "advertiser-delivery-qualification", "title": "投放资质管理", "template": "form", "description": "投放资质查询和提交"},
+        {"name": "advertiser-delivery-pkg", "title": "推广产品资质管理", "template": "form", "description": "管理推广产品资质"}
+      ]
+    },
+    {
+      "priority": "P0",
+      "module": "workspace",
+      "pages": [
+        {"name": "workspace-transfer-targets", "title": "工作台可转列表", "template": "list", "description": "查看可转账目标列表"},
+        {"name": "workspace-transfer-balance", "title": "最大可转余额查询", "template": "tool", "description": "查询最大可转余额"},
+        {"name": "workspace-transfer-create", "title": "发起转账", "template": "form", "description": "创建转账交易"},
+        {"name": "workspace-transfer-detail", "title": "转账单详情", "template": "detail", "description": "查看转账单详细信息"}
+      ]
+    },
+    {
+      "priority": "P0",
+      "module": "shared-wallet",
+      "pages": [
+        {"name": "shared-wallet-transactions", "title": "共享钱包流水明细", "template": "list", "description": "查看共享钱包流水明细"},
+        {"name": "shared-wallet-daily-stat", "title": "共享钱包日流水", "template": "dashboard", "description": "查看共享钱包日流水统计"},
+        {"name": "shared-wallet-info", "title": "共享钱包信息", "template": "detail", "description": "查看共享钱包详细信息"},
+        {"name": "shared-wallet-relations", "title": "钱包关系查询", "template": "list", "description": "查询钱包关系"},
+        {"name": "shared-wallet-transfer", "title": "共享钱包转账", "template": "form", "description": "共享钱包转账操作"}
+      ]
+    },
+    {
+      "priority": "P0",
+      "module": "agent-fund",
+      "pages": [
+        {"name": "agent-transfer-records", "title": "代理商转账记录", "template": "list", "description": "查看代理商转账记录"},
+        {"name": "agent-recharge", "title": "代理商充值", "template": "form", "description": "代理商账户充值"},
+        {"name": "agent-refund", "title": "代理商退款", "template": "form", "description": "代理商退款操作"},
+        {"name": "agent-project-statement", "title": "项目关联结算单", "template": "list", "description": "查询项目关联结算单"}
+      ]
+    },
+    {
+      "priority": "P0",
+      "module": "tools-basic",
+      "pages": [
+        {"name": "tools-region", "title": "地域列表", "template": "tool", "description": "查询地域列表（树形结构）"},
+        {"name": "tools-industry", "title": "行业列表", "template": "tool", "description": "查询行业分类列表"},
+        {"name": "tools-quota", "title": "在投计划配额查询", "template": "tool", "description": "查询在投计划配额"},
+        {"name": "tools-bid-suggest", "title": "建议日预算及预期成本", "template": "tool", "description": "获取建议日预算和预期成本"},
+        {"name": "tools-ad-quality", "title": "广告质量度查询", "template": "tool", "description": "查询广告质量度"},
+        {"name": "tools-ad-learning", "title": "广告计划学习期状态", "template": "tool", "description": "查询广告计划学习期状态"},
+        {"name": "tools-preview-qrcode", "title": "广告预览二维码", "template": "tool", "description": "获取广告预览二维码"},
+        {"name": "tools-estimated-price", "title": "预估点击成本", "template": "tool", "description": "获取预估点击成本"},
+        {"name": "tools-country-info", "title": "国家/区域信息", "template": "tool", "description": "查询国家和区域信息"},
+        {"name": "tools-admin-info", "title": "行政信息", "template": "tool", "description": "获取行政信息"}
+      ]
+    },
+    {
+      "priority": "P1",
+      "module": "keyword",
+      "pages": [
+        {"name": "keyword-create", "title": "创建关键词", "template": "form", "description": "创建搜索关键词"},
+        {"name": "keyword-edit", "title": "编辑关键词", "template": "form", "description": "编辑关键词属性"},
+        {"name": "keyword-suggest", "title": "推荐关键词", "template": "tool", "description": "获取推荐关键词"},
+        {"name": "privative-word-campaign", "title": "组否定词管理", "template": "form", "description": "管理广告组否定词"},
+        {"name": "privative-word-project", "title": "项目否定词管理", "template": "form", "description": "管理项目否定词（V3）"},
+        {"name": "blueflow-packages", "title": "蓝海流量包列表", "template": "list", "description": "查看蓝海流量包"},
+        {"name": "blueflow-keywords", "title": "蓝海关键词列表", "template": "list", "description": "查看蓝海关键词"}
+      ]
+    },
+    {
+      "priority": "P1",
+      "module": "dpa",
+      "pages": [
+        {"name": "dpa-product-detail", "title": "商品详情", "template": "detail", "description": "查看DPA商品详情"},
+        {"name": "dpa-product-create", "title": "创建商品", "template": "form", "description": "创建DPA商品"},
+        {"name": "dpa-product-update", "title": "更新商品", "template": "form", "description": "更新DPA商品信息"},
+        {"name": "dpa-clue-product-list", "title": "升级版商品列表", "template": "list", "description": "查看升级版商品列表"},
+        {"name": "dpa-assets-list", "title": "投放条件列表", "template": "list", "description": "查看投放条件列表"},
+        {"name": "dpa-assets-detail", "title": "投放条件详情", "template": "detail", "description": "查看投放条件详情"},
+        {"name": "dpa-category", "title": "DPA分类", "template": "tool", "description": "查看DPA分类"},
+        {"name": "dpa-dict", "title": "DPA词包", "template": "list", "description": "查看DPA词包"},
+        {"name": "dpa-behaviour", "title": "DPA可用行为", "template": "tool", "description": "查看DPA可用行为"},
+        {"name": "dpa-template", "title": "DPA模板", "template": "list", "description": "查看DPA模板"},
+        {"name": "dpa-video-template", "title": "DPA视频模板", "template": "list", "description": "查看DPA视频模板"}
+      ]
+    },
+    {
+      "priority": "P1",
+      "module": "site",
+      "pages": [
+        {"name": "site-list", "title": "橙子建站站点列表", "template": "list", "description": "查看站点列表"},
+        {"name": "site-create", "title": "创建橙子建站站点", "template": "form", "description": "创建新站点"},
+        {"name": "site-edit", "title": "编辑橙子建站站点", "template": "form", "description": "编辑站点信息"},
+        {"name": "site-preview", "title": "站点预览", "template": "detail", "description": "预览站点"},
+        {"name": "site-forms", "title": "落地页表单管理", "template": "list", "description": "管理落地页表单"},
+        {"name": "site-smart-phone", "title": "智能电话管理", "template": "list", "description": "管理智能电话"},
+        {"name": "thirdsite-list", "title": "第三方落地页列表", "template": "list", "description": "查看第三方落地页"},
+        {"name": "thirdsite-create", "title": "创建第三方落地页", "template": "form", "description": "创建第三方落地页"},
+        {"name": "landinggroup-list", "title": "落地页组列表", "template": "list", "description": "查看落地页组"},
+        {"name": "landinggroup-create", "title": "创建落地页组", "template": "form", "description": "创建落地页组"}
+      ]
+    },
+    {
+      "priority": "P1",
+      "module": "clue",
+      "pages": [
+        {"name": "clue-feyu-callback", "title": "回传有效线索", "template": "form", "description": "飞鱼线索回传"},
+        {"name": "clue-key-action", "title": "活动记录", "template": "list", "description": "查看活动记录"},
+        {"name": "clue-form-list", "title": "表单列表", "template": "list", "description": "查看青鸟表单列表"},
+        {"name": "clue-form-create", "title": "创建表单", "template": "form", "description": "创建青鸟表单"},
+        {"name": "clue-form-detail", "title": "表单详情", "template": "detail", "description": "查看表单详情"},
+        {"name": "clue-coupon-list", "title": "卡券列表", "template": "list", "description": "查看卡券列表"},
+        {"name": "clue-coupon-create", "title": "创建卡券", "template": "form", "description": "创建卡券"},
+        {"name": "clue-coupon-code-upload", "title": "上传券码", "template": "form", "description": "批量上传券码"},
+        {"name": "clue-smartphone-list", "title": "智能电话列表", "template": "list", "description": "查看智能电话列表"},
+        {"name": "clue-smartphone-create", "title": "创建智能电话", "template": "form", "description": "创建智能电话"}
+      ]
+    },
+    {
+      "priority": "P2",
+      "module": "tools-advanced",
+      "pages": [
+        {"name": "tools-action-text", "title": "行动号召内容", "template": "tool", "description": "获取行动号召字段内容"},
+        {"name": "tools-promotion-card", "title": "推广卡片推荐内容", "template": "tool", "description": "查询推广卡片推荐内容"},
+        {"name": "tools-aweme-auth", "title": "抖音授权关系", "template": "list", "description": "获取抖音授权关系"},
+        {"name": "tools-anchor-check", "title": "检查视频锚点", "template": "tool", "description": "查询视频是否挂载锚点"},
+        {"name": "tools-gray", "title": "白名单能力查询", "template": "tool", "description": "查询白名单能力"},
+        {"name": "tools-ies-account", "title": "绑定的抖音号", "template": "list", "description": "获取绑定的抖音号"},
+        {"name": "tools-native-anchor", "title": "原生锚点查询", "template": "list", "description": "获取账户下原生锚点"},
+        {"name": "tools-security-score", "title": "违规积分查询", "template": "dashboard", "description": "查询账户累计积分"}
+      ]
+    },
+    {
+      "priority": "P2",
+      "module": "tools-app",
+      "pages": [
+        {"name": "tools-app-booking-records", "title": "应用预约记录", "template": "list", "description": "查询应用预约记录"},
+        {"name": "tools-app-package-parse", "title": "应用包解析", "template": "tool", "description": "提交解析应用包任务"},
+        {"name": "tools-app-extend-package", "title": "应用分包管理", "template": "list", "description": "查询应用分包列表"},
+        {"name": "tools-app-share", "title": "应用共享管理", "template": "form", "description": "查看应用共享范围"}
+      ]
+    },
+    {
+      "priority": "P2",
+      "module": "tools-aweme",
+      "pages": [
+        {"name": "tools-aweme-info", "title": "抖音账号和类目信息", "template": "tool", "description": "查询抖音账号信息"},
+        {"name": "tools-aweme-similar", "title": "抖音类似账号", "template": "list", "description": "查询抖音类似账号"},
+        {"name": "tools-aweme-category", "title": "抖音类目列表", "template": "list", "description": "查询抖音类目列表"},
+        {"name": "tools-aweme-top-author", "title": "类目推荐达人", "template": "list", "description": "查询类目下推荐达人"},
+        {"name": "tools-aweme-author-info", "title": "达人信息", "template": "detail", "description": "查询达人详细信息"}
+      ]
+    },
+    {
+      "priority": "P2",
+      "module": "tools-diagnosis",
+      "pages": [
+        {"name": "tools-diagnosis-suggestion", "title": "计划诊断建议", "template": "tool", "description": "获取计划诊断建议"},
+        {"name": "tools-diagnosis-accept", "title": "采纳诊断建议", "template": "form", "description": "采纳计划诊断建议"}
+      ]
+    },
+    {
+      "priority": "P2",
+      "module": "tools-interest",
+      "pages": [
+        {"name": "tools-interest-action-category", "title": "行为类目查询", "template": "tool", "description": "查询行为类目"},
+        {"name": "tools-interest-action-keyword", "title": "行为关键词查询", "template": "tool", "description": "查询行为关键词"},
+        {"name": "tools-interest-category", "title": "兴趣类目查询", "template": "tool", "description": "查询兴趣类目"},
+        {"name": "tools-interest-keyword", "title": "兴趣关键词查询", "template": "tool", "description": "查询兴趣关键词"},
+        {"name": "tools-interest-id2word", "title": "兴趣行为ID转词", "template": "tool", "description": "ID转换为词"},
+        {"name": "tools-interest-suggest", "title": "推荐关键词", "template": "tool", "description": "获取行为兴趣推荐关键词"}
+      ]
+    },
+    {
+      "priority": "P2",
+      "module": "tools-creative-word",
+      "pages": [
+        {"name": "tools-creative-word-list", "title": "动态创意词包列表", "template": "list", "description": "查询动态创意词包"},
+        {"name": "tools-creative-word-create", "title": "创建动态创意词包", "template": "form", "description": "创建动态创意词包"}
+      ]
+    },
+    {
+      "priority": "P2",
+      "module": "tools-union",
+      "pages": [
+        {"name": "tools-union-flowpackage", "title": "穿山甲流量包管理", "template": "list", "description": "管理穿山甲流量包"},
+        {"name": "tools-union-report", "title": "RIT数据报表", "template": "dashboard", "description": "查看RIT数据"}
+      ]
+    },
+    {
+      "priority": "P2",
+      "module": "tools-adconvert",
+      "pages": [
+        {"name": "tools-adconvert-list", "title": "转化目标列表", "template": "list", "description": "查看转化目标列表"},
+        {"name": "tools-adconvert-create", "title": "创建转化目标", "template": "form", "description": "创建转化目标"},
+        {"name": "tools-adconvert-query", "title": "查询可用转化目标", "template": "tool", "description": "查询广告计划可用转化目标"},
+        {"name": "tools-adconvert-optimize", "title": "查询可用优化目标", "template": "tool", "description": "查询可用优化目标"},
+        {"name": "tools-adconvert-deepbid", "title": "深度优化方式", "template": "tool", "description": "查询深度优化方式"}
+      ]
+    },
+    {
+      "priority": "P2",
+      "module": "tools-audience-package",
+      "pages": [
+        {"name": "tools-audience-package-list", "title": "定向包列表", "template": "list", "description": "查看定向包列表"},
+        {"name": "tools-audience-package-create", "title": "创建定向包", "template": "form", "description": "创建定向包"},
+        {"name": "tools-audience-package-bind", "title": "定向包绑定", "template": "form", "description": "计划绑定定向包"}
+      ]
+    },
+    {
+      "priority": "P2",
+      "module": "tools-adraise",
+      "pages": [
+        {"name": "tools-adraise-set", "title": "启动一键起量", "template": "form", "description": "启动一键起量"},
+        {"name": "tools-adraise-status", "title": "起量状态查询", "template": "dashboard", "description": "获取当前起量状态"},
+        {"name": "tools-adraise-report", "title": "起量报告", "template": "dashboard", "description": "获取一键起量报告"}
+      ]
+    },
+    {
+      "priority": "P3",
+      "module": "tools-rta",
+      "pages": [
+        {"name": "tools-rta-list", "title": "RTA策略列表", "template": "list", "description": "获取RTA策略数据"},
+        {"name": "tools-rta-scope", "title": "RTA策略生效范围", "template": "form", "description": "设置RTA策略生效范围"},
+        {"name": "tools-rta-exp", "title": "RTA联合实验数据", "template": "dashboard", "description": "获取RTA联合实验数据"}
+      ]
+    },
+    {
+      "priority": "P3",
+      "module": "tools-comment",
+      "pages": [
+        {"name": "tools-comment-list", "title": "评论列表", "template": "list", "description": "获取评论列表"},
+        {"name": "tools-comment-reply", "title": "评论回复列表", "template": "list", "description": "获取评论回复列表"},
+        {"name": "tools-comment-metrics", "title": "评论统计指标", "template": "dashboard", "description": "获取评论统计指标"},
+        {"name": "tools-comment-terms-banned", "title": "屏蔽词管理", "template": "list", "description": "管理屏蔽词列表"},
+        {"name": "tools-comment-aweme-banned", "title": "屏蔽用户管理", "template": "list", "description": "管理屏蔽用户列表"}
+      ]
+    },
+    {
+      "priority": "P3",
+      "module": "material-advanced",
+      "pages": [
+        {"name": "material-video-cover", "title": "视频智能封面", "template": "tool", "description": "获取视频智能封面"},
+        {"name": "material-push", "title": "素材推送", "template": "form", "description": "素材推送操作"},
+        {"name": "material-video-pause", "title": "按账户暂停素材", "template": "form", "description": "按账户暂停素材"},
+        {"name": "material-video-update", "title": "更新视频信息", "template": "form", "description": "更新视频素材信息"},
+        {"name": "material-tags", "title": "素材标签管理", "template": "list", "description": "获取素材标签列表"},
+        {"name": "material-attributes", "title": "素材评估标签", "template": "list", "description": "获取视频素材评估标签"},
+        {"name": "material-inefficient", "title": "低效素材查询", "template": "list", "description": "获取低效素材"},
+        {"name": "material-clear-task-create", "title": "创建素材清理任务", "template": "form", "description": "创建素材清理任务"},
+        {"name": "material-clear-task-list", "title": "清理任务列表", "template": "list", "description": "获取清理任务列表"}
+      ]
+    },
+    {
+      "priority": "P3",
+      "module": "report",
+      "pages": [
+        {"name": "report-audience-interest", "title": "行为兴趣数据", "template": "dashboard", "description": "受众行为兴趣数据报表"},
+        {"name": "report-audience-aweme", "title": "抖音达人数据", "template": "dashboard", "description": "抖音达人数据报表"},
+        {"name": "report-audience-province", "title": "省级数据", "template": "dashboard", "description": "省级受众数据报表"},
+        {"name": "report-audience-city", "title": "市级数据", "template": "dashboard", "description": "市级受众数据报表"},
+        {"name": "report-audience-gender", "title": "性别数据", "template": "dashboard", "description": "性别受众数据报表"},
+        {"name": "report-audience-age", "title": "年龄数据", "template": "dashboard", "description": "年龄受众数据报表"},
+        {"name": "report-async-task-create", "title": "创建异步任务", "template": "form", "description": "创建异步数据报表任务"},
+        {"name": "report-async-task-list", "title": "异步任务列表", "template": "list", "description": "获取异步任务列表"}
+      ]
+    },
+    {
+      "priority": "P3",
+      "module": "other",
+      "pages": [
+        {"name": "douplus-order-list", "title": "Dou+订单列表", "template": "list", "description": "查询Dou+订单列表"},
+        {"name": "douplus-order-report", "title": "Dou+订单数据报表", "template": "dashboard", "description": "获取Dou+订单数据报表"},
+        {"name": "track-conversion", "title": "转化回传页面", "template": "tool", "description": "转化数据回传"},
+        {"name": "track-wxa-active", "title": "微信小程序转化回传", "template": "tool", "description": "微信小程序转化回传"},
+        {"name": "servemarket-order", "title": "应用订单数据", "template": "list", "description": "获取应用订单数据"},
+        {"name": "servemarket-func", "title": "已购功能点列表", "template": "list", "description": "获取用户已购功能点列表"}
+      ]
+    }
+  ]
+}

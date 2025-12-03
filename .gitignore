@@ -1,0 +1,53 @@
+# macOS
+.DS_Store
+*.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# 环境配置
+.env.local
+.env.*.local
+
+# 日志
+*.log
+logs/
+
+# 临时文件
+tmp/
+temp/
+*.tmp
+*.bak
+
+# 构建产物
+frontend/dist/
+backend/build/
+
+# 依赖目录
+node_modules/
+vendor/
+
+# 敏感配置 (使用.example版本)
+backend/config/settings.yml
+backend/.env
+backend/.env.local
+frontend/.env.local
+*.env
+!.env.example
+
+# 编译产物
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.a
+
+# 测试覆盖率
+coverage/
+*.cover
+*.out

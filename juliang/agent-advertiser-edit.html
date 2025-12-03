@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="代理商编辑广告主 - 修改广告主账户信息、预算、状态等配置">
+    <meta name="theme-color" content="#3b82f6">
+    <title>编辑广告主 - 巨量引擎管理平台</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1>
+                    <p class="text-xs text-gray-500">Ad Engine Management</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <button class="relative flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors">
+                    <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                    </svg>
+                </button>
+                <div class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100">
+                    <div class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                    </div>
+                    <span class="hidden text-sm font-medium md:inline-block">代理商</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-gray-200 min-h-[calc(100vh-64px)] sticky top-16">
+            <nav class="p-4 space-y-6">
+                <div>
+                    <h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">代理商管理</h3>
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="agent-dashboard.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                                </svg>
+                                <span>代理商工作台</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="agent-advertisers.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white font-medium shadow-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                                <span>广告主管理</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="main-content" class="flex-1 p-8">
+            <div class="max-w-4xl mx-auto space-y-6">
+                <!-- Breadcrumb -->
+                <div class="flex items-center text-sm text-gray-500 mb-2">
+                    <a href="index.html" class="hover:text-blue-600">首页</a>
+                    <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                    <a href="agent-advertisers.html" class="hover:text-blue-600">广告主管理</a>
+                    <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                    <span class="text-gray-900">编辑广告主</span>
+                </div>
+
+                <!-- Page Header -->
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">编辑广告主</h1>
+                        <p class="mt-2 text-gray-600">修改广告主账户信息、配置和状态</p>
+                    </div>
+                    <a href="agent-advertisers.html" class="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                        <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                        </svg>
+                        返回列表
+                    </a>
+                </div>
+
+                <!-- Edit Form -->
+                <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                    <form class="divide-y divide-gray-200">
+                        <!-- Basic Info Section -->
+                        <div class="p-6">
+                            <h2 class="text-lg font-semibold text-gray-900 mb-4">基本信息</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        广告主ID <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" value="1234567890" readonly class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500 cursor-not-allowed" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        广告主名称 <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" value="测试广告主" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        公司名称
+                                    </label>
+                                    <input type="text" value="某某科技有限公司" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        联系人
+                                    </label>
+                                    <input type="text" value="张三" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        联系电话
+                                    </label>
+                                    <input type="tel" value="13800138000" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        联系邮箱
+                                    </label>
+                                    <input type="email" value="contact@example.com" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Account Settings Section -->
+                        <div class="p-6">
+                            <h2 class="text-lg font-semibold text-gray-900 mb-4">账户配置</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        账户状态
+                                    </label>
+                                    <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="ENABLE">启用</option>
+                                        <option value="DISABLE">禁用</option>
+                                        <option value="AUDIT">审核中</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        行业类目
+                                    </label>
+                                    <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                        <option>电商</option>
+                                        <option>游戏</option>
+                                        <option>教育</option>
+                                        <option>金融</option>
+                                        <option>本地生活</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        日预算（元）
+                                    </label>
+                                    <input type="number" value="10000" min="0" step="100" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                                    <p class="mt-1 text-xs text-gray-500">设置为0表示不限预算</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        分成比例（%）
+                                    </label>
+                                    <input type="number" value="20" min="0" max="100" step="0.1" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                                    <p class="mt-1 text-xs text-gray-500">代理商从广告主消耗中获取的分成比例</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Permission Settings Section -->
+                        <div class="p-6">
+                            <h2 class="text-lg font-semibold text-gray-900 mb-4">权限配置</h2>
+                            <div class="space-y-3">
+                                <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                                    <input type="checkbox" checked class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">允许自主创建计划</p>
+                                        <p class="text-xs text-gray-500">广告主可以自主创建和管理广告计划</p>
+                                    </div>
+                                </label>
+                                <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                                    <input type="checkbox" checked class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">允许查看数据报表</p>
+                                        <p class="text-xs text-gray-500">广告主可以查看广告投放数据报表</p>
+                                    </div>
+                                </label>
+                                <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                                    <input type="checkbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">允许充值转账</p>
+                                        <p class="text-xs text-gray-500">广告主可以进行账户充值和转账操作</p>
+                                    </div>
+                                </label>
+                                <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                                    <input type="checkbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">允许使用高级工具</p>
+                                        <p class="text-xs text-gray-500">广告主可以使用一键起量、智能诊断等高级工具</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Remarks Section -->
+                        <div class="p-6">
+                            <h2 class="text-lg font-semibold text-gray-900 mb-4">备注信息</h2>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    备注
+                                </label>
+                                <textarea rows="4" placeholder="输入备注信息..." class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">VIP客户，优先处理</textarea>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="p-6 bg-gray-50 flex items-center justify-between">
+                            <div class="text-sm text-gray-500">
+                                <span class="font-medium">最后修改：</span> 2025-11-10 15:30:00 by 管理员
+                            </div>
+                            <div class="flex gap-3">
+                                <a href="agent-advertisers.html" class="px-6 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                                    取消
+                                </a>
+                                <button type="submit" class="px-6 py-2 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors shadow-sm">
+                                    保存修改
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Warning Card -->
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <div class="flex gap-3">
+                        <svg class="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                        <div class="flex-1">
+                            <h3 class="text-sm font-medium text-yellow-800">修改注意事项</h3>
+                            <div class="mt-2 text-sm text-yellow-700 space-y-1">
+                                <p>• 修改广告主信息可能影响正在投放的广告计划</p>
+                                <p>• 修改日预算后，系统将在下一个小时生效</p>
+                                <p>• 禁用账户后，所有广告计划将自动暂停</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

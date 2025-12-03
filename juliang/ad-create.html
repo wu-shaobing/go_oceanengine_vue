@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="巨量引擎 - 创建广告，配置定向、创意和预算">
+    <meta name="theme-color" content="#3b82f6">
+    <title>创建广告 - 巨量引擎管理平台</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1>
+                    <p class="text-xs text-gray-500">Ad Engine Management</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="max-w-5xl mx-auto p-6">
+        <div class="flex items-center text-sm text-gray-500 mb-4">
+            <a href="index.html" class="hover:text-blue-600">首页</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <a href="ads.html" class="hover:text-blue-600">广告管理</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span class="text-gray-900">创建广告</span>
+        </div>
+
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold">创建广告</h1>
+            <p class="mt-2 text-gray-600">按照向导步骤完成广告创建，预计需要5-10分钟</p>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="bg-white rounded-lg border p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div class="flex-1">
+                    <div class="flex items-center">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 text-white font-bold">1</div>
+                        <div class="ml-3">
+                            <p class="text-sm font-medium text-blue-600">基础信息</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 h-0.5 bg-gray-200 mx-4"></div>
+                <div class="flex-1">
+                    <div class="flex items-center">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-500 font-bold">2</div>
+                        <div class="ml-3">
+                            <p class="text-sm text-gray-500">定向设置</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 h-0.5 bg-gray-200 mx-4"></div>
+                <div class="flex-1">
+                    <div class="flex items-center">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-500 font-bold">3</div>
+                        <div class="ml-3">
+                            <p class="text-sm text-gray-500">创意配置</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 h-0.5 bg-gray-200 mx-4"></div>
+                <div class="flex-1">
+                    <div class="flex items-center">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-500 font-bold">4</div>
+                        <div class="ml-3">
+                            <p class="text-sm text-gray-500">预算出价</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1: Basic Info -->
+        <div id="step1" class="bg-white rounded-lg border p-6 mb-6">
+            <h2 class="text-xl font-bold mb-6">步骤1: 基础信息</h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium mb-2">
+                        广告计划 <span class="text-red-500">*</span>
+                    </label>
+                    <select class="w-full px-3 py-2 border rounded-lg">
+                        <option>请选择广告计划</option>
+                        <option>春节大促-美妆品类-01-09</option>
+                        <option>新品推广-视频广告</option>
+                        <option>日常引流-信息流</option>
+                    </select>
+                    <p class="mt-1 text-sm text-gray-500">选择此广告所属的广告计划</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">
+                        广告名称 <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" class="w-full px-3 py-2 border rounded-lg" placeholder="例如：新年特惠-口红系列-视频01">
+                    <p class="mt-1 text-sm text-gray-500">建议包含产品、时间等关键信息，便于后期管理</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">
+                        投放时段 <span class="text-red-500">*</span>
+                    </label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <input type="date" class="w-full px-3 py-2 border rounded-lg">
+                            <p class="mt-1 text-xs text-gray-500">开始日期</p>
+                        </div>
+                        <div>
+                            <input type="date" class="w-full px-3 py-2 border rounded-lg">
+                            <p class="mt-1 text-xs text-gray-500">结束日期</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">推广目的</label>
+                    <div class="grid grid-cols-3 gap-3">
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-600">
+                            <input type="radio" name="objective" class="mr-3" checked>
+                            <div>
+                                <p class="font-medium">商品销量</p>
+                                <p class="text-xs text-gray-500">提升商品购买量</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-600">
+                            <input type="radio" name="objective" class="mr-3">
+                            <div>
+                                <p class="font-medium">直播间人气</p>
+                                <p class="text-xs text-gray-500">提升直播观看量</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-600">
+                            <input type="radio" name="objective" class="mr-3">
+                            <div>
+                                <p class="font-medium">内容互动</p>
+                                <p class="text-xs text-gray-500">提升点赞评论</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">推广商品</label>
+                    <div class="border rounded-lg p-4">
+                        <button class="w-full py-3 border-2 border-dashed rounded-lg text-gray-500 hover:border-blue-600 hover:text-blue-600">
+                            <svg class="w-6 h-6 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                            选择推广商品
+                        </button>
+                        <p class="mt-2 text-xs text-gray-500 text-center">支持选择抖音小店、鲁班商品等</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Targeting (Hidden by default) -->
+        <div id="step2" class="bg-white rounded-lg border p-6 mb-6 hidden">
+            <h2 class="text-xl font-bold mb-6">步骤2: 定向设置</h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium mb-2">地域定向</label>
+                    <div class="border rounded-lg p-4">
+                        <div class="flex gap-2 mb-3">
+                            <button class="px-3 py-1 text-sm bg-blue-50 text-blue-600 rounded">不限</button>
+                            <button class="px-3 py-1 text-sm border rounded hover:bg-gray-50">按省市</button>
+                            <button class="px-3 py-1 text-sm border rounded hover:bg-gray-50">按区县</button>
+                        </div>
+                        <p class="text-sm text-gray-600">当前选择：全国</p>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">性别年龄</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm text-gray-600 mb-2">性别</p>
+                            <div class="flex gap-2">
+                                <label class="flex-1 flex items-center justify-center p-3 border rounded-lg cursor-pointer hover:bg-blue-50">
+                                    <input type="checkbox" class="mr-2" checked>
+                                    <span>不限</span>
+                                </label>
+                                <label class="flex-1 flex items-center justify-center p-3 border rounded-lg cursor-pointer hover:bg-blue-50">
+                                    <input type="checkbox" class="mr-2">
+                                    <span>男</span>
+                                </label>
+                                <label class="flex-1 flex items-center justify-center p-3 border rounded-lg cursor-pointer hover:bg-blue-50">
+                                    <input type="checkbox" class="mr-2">
+                                    <span>女</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600 mb-2">年龄</p>
+                            <select class="w-full px-3 py-2 border rounded-lg">
+                                <option>不限</option>
+                                <option>18-23岁</option>
+                                <option>24-30岁</option>
+                                <option>31-40岁</option>
+                                <option>41-50岁</option>
+                                <option>50岁以上</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">兴趣定向</label>
+                    <div class="border rounded-lg p-4">
+                        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 mb-3">
+                            选择兴趣标签
+                        </button>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm flex items-center">
+                                美妆护肤
+                                <svg class="w-4 h-4 ml-2 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                            </span>
+                            <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm flex items-center">
+                                时尚穿搭
+                                <svg class="w-4 h-4 ml-2 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">行为定向</label>
+                    <div class="space-y-3">
+                        <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                            <input type="checkbox" class="mr-3">
+                            <span>互动过类似商品的用户</span>
+                        </label>
+                        <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                            <input type="checkbox" class="mr-3">
+                            <span>关注过类似账号的用户</span>
+                        </label>
+                        <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                            <input type="checkbox" class="mr-3">
+                            <span>购买过类似商品的用户</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">人群包</label>
+                    <div class="border rounded-lg p-4">
+                        <a href="audiences.html" class="text-sm text-blue-600 hover:underline">选择已有人群包</a>
+                        <p class="mt-2 text-sm text-gray-500">暂未选择人群包</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Creative (Hidden by default) -->
+        <div id="step3" class="bg-white rounded-lg border p-6 mb-6 hidden">
+            <h2 class="text-xl font-bold mb-6">步骤3: 创意配置</h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium mb-2">创意类型</label>
+                    <div class="grid grid-cols-3 gap-3">
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-600">
+                            <input type="radio" name="creative_type" class="mr-3" checked>
+                            <div>
+                                <p class="font-medium">视频创意</p>
+                                <p class="text-xs text-gray-500">竖版视频</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-600">
+                            <input type="radio" name="creative_type" class="mr-3">
+                            <div>
+                                <p class="font-medium">图片创意</p>
+                                <p class="text-xs text-gray-500">单图/多图</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-600">
+                            <input type="radio" name="creative_type" class="mr-3">
+                            <div>
+                                <p class="font-medium">混合创意</p>
+                                <p class="text-xs text-gray-500">图文混合</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">上传素材</label>
+                    <div class="border-2 border-dashed rounded-lg p-8 text-center">
+                        <svg class="w-12 h-12 mx-auto text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                        </svg>
+                        <p class="text-gray-600 mb-2">拖拽文件到此处或</p>
+                        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">选择文件</button>
+                        <p class="mt-3 text-xs text-gray-500">支持 MP4、MOV 格式，大小不超过100MB</p>
+                    </div>
+                    <div class="mt-3">
+                        <a href="media.html" class="text-sm text-blue-600 hover:underline">从媒体库选择</a>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">广告文案</label>
+                    <textarea class="w-full px-3 py-2 border rounded-lg" rows="4" placeholder="输入吸引人的广告文案..."></textarea>
+                    <div class="flex justify-between mt-1">
+                        <p class="text-sm text-gray-500">建议15-50字，包含产品卖点</p>
+                        <p class="text-sm text-gray-500">0/50</p>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">落地页</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-600">
+                            <input type="radio" name="landing" class="mr-3" checked>
+                            <div>
+                                <p class="font-medium">直播间</p>
+                                <p class="text-xs text-gray-500">跳转到直播间</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-600">
+                            <input type="radio" name="landing" class="mr-3">
+                            <div>
+                                <p class="font-medium">商品详情页</p>
+                                <p class="text-xs text-gray-500">跳转到商品页</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">行动号召按钮</label>
+                    <select class="w-full px-3 py-2 border rounded-lg">
+                        <option>立即购买</option>
+                        <option>进入直播间</option>
+                        <option>查看详情</option>
+                        <option>了解更多</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Budget & Bid (Hidden by default) -->
+        <div id="step4" class="bg-white rounded-lg border p-6 mb-6 hidden">
+            <h2 class="text-xl font-bold mb-6">步骤4: 预算与出价</h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium mb-2">日预算 <span class="text-red-500">*</span></label>
+                    <div class="flex items-center gap-3">
+                        <input type="number" class="flex-1 px-3 py-2 border rounded-lg" placeholder="100" value="500">
+                        <span class="text-gray-600">元</span>
+                    </div>
+                    <p class="mt-1 text-sm text-gray-500">每日最大消耗金额，建议不低于100元</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">出价方式</label>
+                    <div class="space-y-3">
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-600">
+                            <input type="radio" name="bid_type" class="mr-3" checked>
+                            <div class="flex-1">
+                                <p class="font-medium">智能出价（推荐）</p>
+                                <p class="text-sm text-gray-500">系统自动优化出价，获得更多转化</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-600">
+                            <input type="radio" name="bid_type" class="mr-3">
+                            <div class="flex-1">
+                                <p class="font-medium">手动出价</p>
+                                <p class="text-sm text-gray-500">手动设置每次点击/转化的出价</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">转化目标</label>
+                    <select class="w-full px-3 py-2 border rounded-lg">
+                        <option>商品下单</option>
+                        <option>表单提交</option>
+                        <option>在线咨询</option>
+                        <option>关注账号</option>
+                    </select>
+                </div>
+
+                <div class="bg-blue-50 rounded-lg p-4">
+                    <h3 class="font-bold mb-3">预估效果</h3>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <p class="text-sm text-gray-600">预估曝光</p>
+                            <p class="text-xl font-bold text-blue-600">50K-80K</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">预估点击</p>
+                            <p class="text-xl font-bold text-blue-600">2.5K-4K</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">预估转化</p>
+                            <p class="text-xl font-bold text-blue-600">125-200</p>
+                        </div>
+                    </div>
+                    <p class="mt-3 text-xs text-gray-600">*预估数据仅供参考，实际效果受多种因素影响</p>
+                </div>
+
+                <div>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2">
+                        <span class="text-sm">我已阅读并同意 <a href="#" class="text-blue-600 hover:underline">广告投放协议</a></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex justify-between items-center">
+            <a href="ads.html" class="px-6 py-2 border rounded-lg hover:bg-gray-50">取消</a>
+            <div class="flex gap-3">
+                <button id="prevBtn" class="px-6 py-2 border rounded-lg hover:bg-gray-50 hidden">上一步</button>
+                <button id="nextBtn" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">下一步</button>
+                <button id="submitBtn" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 hidden">提交创建</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateStep() {
+            // Hide all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                document.getElementById(`step${i}`).classList.add('hidden');
+            }
+            // Show current step
+            document.getElementById(`step${currentStep}`).classList.remove('hidden');
+
+            // Update buttons
+            document.getElementById('prevBtn').classList.toggle('hidden', currentStep === 1);
+            document.getElementById('nextBtn').classList.toggle('hidden', currentStep === totalSteps);
+            document.getElementById('submitBtn').classList.toggle('hidden', currentStep !== totalSteps);
+
+            // Update progress indicators (simplified)
+            updateProgress();
+        }
+
+        function updateProgress() {
+            // This is a simplified version - in production you'd update the visual progress bar
+            console.log(`Current step: ${currentStep}/${totalSteps}`);
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateStep();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStep();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            alert('广告创建成功！');
+            window.location.href = 'ads.html';
+        });
+
+        // Initialize
+        updateStep();
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创意组件 - 巨量引擎</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#f1f5f9}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}</style>
+</head>
+<body class="bg-gray-50">
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <div class="hidden md:block"><h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1></div>
+            </div>
+        </div>
+    </header>
+    <div class="flex">
+        <aside class="w-64 bg-white border-r border-gray-200 min-h-[calc(100vh-64px)] sticky top-16">
+            <nav class="p-4"><div><h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase">资产管理</h3><ul class="space-y-1"><li><a href="creative-components.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white font-medium shadow-sm"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg><span>创意组件</span></a></li><li><a href="event-assets.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>事件管理</span></a></li></ul></div></nav>
+        </aside>
+        <main class="flex-1 p-8">
+            <div class="max-w-7xl mx-auto space-y-6">
+                <div class="flex items-center justify-between"><div><h1 class="text-3xl font-bold text-gray-900">创意组件库</h1><p class="mt-2 text-gray-600">管理可复用的广告创意组件</p></div><button class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>创建组件</button></div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <button class="p-6 bg-white rounded-lg border-2 border-dashed border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition-colors text-center"><svg class="w-12 h-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/></svg><h3 class="font-medium text-gray-900 mb-1">标题组件</h3><p class="text-sm text-gray-600">创建可复用的广告标题</p></button>
+                    <button class="p-6 bg-white rounded-lg border-2 border-dashed border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition-colors text-center"><svg class="w-12 h-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><h3 class="font-medium text-gray-900 mb-1">图片组件</h3><p class="text-sm text-gray-600">管理常用创意图片</p></button>
+                    <button class="p-6 bg-white rounded-lg border-2 border-dashed border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition-colors text-center"><svg class="w-12 h-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><h3 class="font-medium text-gray-900 mb-1">视频组件</h3><p class="text-sm text-gray-600">管理视频素材库</p></button>
+                    <button class="p-6 bg-white rounded-lg border-2 border-dashed border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition-colors text-center"><svg class="w-12 h-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg><h3 class="font-medium text-gray-900 mb-1">落地页组件</h3><p class="text-sm text-gray-600">常用落地页模板</p></button>
+                </div>
+                <div class="bg-white rounded-lg border border-gray-200">
+                    <div class="p-6 border-b border-gray-200 flex items-center justify-between"><h2 class="text-lg font-semibold text-gray-900">我的组件</h2><div class="flex gap-2"><button class="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-sm">全部</button><button class="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">标题</button><button class="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">图片</button><button class="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">视频</button></div></div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-100 border-b border-gray-200"><tr><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase"><input type="checkbox" class="rounded border-gray-300"></th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">组件名称</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">类型</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">引用次数</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">状态</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">创建时间</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">操作</th></tr></thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="hover:bg-blue-50"><td class="px-6 py-4"><input type="checkbox" class="rounded border-gray-300"></td><td class="px-6 py-4 text-sm font-medium text-gray-900">春节大促标题01</td><td class="px-6 py-4"><span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">标题</span></td><td class="px-6 py-4 text-sm text-gray-900">45</td><td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">启用</span></td><td class="px-6 py-4 text-sm text-gray-600">2025-01-03</td><td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-900 mr-2">编辑</button><button class="text-gray-600 hover:text-gray-900">复制</button></td></tr>
+                                <tr class="hover:bg-blue-50"><td class="px-6 py-4"><input type="checkbox" class="rounded border-gray-300"></td><td class="px-6 py-4 text-sm font-medium text-gray-900">产品展示图</td><td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">图片</span></td><td class="px-6 py-4 text-sm text-gray-900">128</td><td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">启用</span></td><td class="px-6 py-4 text-sm text-gray-600">2025-01-02</td><td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-900 mr-2">编辑</button><button class="text-gray-600 hover:text-gray-900">复制</button></td></tr>
+                                <tr class="hover:bg-blue-50"><td class="px-6 py-4"><input type="checkbox" class="rounded border-gray-300"></td><td class="px-6 py-4 text-sm font-medium text-gray-900">品牌宣传片</td><td class="px-6 py-4"><span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">视频</span></td><td class="px-6 py-4 text-sm text-gray-900">67</td><td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">启用</span></td><td class="px-6 py-4 text-sm text-gray-600">2024-12-28</td><td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-900 mr-2">编辑</button><button class="text-gray-600 hover:text-gray-900">复制</button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex items-center justify-between px-6 py-4 border-t border-gray-200"><div class="text-sm text-gray-600">显示 1 到 10 条，共 89 条</div><div class="flex gap-2"><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50" disabled>上一页</button><button class="px-3 py-2 bg-blue-600 text-white rounded-lg">1</button><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">2</button><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">下一页</button></div></div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

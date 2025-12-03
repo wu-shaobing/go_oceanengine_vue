@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: oceanengine-api
+  labels:
+    app: oceanengine-api
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app: oceanengine-api
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: oceanengine-secrets
+type: Opaque
+stringData:
+  app-id: "YOUR_APP_ID"
+  app-secret: "YOUR_APP_SECRET"

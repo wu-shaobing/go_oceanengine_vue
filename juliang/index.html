@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="巨量引擎管理平台 - 基于巨量引擎SDK的一站式广告投放管理系统">
+    <meta name="theme-color" content="#3b82f6">
+    <title>巨量引擎管理平台</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#3b82f6',
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <!-- Logo -->
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1>
+                    <p class="text-xs text-gray-500">Ad Engine Management</p>
+                </div>
+            </div>
+            
+            <!-- Actions -->
+            <div class="flex items-center gap-3">
+                <!-- Search -->
+                <button class="hidden lg:flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors">
+                    <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </button>
+
+                <!-- Notifications -->
+                <button class="relative flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors">
+                    <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                    </svg>
+                    <span class="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-red-500"></span>
+                </button>
+
+                <!-- User Menu -->
+                <div class="relative">
+                    <button class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
+                        </div>
+                        <span class="hidden text-sm font-medium md:inline-block">管理员</span>
+                        <svg class="h-4 w-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-gray-200 min-h-[calc(100vh-64px)] sticky top-16">
+            <nav class="p-4 space-y-6">
+                <!-- 概览 -->
+                <div>
+                    <h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">概览</h3>
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="dashboard.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white font-medium shadow-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                                </svg>
+                                <span>工作台</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 广告管理 -->
+                <div>
+                    <h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">广告管理</h3>
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="advertisers.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                </svg>
+                                <span>广告主</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="campaigns.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
+                                </svg>
+                                <span>广告计划</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ads.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                                </svg>
+                                <span>广告</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 内容管理 -->
+                <div>
+                    <h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">内容管理</h3>
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="creatives.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                                </svg>
+                                <span>创意</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="media.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                                <span>媒体库</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 工具 -->
+                <div>
+                    <h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">工具</h3>
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="tools-targeting.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                                <span>定向工具</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="audiences.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                                </svg>
+                                <span>人群包</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 数据分析 -->
+                <div>
+                    <h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">数据分析</h3>
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="reports.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                </svg>
+                                <span>数据报表</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <div class="max-w-7xl mx-auto">
+                <!-- Page Header -->
+                <div class="mb-8">
+                    <div class="flex items-center text-sm text-gray-500 mb-2">
+                        <a href="index.html" class="hover:text-blue-600">首页</a>
+                        <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                        <span class="text-gray-900">概览</span>
+                    </div>
+                    <h1 class="text-3xl font-bold text-gray-900">欢迎使用千川SDK管理平台</h1>
+                    <p class="mt-2 text-gray-600">这是基础框架页面模板</p>
+                </div>
+
+                <!-- Welcome Card -->
+                <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-8">
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-2">巨量引擎SDK管理平台</h2>
+                        <p class="text-gray-600 mb-8">基于巨量引擎广告SDK的完整全栈管理系统</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                            <div class="text-center p-4">
+                                <div class="text-3xl font-bold text-blue-600 mb-2">10,000+</div>
+                                <div class="text-sm text-gray-600">服务广告主</div>
+                            </div>
+                            <div class="text-center p-4">
+                                <div class="text-3xl font-bold text-blue-600 mb-2">¥500万+</div>
+                                <div class="text-sm text-gray-600">日均投放金额</div>
+                            </div>
+                            <div class="text-center p-4">
+                                <div class="text-3xl font-bold text-blue-600 mb-2">35%</div>
+                                <div class="text-sm text-gray-600">转化率提升</div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <a href="dashboard.html" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                                进入工作台
+                                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <a href="advertisers.html" class="group bg-white rounded-lg border border-gray-200 p-6 hover:border-blue-500 hover:shadow-md transition-all">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-lg bg-blue-50 text-blue-600 group-hover:bg-blue-100">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                </svg>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 mb-2">广告主管理</h3>
+                        <p class="text-sm text-gray-600">管理广告主账户信息</p>
+                    </a>
+
+                    <a href="campaigns.html" class="group bg-white rounded-lg border border-gray-200 p-6 hover:border-blue-500 hover:shadow-md transition-all">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-lg bg-green-50 text-green-600 group-hover:bg-green-100">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
+                                </svg>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 mb-2">广告计划</h3>
+                        <p class="text-sm text-gray-600">创建和管理广告计划</p>
+                    </a>
+
+                    <a href="ads.html" class="group bg-white rounded-lg border border-gray-200 p-6 hover:border-blue-500 hover:shadow-md transition-all">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-lg bg-indigo-50 text-indigo-600 group-hover:bg-indigo-100">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                                </svg>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 mb-2">广告单元</h3>
+                        <p class="text-sm text-gray-600">管理广告单元投放</p>
+                    </a>
+
+                    <a href="creatives.html" class="group bg-white rounded-lg border border-gray-200 p-6 hover:border-blue-500 hover:shadow-md transition-all">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-lg bg-pink-50 text-pink-600 group-hover:bg-pink-100">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                                </svg>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 mb-2">创意管理</h3>
+                        <p class="text-sm text-gray-600">管理广告创意素材</p>
+                    </a>
+
+                    <a href="media.html" class="group bg-white rounded-lg border border-gray-200 p-6 hover:border-blue-500 hover:shadow-md transition-all">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-lg bg-purple-50 text-purple-600 group-hover:bg-purple-100">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 mb-2">媒体库</h3>
+                        <p class="text-sm text-gray-600">管理图片和视频素材</p>
+                    </a>
+
+                    <a href="tools-targeting.html" class="group bg-white rounded-lg border border-gray-200 p-6 hover:border-blue-500 hover:shadow-md transition-all">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-lg bg-cyan-50 text-cyan-600 group-hover:bg-cyan-100">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 mb-2">定向工具</h3>
+                        <p class="text-sm text-gray-600">设置广告定向策略</p>
+                    </a>
+
+                    <a href="audiences.html" class="group bg-white rounded-lg border border-gray-200 p-6 hover:border-blue-500 hover:shadow-md transition-all">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-lg bg-teal-50 text-teal-600 group-hover:bg-teal-100">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                                </svg>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 mb-2">人群包</h3>
+                        <p class="text-sm text-gray-600">管理目标人群包</p>
+                    </a>
+
+                    <a href="reports.html" class="group bg-white rounded-lg border border-gray-200 p-6 hover:border-blue-500 hover:shadow-md transition-all">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-lg bg-orange-50 text-orange-600 group-hover:bg-orange-100">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                </svg>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 mb-2">数据报表</h3>
+                        <p class="text-sm text-gray-600">查看广告投放数据</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- SDK 模块与方法标签 -->
+            <section class="mt-12 space-y-6">
+                <!-- 模块总览 -->
+                <div class="bg-white rounded-lg border border-gray-200 p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-bold text-gray-900">SDK 模块总览</h2>
+                        <div class="flex items-center gap-3 text-xs">
+                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-50 text-green-700 ring-1 ring-inset ring-green-200">已对接UI</span>
+                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gray-50 text-gray-600 ring-1 ring-inset ring-gray-200">待接入</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="login.html" class="inline-flex items-center px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-200 text-sm hover:bg-blue-100">
+                            OAuth <span class="ml-1 text-xs opacity-75">(2/5)</span>
+                        </a>
+                        <a href="advertisers.html" class="inline-flex items-center px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-inset ring-green-200 text-sm hover:bg-green-100">广告主 (2)</a>
+                        <a href="campaigns.html" class="inline-flex items-center px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-inset ring-green-200 text-sm hover:bg-green-100">广告计划 (6)</a>
+                        <a href="ads.html" class="inline-flex items-center px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-inset ring-green-200 text-sm hover:bg-green-100">广告单元 (3)</a>
+                        <a href="creatives.html" class="inline-flex items-center px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-inset ring-green-200 text-sm hover:bg-green-100">创意 (3)</a>
+                        <a href="media.html" class="inline-flex items-center px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-inset ring-green-200 text-sm hover:bg-green-100">媒体库 (4)</a>
+                        <a href="tools-targeting.html" class="inline-flex items-center px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-inset ring-green-200 text-sm hover:bg-green-100">定向工具 (4)</a>
+                        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 ring-1 ring-inset ring-gray-200 text-sm cursor-not-allowed">行业 (1)</span>
+                        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 ring-1 ring-inset ring-gray-200 text-sm cursor-not-allowed">类目 (2)</span>
+                        <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 ring-1 ring-inset ring-gray-200 text-sm cursor-not-allowed">创意词包 (1)</span>
+                        <a href="audiences.html" class="inline-flex items-center px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-inset ring-green-200 text-sm hover:bg-green-100">人群包 (1)</a>
+                    </div>
+                </div>
+
+                <!-- 方法清单 (32) -->
+                <div class="bg-white rounded-lg border border-gray-200 p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-bold text-gray-900">SDK 方法清单 <span class="text-sm text-gray-500">(共 32)</span></h2>
+                        <p class="text-xs text-gray-500">仅静态UI映射，非API联调</p>
+                    </div>
+
+                    <!-- OAuth -->
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">OAuth (5)</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="login.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">OauthConnect()</a>
+                            <a href="callback.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">OauthAccessToken()</a>
+                            <span class="px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 ring-1 ring-gray-200 text-xs">OauthRenewRefreshToken()</span>
+                            <span class="px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 ring-1 ring-gray-200 text-xs">OauthClientAccessToken()</span>
+                            <span class="px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 ring-1 ring-gray-200 text-xs">OauthUserinfo()</span>
+                        </div>
+                    </div>
+
+                    <!-- 广告主 -->
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">广告主 (2)</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="advertisers.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">AdvertiserGet()</a>
+                            <a href="advertiser-detail.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">AdvertiserDetail()</a>
+                        </div>
+                    </div>
+
+                    <!-- 广告计划 -->
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">广告计划 (6)</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="campaigns.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">AdListGet()</a>
+                            <a href="campaign-detail.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">AdDetailGet()</a>
+                            <a href="campaign-create.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">AdCreate()</a>
+                            <a href="campaign-edit.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">AdUpdate()</a>
+                            <a href="campaigns.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">AdUpdateStatus()</a>
+                            <a href="campaign-detail.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">AdRejectReason()</a>
+                        </div>
+                    </div>
+
+                    <!-- 广告单元 -->
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">广告单元 (3)</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="ads.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">AdGet()</a>
+                            <a href="ad-create.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">AdCreate()</a>
+                            <span class="px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 ring-1 ring-gray-200 text-xs">AdUpdate()</span>
+                        </div>
+                    </div>
+
+                    <!-- 创意 -->
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">创意 (3)</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="creatives.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">CreativeGet()</a>
+                            <a href="creative-upload.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">CreativeCreate()</a>
+                            <span class="px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 ring-1 ring-gray-200 text-xs">CreativeRejectReason()</span>
+                        </div>
+                    </div>
+
+                    <!-- 媒体库 -->
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">媒体库 (4)</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="media.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">FileImageGet()</a>
+                            <a href="media.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">FileVideoGet()</a>
+                            <a href="media.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">FileImageUpload()</a>
+                            <span class="px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 ring-1 ring-gray-200 text-xs">FileVideoAwemeGet()</span>
+                        </div>
+                    </div>
+
+                    <!-- 工具 - 定向 -->
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">工具 · 定向 (4)</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="tools-targeting.html#interest" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">ToolsInterestActionInterestCategory()</a>
+                            <a href="tools-targeting.html#interest" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">ToolsInterestActionInterestKeyword()</a>
+                            <a href="tools-targeting.html#behavior" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">ToolsInterestActionActionCategory()</a>
+                            <a href="tools-targeting.html#behavior" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">ToolsInterestActionActionKeyword()</a>
+                        </div>
+                    </div>
+
+                    <!-- 工具 - 行业 / 类目 / 词包 -->
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">工具 · 行业/类目/词包 (1+2+1)</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 ring-1 ring-gray-200 text-xs">ToolsIndustryGet()</span>
+                            <span class="px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 ring-1 ring-gray-200 text-xs">ToolsAwemeMultiLevelCategoryGet()</span>
+                            <span class="px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 ring-1 ring-gray-200 text-xs">ToolsAwemeCategoryTopAuthorGet()</span>
+                            <span class="px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 ring-1 ring-gray-200 text-xs">ToolsCreativeWordSelect()</span>
+                        </div>
+                    </div>
+
+                    <!-- 人群包 -->
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-2">人群包 (1)</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="audiences.html" class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 ring-1 ring-green-200 text-xs">DmpAudiencesGet()</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="max-w-7xl mx-auto px-8 py-6">
+            <div class="text-center text-sm text-gray-500">
+                © 2025 千川SDK管理平台 · Powered by <span class="font-semibold text-blue-600">Qianchuan API</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

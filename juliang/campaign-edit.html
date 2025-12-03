@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="巨量引擎 - 编辑广告计划配置，修改预算和投放设置">
+    <meta name="theme-color" content="#3b82f6">
+    <title>编辑广告计划 - 巨量引擎管理平台</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .step-active { @apply bg-blue-600 text-white; }
+        .step-completed { @apply bg-green-600 text-white; }
+        .step-pending { @apply bg-gray-200 text-gray-600; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1>
+                    <p class="text-xs text-gray-500">Ad Engine Management</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <button class="relative flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100">
+                    <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                    </svg>
+                    <span class="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-red-500"></span>
+                </button>
+                <button class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100">
+                    <div class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                    </div>
+                    <span class="hidden text-sm font-medium md:inline-block">管理员</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="max-w-5xl mx-auto p-6">
+        <!-- Breadcrumb -->
+        <div class="flex items-center text-sm text-gray-500 mb-4">
+            <a href="index.html" class="hover:text-blue-600">首页</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <a href="campaigns.html" class="hover:text-blue-600">广告计划</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <a href="campaign-detail.html?id=CMP001" class="hover:text-blue-600">计划详情</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span class="text-gray-900">编辑计划</span>
+        </div>
+
+        <!-- Page Header -->
+        <div class="mb-6">
+            <div class="flex items-center gap-3 mb-2">
+                <h1 class="text-3xl font-bold text-gray-900">编辑广告计划</h1>
+                <span class="px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded">
+                    CMP001
+                </span>
+            </div>
+            <p class="text-gray-600">修改计划配置信息</p>
+        </div>
+
+        <!-- Steps Progress -->
+        <div class="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div class="flex-1 flex items-center">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full step-active" id="step1-icon">
+                        <span class="font-semibold">1</span>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-gray-900">基本信息</p>
+                        <p class="text-xs text-gray-500">计划名称和预算</p>
+                    </div>
+                </div>
+                <div class="flex-shrink-0 w-16 h-0.5 bg-gray-200 mx-4"></div>
+                <div class="flex-1 flex items-center">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full step-pending" id="step2-icon">
+                        <span class="font-semibold">2</span>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-gray-900">定向设置</p>
+                        <p class="text-xs text-gray-500">目标人群定向</p>
+                    </div>
+                </div>
+                <div class="flex-shrink-0 w-16 h-0.5 bg-gray-200 mx-4"></div>
+                <div class="flex-1 flex items-center">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full step-pending" id="step3-icon">
+                        <span class="font-semibold">3</span>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-gray-900">出价策略</p>
+                        <p class="text-xs text-gray-500">出价和优化目标</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <form id="campaignForm">
+            <!-- Step 1: Basic Info -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6 mb-6" id="step1">
+                <h2 class="text-xl font-bold text-gray-900 mb-6">基本信息</h2>
+                
+                <div class="space-y-6">
+                    <!-- Advertiser (Read-only) -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">广告主</label>
+                        <input type="text" value="美妆旗舰店" disabled 
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg bg-gray-50 text-gray-600">
+                        <p class="mt-1 text-xs text-gray-500">广告主信息不可修改</p>
+                    </div>
+
+                    <!-- Campaign Name -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            计划名称 <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" required value="春节大促-美妆品类-01-09" 
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Marketing Goal (Read-only after creation) -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">营销目标</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div class="p-4 border-2 border-blue-600 bg-blue-50 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <div class="p-2 rounded-lg bg-blue-100">
+                                        <svg class="h-5 w-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-sm font-medium">直播带货</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-2 text-xs text-gray-500">营销目标在创建后不可修改</p>
+                    </div>
+
+                    <!-- Budget Settings -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                预算类型 <span class="text-red-500">*</span>
+                            </label>
+                            <select required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="BUDGET_MODE_DAY" selected>日预算</option>
+                                <option value="BUDGET_MODE_TOTAL">总预算</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                预算金额 (元) <span class="text-red-500">*</span>
+                            </label>
+                            <input type="number" required min="300" step="0.01" value="5000" 
+                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+
+                    <!-- Schedule -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">投放时间</label>
+                        <div class="space-y-3">
+                            <label class="flex items-center gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                <input type="radio" name="schedule" value="always" checked class="w-4 h-4 text-blue-600">
+                                <div>
+                                    <p class="font-medium text-gray-900">长期投放</p>
+                                    <p class="text-sm text-gray-500">持续投放，直到手动停止</p>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                <input type="radio" name="schedule" value="custom" class="w-4 h-4 text-blue-600">
+                                <div class="flex-1">
+                                    <p class="font-medium text-gray-900">指定时间段</p>
+                                    <div class="mt-3 grid grid-cols-2 gap-3">
+                                        <input type="date" value="2025-01-09" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                                        <input type="date" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-3 mt-6 pt-6 border-t">
+                    <a href="campaign-detail.html?id=CMP001" class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                        取消
+                    </a>
+                    <button type="button" onclick="nextStep(2)" class="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        下一步
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Targeting (预填充数据) -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6 mb-6 hidden" id="step2">
+                <h2 class="text-xl font-bold text-gray-900 mb-6">定向设置</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">地域定向</label>
+                        <div class="p-4 border border-gray-200 rounded-lg">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-sm text-gray-600">已选择 3 个地区</span>
+                                <button type="button" class="text-sm text-blue-600 hover:underline">修改地区</button>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="inline-flex items-center gap-1 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm">
+                                    北京
+                                    <button type="button" class="hover:bg-blue-100 rounded-full p-0.5">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                        </svg>
+                                    </button>
+                                </span>
+                                <span class="inline-flex items-center gap-1 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm">
+                                    上海
+                                    <button type="button" class="hover:bg-blue-100 rounded-full p-0.5">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                        </svg>
+                                    </button>
+                                </span>
+                                <span class="inline-flex items-center gap-1 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm">
+                                    广东省
+                                    <button type="button" class="hover:bg-blue-100 rounded-full p-0.5">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                        </svg>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">年龄</label>
+                            <select multiple class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" size="5">
+                                <option value="18-23">18-23岁</option>
+                                <option value="24-30" selected>24-30岁</option>
+                                <option value="31-40" selected>31-40岁</option>
+                                <option value="41-49">41-49岁</option>
+                                <option value="50+">50岁以上</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">性别</label>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                    <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded">
+                                    <span class="text-sm">不限</span>
+                                </label>
+                                <label class="flex items-center gap-2 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                    <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                                    <span class="text-sm">男性</span>
+                                </label>
+                                <label class="flex items-center gap-2 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                    <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                                    <span class="text-sm">女性</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">兴趣定向</label>
+                        <div class="p-4 border border-gray-200 rounded-lg space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-600">已选择兴趣类目</span>
+                                <a href="tools-targeting.html" target="_blank" class="text-sm text-blue-600 hover:underline">
+                                    打开定向工具
+                                </a>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">美妆护肤</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">时尚穿搭</span>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">数码科技</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">人群包</label>
+                        <select class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="">不使用人群包</option>
+                            <option value="1" selected>高价值用户群</option>
+                            <option value="2">潜在购买用户</option>
+                            <option value="3">活跃粉丝群</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex justify-between gap-3 mt-6 pt-6 border-t">
+                    <button type="button" onclick="prevStep(1)" class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                        上一步
+                    </button>
+                    <div class="flex gap-3">
+                        <a href="campaign-detail.html?id=CMP001" class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                            取消
+                        </a>
+                        <button type="button" onclick="nextStep(3)" class="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            下一步
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Bidding -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6 mb-6 hidden" id="step3">
+                <h2 class="text-xl font-bold text-gray-900 mb-6">出价策略</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">出价方式 <span class="text-red-500">*</span></label>
+                        <div class="space-y-3">
+                            <label class="flex items-start gap-3 p-4 border-2 border-blue-600 bg-blue-50 rounded-lg cursor-pointer">
+                                <input type="radio" name="biddingType" value="OCPM" checked class="mt-1 w-4 h-4 text-blue-600">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-medium text-gray-900">OCPM (推荐)</span>
+                                        <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full">智能优化</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mt-1">系统自动优化出价，提升转化效果</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            出价金额 (元) <span class="text-red-500">*</span>
+                        </label>
+                        <input type="number" required min="0.1" step="0.01" value="5.00" 
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <p class="mt-2 text-xs text-gray-500">建议出价: ¥3.50 - ¥8.00</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">转化目标</label>
+                        <select class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="click">点击</option>
+                            <option value="view">观看</option>
+                            <option value="consult" selected>咨询</option>
+                            <option value="order">下单</option>
+                            <option value="pay">支付</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">智能出价</label>
+                        <label class="flex items-center gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                            <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded">
+                            <div>
+                                <p class="font-medium text-gray-900">均衡投放</p>
+                                <p class="text-sm text-gray-600 mt-1">平均分配预算，避免集中消耗</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex justify-between gap-3 mt-6 pt-6 border-t">
+                    <button type="button" onclick="prevStep(2)" class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                        上一步
+                    </button>
+                    <div class="flex gap-3">
+                        <a href="campaign-detail.html?id=CMP001" class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                            取消
+                        </a>
+                        <button type="submit" class="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            保存修改
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        let currentStep = 1;
+
+        function nextStep(step) {
+            document.getElementById(`step${currentStep}`).classList.add('hidden');
+            document.getElementById(`step${currentStep}-icon`).classList.remove('step-active');
+            document.getElementById(`step${currentStep}-icon`).classList.add('step-completed');
+            
+            currentStep = step;
+            document.getElementById(`step${currentStep}`).classList.remove('hidden');
+            document.getElementById(`step${currentStep}-icon`).classList.remove('step-pending');
+            document.getElementById(`step${currentStep}-icon`).classList.add('step-active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function prevStep(step) {
+            document.getElementById(`step${currentStep}`).classList.add('hidden');
+            document.getElementById(`step${currentStep}-icon`).classList.remove('step-active');
+            document.getElementById(`step${currentStep}-icon`).classList.add('step-pending');
+            
+            currentStep = step;
+            document.getElementById(`step${currentStep}`).classList.remove('hidden');
+            document.getElementById(`step${currentStep}-icon`).classList.remove('step-completed');
+            document.getElementById(`step${currentStep}-icon`).classList.add('step-active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('campaignForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> 保存中...';
+            
+            setTimeout(() => {
+                alert('计划修改成功！');
+                window.location.href = 'campaign-detail.html?id=CMP001';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

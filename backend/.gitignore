@@ -1,0 +1,43 @@
+# 二进制文件
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+/build/
+/tmp/
+
+# 测试
+*.test
+*.out
+coverage.txt
+coverage.html
+
+# 依赖
+/vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# 环境配置
+.env
+.env.local
+.env.*.local
+config/settings.local.yml
+
+# 日志
+logs/
+*.log
+
+# 调试
+__debug_bin
+
+# macOS
+.DS_Store
+
+# Air 热重载临时文件
+tmp/

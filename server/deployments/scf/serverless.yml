@@ -1,0 +1,44 @@
+# 腾讯云 Serverless Framework 配置
+# https://cloud.tencent.com/document/product/1154
+
+component: scf
+name: oceanengine-api
+app: oceanengine-app
+
+inputs:
+  name: oceanengine-api
+  region: ap-guangzhou
+  runtime: Go1
+  handler: main
+  src:
+    src: ./
+    exclude:
+      - .env
+      - .env.example
+  memorySize: 128
+  timeout: 30
+  environment:
+    variables:
+      SERVER_MODE: release
+      OCEANENGINE_APP_ID: ${env:OCEANENGINE_APP_ID}
+      OCEANENGINE_APP_SECRET: ${env:OCEANENGINE_APP_SECRET}
+  events:
+    - apigw:
+        parameters:
+          name: oceanengine-gateway
+          protocols:
+            - https
+          environment: release
+          endpoints:
+            - path: /health
+              method: GET
+            - path: /api/v1/oauth/auth_url
+              method: POST
+            - path: /api/v1/oauth/access_token
+              method: POST
+            - path: /api/v1/oauth/refresh_token
+              method: POST
+            - path: /api/v1/advertiser/list
+              method: GET
+            - path: /api/v1/advertiser/info
+              method: POST

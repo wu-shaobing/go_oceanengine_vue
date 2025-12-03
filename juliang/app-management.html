@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>应用管理 - 巨量引擎</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#f1f5f9}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}</style>
+</head>
+<body class="bg-gray-50">
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <div class="hidden md:block"><h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1></div>
+            </div>
+        </div>
+    </header>
+    <div class="flex">
+        <aside class="w-64 bg-white border-r border-gray-200 min-h-[calc(100vh-64px)] sticky top-16">
+            <nav class="p-4"><div><h3 class="mb-3 px-3 text-xs font-semibold text-gray-500 uppercase">工具中心</h3><ul class="space-y-1"><li><a href="app-management.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white font-medium shadow-sm"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg><span>应用管理</span></a></li><li><a href="query-tools.html" class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><span>查询工具</span></a></li></ul></div></nav>
+        </aside>
+        <main class="flex-1 p-8">
+            <div class="max-w-7xl mx-auto space-y-6">
+                <div class="flex items-center justify-between"><div><h1 class="text-3xl font-bold text-gray-900">应用管理</h1><p class="mt-2 text-gray-600">管理投放应用和下载链接</p></div><button class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>添加应用</button></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-lg border border-gray-200 p-6"><div class="flex items-center justify-between mb-4"><span class="text-gray-600 text-sm">应用总数</span><svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg></div><p class="text-3xl font-bold text-gray-900">45</p></div>
+                    <div class="bg-white rounded-lg border border-gray-200 p-6"><div class="flex items-center justify-between mb-4"><span class="text-gray-600 text-sm">投放中</span><svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><p class="text-3xl font-bold text-gray-900">32</p></div>
+                    <div class="bg-white rounded-lg border border-gray-200 p-6"><div class="flex items-center justify-between mb-4"><span class="text-gray-600 text-sm">本月新增</span><svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg></div><p class="text-3xl font-bold text-gray-900">8</p></div>
+                </div>
+                <div class="bg-white rounded-lg border border-gray-200">
+                    <div class="p-6 bg-gray-50 border-b border-gray-200"><div class="grid grid-cols-1 md:grid-cols-4 gap-4"><div><input type="text" class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg" placeholder="搜索应用名称"></div><div><select class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg"><option>全部平台</option><option>iOS</option><option>Android</option></select></div><div><select class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg"><option>全部状态</option><option>正常</option><option>审核中</option><option>已下线</option></select></div><div class="flex gap-2"><button class="flex-1 h-10 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700">查询</button><button class="h-10 px-4 bg-white border border-gray-300 text-gray-700 rounded-lg">重置</button></div></div></div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-100 border-b border-gray-200"><tr><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">应用信息</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">应用ID</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">平台</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">下载量</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">状态</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">创建时间</th><th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">操作</th></tr></thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="hover:bg-blue-50"><td class="px-6 py-4"><div class="flex items-center"><div class="h-12 w-12 rounded-lg bg-blue-100 flex items-center justify-center"><svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg></div><div class="ml-4"><div class="text-sm font-medium text-gray-900">电商购物App</div><div class="text-sm text-gray-500">v2.5.0</div></div></div></td><td class="px-6 py-4 text-sm font-mono text-gray-900">APP001</td><td class="px-6 py-4"><span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">iOS</span></td><td class="px-6 py-4 text-sm text-gray-900">12,856</td><td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">正常</span></td><td class="px-6 py-4 text-sm text-gray-600">2024-12-15</td><td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-900 mr-2">编辑</button><button class="text-gray-600 hover:text-gray-900">查看</button></td></tr>
+                                <tr class="hover:bg-blue-50"><td class="px-6 py-4"><div class="flex items-center"><div class="h-12 w-12 rounded-lg bg-green-100 flex items-center justify-center"><svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg></div><div class="ml-4"><div class="text-sm font-medium text-gray-900">在线教育App</div><div class="text-sm text-gray-500">v1.8.5</div></div></div></td><td class="px-6 py-4 text-sm font-mono text-gray-900">APP002</td><td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">Android</span></td><td class="px-6 py-4 text-sm text-gray-900">8,945</td><td class="px-6 py-4"><span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">正常</span></td><td class="px-6 py-4 text-sm text-gray-600">2025-01-02</td><td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-900 mr-2">编辑</button><button class="text-gray-600 hover:text-gray-900">查看</button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex items-center justify-between px-6 py-4 border-t border-gray-200"><div class="text-sm text-gray-600">显示 1 到 10 条，共 45 条</div><div class="flex gap-2"><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50" disabled>上一页</button><button class="px-3 py-2 bg-blue-600 text-white rounded-lg">1</button><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">2</button><button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">下一页</button></div></div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

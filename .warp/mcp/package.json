@@ -1,0 +1,79 @@
+{
+  "name": "douyin-mcp-servers",
+  "version": "1.0.0",
+  "description": "MCP servers configuration for douyin project",
+  "private": true,
+  "scripts": {
+    "install-all": "npm install",
+    "list": "npm list --depth=0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.5.0"
+  },
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-chrome-devtools"]
+    },
+    "neon": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-neon"]
+    },
+    "supabase-memory": {
+      "command": "npx",
+      "args": ["-y", "@letta/memory-mcp"]
+    },
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-figma"]
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/memory-mcp"]
+    },
+    "mem0-memory": {
+      "command": "npx",
+      "args": ["-y", "@memOai/mem0-memory-mcp"]
+    },
+    "replicate": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-replicate"]
+    },
+    "vercel-weather": {
+      "command": "npx",
+      "args": ["-y", "@vercel/mcp-server-weather"]
+    },
+    "perplexity": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-perplexity"]
+    },
+    "cloudflare": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-cloudflare"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"]
+    },
+    "stripe": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-stripe"]
+    },
+    "databutton": {
+      "command": "npx",
+      "args": ["-y", "@databutton/mcp-server"]
+    },
+    "semgrep": {
+      "command": "npx",
+      "args": ["-y", "@semgrep/mcp-server"]
+    },
+    "semantic-scholar": {
+      "command": "npx",
+      "args": ["-y", "@hamid-vakilzadeh/mcpsemanticscholar"]
+    }
+  }
+}
+
+
+
+

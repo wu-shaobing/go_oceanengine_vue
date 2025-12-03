@@ -1,0 +1,6 @@
+export { default as Button } from './Button.vue'
+export { default as Input } from './Input.vue'
+export { default as Modal } from './Modal.vue'
+export { default as Breadcrumb } from './Breadcrumb.vue'
+export { default as DataTable } from './DataTable.vue'
+export { default as Pagination } from './Pagination.vue'

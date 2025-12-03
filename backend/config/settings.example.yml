@@ -1,0 +1,56 @@
+# OceanEngine Backend 配置文件示例
+# 复制此文件为 settings.yml 并填入实际值
+
+server:
+  mode: debug           # debug, release, test
+  host: 0.0.0.0
+  port: 8080
+  read_timeout: 30s
+  write_timeout: 30s
+
+database:
+  driver: mysql
+  host: localhost
+  port: 3306
+  database: oceanengine
+  username: your_db_username      # 替换为实际用户名
+  password: your_db_password      # 替换为实际密码
+  charset: utf8mb4
+  max_idle_conns: 10
+  max_open_conns: 100
+  conn_max_lifetime: 1h
+  log_level: info       # silent, error, warn, info
+
+redis:
+  addr: localhost:6379
+  password: ""          # 如有密码请填入
+  db: 0
+  pool_size: 100
+  min_idle_conns: 10
+  dial_timeout: 5s
+  read_timeout: 3s
+  write_timeout: 3s
+
+jwt:
+  secret_key: "your-jwt-secret-key"  # 生产环境请使用复杂密钥
+  issuer: oceanengine
+  access_expire: 2h
+  refresh_expire: 168h  # 7 days
+
+logger:
+  level: debug          # debug, info, warn, error
+  format: console       # json, console
+  output: both          # stdout, file, both
+  filename: logs/app.log
+  max_size: 100         # MB
+  max_backups: 30
+  max_age: 30           # days
+  compress: true
+
+ocean:
+  app_id: ""            # Ocean Engine App ID (从巨量引擎开放平台获取)
+  secret: ""            # Ocean Engine Secret (从巨量引擎开放平台获取)
+  redirect_uri: "http://localhost:8080/api/v1/advertisers/oauth/callback"
+  base_url: "https://ad.oceanengine.com/open_api"
+  timeout: 30s
+  retry_count: 3

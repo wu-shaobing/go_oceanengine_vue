@@ -1,0 +1,703 @@
+---
+globs: ["**/*.service.ts", "**/services/**/*.ts", "**/api/**/*.ts"]
+---
+
+# API 服务规范
+
+## 文件结构
+
+```
+src/
+├── services/
+│   ├── user.service.ts       # 用户相关 API
+│   ├── product.service.ts    # 商品相关 API
+│   └── types/
+│       ├── user.types.ts     # 用户类型定义
+│       └── product.types.ts  # 商品类型定义
+└── types/
+    └── common.types.ts       # 公共类型定义
+```
+
+## 标准模板
+
+### 基础 API 服务
+
+```typescript
+// services/user.service.ts
+import type { User, CreateUserDto, UpdateUserDto } from './types/user.types';
+
+const BASE_URL = '/api/users';
+
+/**
+ * 用户 API 服务
+ */
+export const userService = {
+  /**
+   * 获取用户列表
+   * @param params - 查询参数
+   * @returns 用户列表
+   */
+  async getList(params: UserListParams): Promise<UserListResponse> {
+    try {
+      const queryString = new URLSearchParams(
+        params as Record<string, string>
+      ).toString();
+      
+      const response = await fetch(`${BASE_URL}?${queryString}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const result = await response.json();
+      return result.data;
+    } catch (error) {
+      console.error('[userService.getList] 失败:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * 获取用户详情
+   * @param id - 用户 ID
+   * @returns 用户信息
+   */
+  async getDetail(id: string): Promise<User> {
+    try {
+      const response = await fetch(`${BASE_URL}/${id}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const result = await response.json();
+      return result.data;
+    } catch (error) {
+      console.error('[userService.getDetail] 失败:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * 创建用户
+   * @param data - 用户数据
+   * @returns 创建的用户信息
+   */
+  async create(data: CreateUserDto): Promise<User> {
+    try {
+      const response = await fetch(BASE_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const result = await response.json();
+      return result.data;
+    } catch (error) {
+      console.error('[userService.create] 失败:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * 更新用户
+   * @param id - 用户 ID
+   * @param data - 更新数据
+   * @returns 更新后的用户信息
+   */
+  async update(id: string, data: UpdateUserDto): Promise<User> {
+    try {
+      const response = await fetch(`${BASE_URL}/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const result = await response.json();
+      return result.data;
+    } catch (error) {
+      console.error('[userService.update] 失败:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * 删除用户
+   * @param id - 用户 ID
+   */
+  async delete(id: string): Promise<void> {
+    try {
+      const response = await fetch(`${BASE_URL}/${id}`, {
+        method: 'DELETE',
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('[userService.delete] 失败:', error);
+      throw error;
+    }
+  },
+};
+```
+
+## 请求封装
+
+### 基础请求函数
+
+```typescript
+// utils/request.ts
+
+interface RequestOptions extends RequestInit {
+  params?: Record<string, any>;
+  timeout?: number;
+}
+
+interface ApiResponse<T = any> {
+  code: number;
+  message: string;
+  data: T;
+}
+
+/**
+ * 统一的请求封装
+ */
+export async function request<T = any>(
+  url: string,
+  options: RequestOptions = {}
+): Promise<T> {
+  const { params, timeout = 10000, ...fetchOptions } = options;
+
+  // 构建完整 URL
+  let fullUrl = url;
+  if (params) {
+    const queryString = new URLSearchParams(params).toString();
+    fullUrl = `${url}?${queryString}`;
+  }
+
+  // 设置默认 headers
+  const headers = {
+    'Content-Type': 'application/json',
+    ...fetchOptions.headers,
+  };
+
+  // 创建超时控制
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+  try {
+    const response = await fetch(fullUrl, {
+      ...fetchOptions,
+      headers,
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    // 检查 HTTP 状态
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    // 解析响应
+    const result: ApiResponse<T> = await response.json();
+
+    // 检查业务状态码
+    if (result.code !== 0) {
+      throw new Error(result.message || '请求失败');
+    }
+
+    return result.data;
+  } catch (error) {
+    clearTimeout(timeoutId);
+
+    // 处理超时
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new Error('请求超时');
+    }
+
+    // 处理网络错误
+    if (error instanceof TypeError) {
+      throw new Error('网络错误，请检查网络连接');
+    }
+
+    throw error;
+  }
+}
+
+// 便捷方法
+export const http = {
+  get: <T = any>(url: string, options?: RequestOptions) =>
+    request<T>(url, { ...options, method: 'GET' }),
+
+  post: <T = any>(url: string, data?: any, options?: RequestOptions) =>
+    request<T>(url, {
+      ...options,
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+
+  put: <T = any>(url: string, data?: any, options?: RequestOptions) =>
+    request<T>(url, {
+      ...options,
+      method: 'PUT',
+      body: JSON.stringify(data),
+    }),
+
+  delete: <T = any>(url: string, options?: RequestOptions) =>
+    request<T>(url, { ...options, method: 'DELETE' }),
+
+  patch: <T = any>(url: string, data?: any, options?: RequestOptions) =>
+    request<T>(url, {
+      ...options,
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    }),
+};
+```
+
+### 使用封装的请求
+
+```typescript
+// services/user.service.ts
+import { http } from '@/utils/request';
+import type { User, CreateUserDto, UserListResponse } from './types/user.types';
+
+const BASE_URL = '/api/users';
+
+export const userService = {
+  // GET 请求
+  async getList(params: UserListParams): Promise<UserListResponse> {
+    return http.get<UserListResponse>(BASE_URL, { params });
+  },
+
+  // GET 请求（带路径参数）
+  async getDetail(id: string): Promise<User> {
+    return http.get<User>(`${BASE_URL}/${id}`);
+  },
+
+  // POST 请求
+  async create(data: CreateUserDto): Promise<User> {
+    return http.post<User>(BASE_URL, data);
+  },
+
+  // PUT 请求
+  async update(id: string, data: UpdateUserDto): Promise<User> {
+    return http.put<User>(`${BASE_URL}/${id}`, data);
+  },
+
+  // DELETE 请求
+  async delete(id: string): Promise<void> {
+    return http.delete<void>(`${BASE_URL}/${id}`);
+  },
+};
+```
+
+## 请求拦截器
+
+### 添加认证 Token
+
+```typescript
+// utils/request.ts
+
+// 请求拦截
+function addAuthToken(options: RequestOptions): RequestOptions {
+  const token = localStorage.getItem('access_token');
+  
+  if (token) {
+    return {
+      ...options,
+      headers: {
+        ...options.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  }
+  
+  return options;
+}
+
+// 在 request 函数中使用
+export async function request<T = any>(
+  url: string,
+  options: RequestOptions = {}
+): Promise<T> {
+  // 添加认证信息
+  const requestOptions = addAuthToken(options);
+  
+  // ... 其他逻辑
+}
+```
+
+### 响应拦截和错误处理
+
+```typescript
+// 统一错误处理
+class ApiError extends Error {
+  code: number;
+  data?: any;
+
+  constructor(message: string, code: number, data?: any) {
+    super(message);
+    this.name = 'ApiError';
+    this.code = code;
+    this.data = data;
+  }
+}
+
+// 响应拦截
+async function handleResponse<T>(response: Response): Promise<T> {
+  const result: ApiResponse<T> = await response.json();
+
+  // 业务错误处理
+  switch (result.code) {
+    case 0:
+      return result.data;
+    
+    case 401:
+      // 未授权，跳转登录
+      window.location.href = '/login';
+      throw new ApiError('未授权', 401);
+    
+    case 403:
+      // 无权限
+      throw new ApiError('无权限访问', 403);
+    
+    case 404:
+      throw new ApiError('资源不存在', 404);
+    
+    case 500:
+      throw new ApiError('服务器错误', 500);
+    
+    default:
+      throw new ApiError(result.message || '请求失败', result.code, result.data);
+  }
+}
+```
+
+## 文件上传
+
+```typescript
+/**
+ * 上传文件
+ * @param file - 文件对象
+ * @param onProgress - 上传进度回调
+ */
+export async function uploadFile(
+  file: File,
+  onProgress?: (progress: number) => void
+): Promise<{ url: string }> {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+
+    // 监听上传进度
+    if (onProgress) {
+      xhr.upload.addEventListener('progress', (e) => {
+        if (e.lengthComputable) {
+          const progress = Math.round((e.loaded / e.total) * 100);
+          onProgress(progress);
+        }
+      });
+    }
+
+    // 监听完成
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        const result = JSON.parse(xhr.responseText);
+        resolve(result.data);
+      } else {
+        reject(new Error('上传失败'));
+      }
+    });
+
+    // 监听错误
+    xhr.addEventListener('error', () => {
+      reject(new Error('上传失败'));
+    });
+
+    // 发送请求
+    xhr.open('POST', '/api/upload');
+    xhr.setRequestHeader('Authorization', `Bearer ${getToken()}`);
+    xhr.send(formData);
+  });
+}
+
+// 使用示例
+async function handleFileUpload(file: File) {
+  try {
+    const { url } = await uploadFile(file, (progress) => {
+      console.log(`上传进度: ${progress}%`);
+    });
+    console.log('文件地址:', url);
+  } catch (error) {
+    console.error('上传失败:', error);
+  }
+}
+```
+
+## 批量请求
+
+```typescript
+/**
+ * 并发请求控制
+ * @param tasks - 任务列表
+ * @param limit - 并发限制
+ */
+export async function concurrentRequest<T>(
+  tasks: (() => Promise<T>)[],
+  limit: number = 5
+): Promise<T[]> {
+  const results: T[] = [];
+  const executing: Promise<void>[] = [];
+
+  for (const task of tasks) {
+    const promise = task().then((result) => {
+      results.push(result);
+      executing.splice(executing.indexOf(promise), 1);
+    });
+
+    executing.push(promise);
+
+    if (executing.length >= limit) {
+      await Promise.race(executing);
+    }
+  }
+
+  await Promise.all(executing);
+  return results;
+}
+
+// 使用示例
+const userIds = ['1', '2', '3', '4', '5'];
+const tasks = userIds.map(id => () => userService.getDetail(id));
+
+const users = await concurrentRequest(tasks, 3); // 最多 3 个并发
+```
+
+## 请求重试
+
+```typescript
+/**
+ * 带重试的请求
+ * @param fn - 请求函数
+ * @param maxRetries - 最大重试次数
+ * @param delay - 重试延迟（毫秒）
+ */
+export async function requestWithRetry<T>(
+  fn: () => Promise<T>,
+  maxRetries: number = 3,
+  delay: number = 1000
+): Promise<T> {
+  let lastError: Error;
+
+  for (let i = 0; i <= maxRetries; i++) {
+    try {
+      return await fn();
+    } catch (error) {
+      lastError = error as Error;
+      
+      if (i < maxRetries) {
+        console.warn(`请求失败，${delay}ms 后重试 (${i + 1}/${maxRetries})`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    }
+  }
+
+  throw lastError!;
+}
+
+// 使用示例
+const user = await requestWithRetry(
+  () => userService.getDetail('123'),
+  3,  // 最多重试 3 次
+  1000  // 每次延迟 1 秒
+);
+```
+
+## 请求缓存
+
+```typescript
+/**
+ * 简单的请求缓存
+ */
+class RequestCache {
+  private cache = new Map<string, { data: any; timestamp: number }>();
+  private ttl: number; // 缓存时间（毫秒）
+
+  constructor(ttl: number = 5 * 60 * 1000) {
+    this.ttl = ttl;
+  }
+
+  get<T>(key: string): T | null {
+    const cached = this.cache.get(key);
+    
+    if (!cached) {
+      return null;
+    }
+
+    // 检查是否过期
+    if (Date.now() - cached.timestamp > this.ttl) {
+      this.cache.delete(key);
+      return null;
+    }
+
+    return cached.data as T;
+  }
+
+  set(key: string, data: any): void {
+    this.cache.set(key, {
+      data,
+      timestamp: Date.now(),
+    });
+  }
+
+  clear(): void {
+    this.cache.clear();
+  }
+}
+
+const cache = new RequestCache(5 * 60 * 1000); // 5 分钟缓存
+
+/**
+ * 带缓存的请求
+ */
+export async function cachedRequest<T>(
+  key: string,
+  fn: () => Promise<T>
+): Promise<T> {
+  // 尝试从缓存获取
+  const cached = cache.get<T>(key);
+  if (cached !== null) {
+    console.log('从缓存返回:', key);
+    return cached;
+  }
+
+  // 执行请求
+  const data = await fn();
+  
+  // 存入缓存
+  cache.set(key, data);
+  
+  return data;
+}
+
+// 使用示例
+const user = await cachedRequest(
+  `user:${userId}`,
+  () => userService.getDetail(userId)
+);
+```
+
+## 强制行为
+
+- 每个 API 函数必须有对应的请求/响应类型
+- 必须处理 HTTP 错误（检查 response.ok）
+- 必须处理业务错误（检查 result.code）
+- 必须添加 JSDoc 注释
+- 使用 async/await 而非 Promise 链
+- GET 请求使用 query 参数
+- POST/PUT 请求使用 JSON body
+- 统一的错误日志格式：`[serviceName.methodName] 失败:`
+
+## 禁止行为
+
+- ❌ 不要在组件中直接写 fetch
+- ❌ 不要硬编码 API 地址（使用环境变量或配置文件）
+- ❌ 不要忽略错误处理
+- ❌ 不要在 service 层处理 UI 逻辑（如 alert、toast）
+- ❌ 不要在 catch 中吞掉错误（必须 throw 或 log）
+- ❌ 不要使用 any 作为响应类型
+- ❌ 不要在 service 中直接操作 localStorage（应该在拦截器中）
+
+## 最佳实践
+
+### 1. 按模块组织服务
+
+```typescript
+// ✅ 好的方式
+services/
+├── user.service.ts
+├── product.service.ts
+├── order.service.ts
+└── types/
+    ├── user.types.ts
+    ├── product.types.ts
+    └── order.types.ts
+
+// ❌ 不好的方式
+services/
+├── api.service.ts  // 所有 API 都在一个文件
+```
+
+### 2. 统一响应格式
+
+```typescript
+// ✅ 统一的响应类型
+interface ApiResponse<T> {
+  code: number;
+  message: string;
+  data: T;
+}
+
+// ✅ 统一的分页响应
+interface PageResponse<T> {
+  list: T[];
+  total: number;
+  page: number;
+  pageSize: number;
+}
+```
+
+### 3. 导出服务对象而非单个函数
+
+```typescript
+// ✅ 推荐：导出服务对象
+export const userService = {
+  getList,
+  getDetail,
+  create,
+  update,
+  delete,
+};
+
+// ❌ 不推荐：导出单个函数
+export async function getUserList() {}
+export async function getUserDetail() {}
+```
+
+### 4. 使用环境变量
+
+```typescript
+// ✅ 正确
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3000';
+
+// ❌ 错误
+const API_BASE_URL = 'http://localhost:3000'; // 硬编码
+```
+
+## 质量检查清单
+
+- [ ] 所有 API 函数有类型定义
+- [ ] 所有函数有 JSDoc 注释
+- [ ] 包含完整的错误处理
+- [ ] 使用统一的请求封装
+- [ ] 响应类型明确
+- [ ] 没有硬编码的 URL
+- [ ] 日志格式统一
+- [ ] 超时设置合理

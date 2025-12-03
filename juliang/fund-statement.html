@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="巨量引擎 - 对账单，查看和下载月度对账单">
+    <meta name="theme-color" content="#3b82f6">
+    <title>对账单 - 巨量引擎管理平台</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200">
+        <div class="flex h-16 items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="text-lg font-bold text-gray-900">巨量引擎管理平台</h1>
+                    <p class="text-xs text-gray-500">Ad Engine Management</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="max-w-7xl mx-auto p-6">
+        <div class="flex items-center text-sm text-gray-500 mb-4">
+            <a href="index.html" class="hover:text-blue-600">首页</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <a href="fund-balance.html" class="hover:text-blue-600">资金管理</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span class="text-gray-900">对账单</span>
+        </div>
+
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">对账单</h1>
+                <p class="mt-2 text-gray-600">查看和下载月度对账单</p>
+            </div>
+        </div>
+
+        <!-- Filter -->
+        <div class="bg-white rounded-lg border border-gray-200 p-4 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">广告主</label>
+                    <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option>全部账户</option>
+                        <option>美妆旗舰店</option>
+                        <option>数码专营店</option>
+                        <option>服饰品牌店</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">年份</label>
+                    <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option>2025</option>
+                        <option>2024</option>
+                    </select>
+                </div>
+                <div class="flex items-end">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">查询</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statements List -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">2025年1月</h3>
+                        <p class="text-sm text-gray-600 mt-1">美妆旗舰店</p>
+                    </div>
+                    <span class="px-2 py-1 text-xs bg-green-50 text-green-700 rounded-full">已生成</span>
+                </div>
+                <div class="space-y-2 mb-4">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">充值金额</span>
+                        <span class="font-medium text-green-600">¥185,000</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">消耗金额</span>
+                        <span class="font-medium text-red-600">¥152,340</span>
+                    </div>
+                    <div class="flex justify-between text-sm pt-2 border-t border-gray-200">
+                        <span class="text-gray-600">余额</span>
+                        <span class="font-bold text-gray-900">¥125,680</span>
+                    </div>
+                </div>
+                <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    下载PDF
+                </button>
+            </div>
+
+            <div class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">2024年12月</h3>
+                        <p class="text-sm text-gray-600 mt-1">美妆旗舰店</p>
+                    </div>
+                    <span class="px-2 py-1 text-xs bg-green-50 text-green-700 rounded-full">已生成</span>
+                </div>
+                <div class="space-y-2 mb-4">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">充值金额</span>
+                        <span class="font-medium text-green-600">¥165,000</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">消耗金额</span>
+                        <span class="font-medium text-red-600">¥143,220</span>
+                    </div>
+                    <div class="flex justify-between text-sm pt-2 border-t border-gray-200">
+                        <span class="text-gray-600">余额</span>
+                        <span class="font-bold text-gray-900">¥93,020</span>
+                    </div>
+                </div>
+                <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    下载PDF
+                </button>
+            </div>
+
+            <div class="bg-white rounded-lg border border-gray-200 p-6 opacity-60">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">2024年11月</h3>
+                        <p class="text-sm text-gray-600 mt-1">美妆旗舰店</p>
+                    </div>
+                    <span class="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full">生成中</span>
+                </div>
+                <div class="space-y-2 mb-4">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">充值金额</span>
+                        <span class="font-medium">--</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">消耗金额</span>
+                        <span class="font-medium">--</span>
+                    </div>
+                    <div class="flex justify-between text-sm pt-2 border-t border-gray-200">
+                        <span class="text-gray-600">余额</span>
+                        <span class="font-bold">--</span>
+                    </div>
+                </div>
+                <button disabled class="w-full px-4 py-2 bg-gray-300 text-gray-500 rounded-lg cursor-not-allowed">
+                    生成中...
+                </button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>快速导航 - 巨量引擎管理平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#f1f5f9}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}</style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-white to-indigo-50 min-h-screen p-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 mb-4">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">巨量引擎管理平台</h1>
+            <p class="text-lg text-gray-600">Ad Engine Management Platform</p>
+            <div class="flex justify-center gap-4 mt-4">
+                <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">33 个页面</span>
+                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">P0 完成 100%</span>
+                <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">统一设计</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 入口页面 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-lg transition-shadow">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">🏠</span> 入口页面
+                </h2>
+                <ul class="space-y-2">
+                    <li><a href="index.html" class="text-blue-600 hover:underline">首页门户</a></li>
+                    <li><a href="dashboard.html" class="text-blue-600 hover:underline">工作台</a></li>
+                    <li><a href="login.html" class="text-blue-600 hover:underline">登录页</a></li>
+                    <li><a href="callback.html" class="text-blue-600 hover:underline">OAuth 回调</a></li>
+                </ul>
+            </div>
+
+            <!-- 广告主管理 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-lg transition-shadow">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">👤</span> 广告主管理
+                </h2>
+                <ul class="space-y-2">
+                    <li><a href="advertisers.html" class="text-blue-600 hover:underline">广告主列表</a></li>
+                    <li><a href="advertiser-detail.html" class="text-blue-600 hover:underline">广告主详情</a></li>
+                </ul>
+            </div>
+
+            <!-- 广告计划 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-lg transition-shadow">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">📊</span> 广告计划
+                </h2>
+                <ul class="space-y-2">
+                    <li><a href="campaigns.html" class="text-blue-600 hover:underline">计划列表</a></li>
+                    <li><a href="campaign-create.html" class="text-blue-600 hover:underline">创建计划</a></li>
+                    <li><a href="campaign-edit.html" class="text-blue-600 hover:underline">编辑计划</a></li>
+                    <li><a href="campaign-detail.html" class="text-blue-600 hover:underline">计划详情</a></li>
+                </ul>
+            </div>
+
+            <!-- 广告单元 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-lg transition-shadow">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">📢</span> 广告单元
+                </h2>
+                <ul class="space-y-2">
+                    <li><a href="ads.html" class="text-blue-600 hover:underline">广告列表</a></li>
+                    <li><a href="ad-create.html" class="text-blue-600 hover:underline">创建广告</a></li>
+                </ul>
+            </div>
+
+            <!-- 创意管理 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-lg transition-shadow">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">🎨</span> 创意管理
+                </h2>
+                <ul class="space-y-2">
+                    <li><a href="creatives.html" class="text-blue-600 hover:underline">创意列表</a></li>
+                    <li><a href="creative-upload.html" class="text-blue-600 hover:underline">上传创意</a></li>
+                </ul>
+            </div>
+
+            <!-- 资金管理 ⭐ -->
+            <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl shadow-sm p-6 hover:shadow-lg transition-shadow border-2 border-green-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">💰</span> 资金管理 <span class="text-xs bg-green-500 text-white px-2 py-0.5 rounded-full">NEW</span>
+                </h2>
+                <ul class="space-y-2">
+                    <li><a href="fund-balance.html" class="text-blue-600 hover:underline">资金概览</a></li>
+                    <li><a href="fund-recharge.html" class="text-blue-600 hover:underline">账户充值</a></li>
+                    <li><a href="fund-transactions.html" class="text-blue-600 hover:underline">交易明细</a></li>
+                    <li><a href="fund-transfer.html" class="text-blue-600 hover:underline">资金转账</a></li>
+                    <li><a href="fund-statement.html" class="text-blue-600 hover:underline">对账单</a></li>
+                </ul>
+            </div>
+
+            <!-- V3 项目 ⭐ -->
+            <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl shadow-sm p-6 hover:shadow-lg transition-shadow border-2 border-purple-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">📦</span> V3 项目 <span class="text-xs bg-purple-500 text-white px-2 py-0.5 rounded-full">NEW</span>
+                </h2>
+                <ul class="space-y-2">
+                    <li><a href="projects.html" class="text-blue-600 hover:underline">项目列表</a></li>
+                    <li><a href="project-create.html" class="text-blue-600 hover:underline">创建项目</a></li>
+                    <li><a href="project-detail.html" class="text-blue-600 hover:underline">项目详情</a></li>
+                </ul>
+            </div>
+
+            <!-- 搜索广告 ⭐ -->
+            <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl shadow-sm p-6 hover:shadow-lg transition-shadow border-2 border-orange-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">🔍</span> 搜索广告 <span class="text-xs bg-orange-500 text-white px-2 py-0.5 rounded-full">NEW</span>
+                </h2>
+                <ul class="space-y-2">
+                    <li><a href="search-ads.html" class="text-blue-600 hover:underline">搜索广告列表</a></li>
+                    <li><a href="search-ad-create.html" class="text-blue-600 hover:underline">创建搜索广告</a></li>
+                </ul>
+            </div>
+
+            <!-- 事件管理 ⭐ -->
+            <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl shadow-sm p-6 hover:shadow-lg transition-shadow border-2 border-blue-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">📅</span> 事件管理 <span class="text-xs bg-blue-500 text-white px-2 py-0.5 rounded-full">NEW</span>
+                </h2>
+                <ul class="space-y-2">
+                    <li><a href="events.html" class="text-blue-600 hover:underline">事件管理</a></li>
+                    <li><a href="event-assets.html" class="text-blue-600 hover:underline">事件资产</a></li>
+                    <li><a href="event-convert.html" class="text-blue-600 hover:underline">转化追踪</a></li>
+                </ul>
+            </div>
+
+            <!-- 报表分析 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-lg transition-shadow">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">📈</span> 报表分析
+                </h2>
+                <ul class="space-y-2">
+                    <li><a href="reports.html" class="text-blue-600 hover:underline">数据报表</a></li>
+                    <li><a href="reports-custom.html" class="text-blue-600 hover:underline">自定义报表 ⭐</a></li>
+                    <li><a href="reports-attribution.html" class="text-blue-600 hover:underline">归因分析 ⭐</a></li>
+                </ul>
+            </div>
+
+            <!-- 工具 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-lg transition-shadow">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">🛠️</span> 工具
+                </h2>
+                <ul class="space-y-2">
+                    <li><a href="tools-targeting.html" class="text-blue-600 hover:underline">定向工具</a></li>
+                    <li><a href="audiences.html" class="text-blue-600 hover:underline">人群包</a></li>
+                    <li><a href="media.html" class="text-blue-600 hover:underline">媒体库</a></li>
+                </ul>
+            </div>
+
+            <!-- 文档 -->
+            <div class="bg-gray-50 rounded-xl shadow-sm p-6 hover:shadow-lg transition-shadow">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">📚</span> 文档
+                </h2>
+                <ul class="space-y-2">
+                    <li><a href="PAGE_INVENTORY.md" class="text-blue-600 hover:underline">页面清单</a></li>
+                    <li><a href="DESIGN_SYSTEM.md" class="text-blue-600 hover:underline">设计系统</a></li>
+                    <li><a href="UPGRADE_PLAN.md" class="text-blue-600 hover:underline">升级计划</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-12 text-center text-gray-600">
+            <p class="text-sm">创建时间：2025-01-11 | 版本：v1.0.0 | 总计 33 个页面</p>
+            <p class="text-xs mt-2">使用 Tailwind CSS + Heroicons 构建</p>
+        </div>
+    </div>
+</body>
+</html>

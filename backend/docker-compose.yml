@@ -1,0 +1,142 @@
+version: '3.8'
+
+services:
+  # 应用服务
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: oceanengine-backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      - GIN_MODE=${GIN_MODE:-release}
+      - DB_HOST=${DB_HOST:-mysql}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_USER=${DB_USER:-oceanengine}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME:-oceanengine}
+      - REDIS_HOST=${REDIS_HOST:-redis}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - OCEAN_APP_ID=${OCEAN_APP_ID:-}
+      - OCEAN_SECRET=${OCEAN_SECRET:-}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-}
+    volumes:
+      - ./config:/app/config:ro
+      - ./logs:/app/logs
+    networks:
+      - oceanengine-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # MySQL 数据库
+  mysql:
+    image: mysql:8.0
+    container_name: oceanengine-mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-oceanengine}
+      MYSQL_USER: ${MYSQL_USER:-oceanengine}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: Asia/Shanghai
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./scripts/sql:/docker-entrypoint-initdb.d:ro
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
+    networks:
+      - oceanengine-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # Redis 缓存
+  redis:
+    image: redis:7-alpine
+    container_name: oceanengine-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    env_file:
+      - .env
+    volumes:
+      - redis-data:/data
+    command: sh -c "redis-server --appendonly yes $${REDIS_PASSWORD:+--requirepass $$REDIS_PASSWORD}"
+    networks:
+      - oceanengine-network
+    healthcheck:
+      test: ["CMD", "sh", "-lc", "redis-cli $${REDIS_PASSWORD:+-a $$REDIS_PASSWORD} ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # phpMyAdmin (可选，用于数据库管理)
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: oceanengine-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    env_file:
+      - .env
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - oceanengine-network
+    profiles:
+      - tools
+
+  # Redis Commander (可选，用于 Redis 管理)
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: oceanengine-redis-commander
+    restart: unless-stopped
+    ports:
+      - "8082:8081"
+    env_file:
+      - .env
+    environment:
+      REDIS_HOSTS: local:redis:6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - oceanengine-network
+    profiles:
+      - tools
+
+networks:
+  oceanengine-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+  redis-data:

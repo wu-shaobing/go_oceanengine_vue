@@ -1,0 +1,71 @@
+# OceanEngine Backend 配置文件 - CloudStudio 版本
+
+server:
+  mode: debug
+  host: 0.0.0.0
+  port: 8080
+  read_timeout: 30s
+  write_timeout: 30s
+
+# 使用SQLite数据库简化部署
+database:
+  driver: sqlite
+  host: ""
+  port: 0
+  database: ./oceanengine.db
+  username: ""
+  password: ""
+  charset: ""
+  max_idle_conns: 10
+  max_open_conns: 100
+  conn_max_lifetime: 1h
+  log_level: info
+
+# 禁用Redis以简化部署
+redis:
+  addr: ""
+  password: ""
+  db: 0
+  pool_size: 100
+  min_idle_conns: 10
+  dial_timeout: 5s
+  read_timeout: 3s
+  write_timeout: 3s
+
+jwt:
+  secret_key: "oceanengine-jwt-secret-key-2024-cloudstudio"
+  issuer: oceanengine
+  access_expire: 2h
+  refresh_expire: 168h  # 7 days
+
+logger:
+  level: debug
+  format: console
+  output: stdout
+  filename: logs/app.log
+  max_size: 100
+  max_backups: 30
+  max_age: 30
+  compress: true
+
+# 巨量广告配置
+ocean:
+  app_id: "1850175799663708"
+  secret: "45d3a92c5384089f0204b14c1375c28da790a02d"
+  redirect_uri: "http://localhost:8080/api/v1/advertisers/oauth/callback"
+  base_url: "https://ad.oceanengine.com/open_api"
+  auth_url: "https://open.oceanengine.com/audit/oauth.html"
+  timeout: 30s
+  retry_count: 3
+  material_auth: true
+
+# 巨量千川配置
+qianchuan:
+  app_id: "1850228280031387"
+  secret: "a30dd267362779428e97330f49d73216208233a5"
+  redirect_uri: "http://localhost:8080/api/v1/advertisers/oauth/callback"
+  base_url: "https://ad.oceanengine.com/open_api"
+  auth_url: "https://qianchuan.jinritemai.com/openapi/qc/audit/oauth.html"
+  timeout: 30s
+  retry_count: 3
+  material_auth: true
