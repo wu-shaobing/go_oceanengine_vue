@@ -269,10 +269,9 @@ kubectl apply -f .
 
 ## 📞 支持
 
-- 📧 Email: support@example.com
+- 📧 Email: 11489573@qq.com
 - 📖 文档: [docs/](./docs)
 - 🐛 问题反馈: [Issues](../../issues)
 
 ---
 
-**⚠️ 上线前必读**：请务必查看 [PRE_LAUNCH_CHECKLIST_REPORT.md](./PRE_LAUNCH_CHECKLIST_REPORT.md) 完成所有安全检查！
