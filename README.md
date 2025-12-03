@@ -1,3 +1,5 @@
+<img width="1518" height="820" alt="image" src="https://github.com/user-attachments/assets/2cac294a-d15c-4b18-9d8e-8979dab9dda9" />
+
 # OceanEngine 广告管理平台
 
 基于巨量引擎 Marketing API 的广告投放管理系统，提供广告主管理、广告创建、数据报表等一站式服务。
