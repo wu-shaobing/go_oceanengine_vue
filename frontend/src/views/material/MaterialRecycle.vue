@@ -22,6 +22,27 @@ const toggleSelect = (id: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleRestoreSelected = () => {
+  alert(`恢复选中的 ${selectedItems.value.length} 个文件`)
+  selectedItems.value = []
+}
+
+const handleClearRecycle = () => {
+  if (confirm('确定清空回收站?此操作不可恢复!')) {
+    alert('回收站已清空')
+  }
+}
+
+const handleRestoreItem = (item: typeof recycleItems.value[0]) => {
+  alert(`恢复: ${item.name}`)
+}
+
+const handlePermanentDelete = (item: typeof recycleItems.value[0]) => {
+  if (confirm(`永久删除 ${item.name}?此操作不可恢复!`)) {
+    alert('删除成功')
+  }
+}
 </script>
 
 <template>
@@ -34,10 +55,10 @@ const handlePageChange = (page: number) => {
           <p class="mt-2 text-gray-600">已删除的素材将在30天后永久删除</p>
         </div>
         <div class="flex gap-3">
-          <button v-if="selectedItems.length > 0" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button v-if="selectedItems.length > 0" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleRestoreSelected">
             恢复选中 ({{ selectedItems.length }})
           </button>
-          <button class="px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50">
+          <button class="px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50" @click="handleClearRecycle">
             清空回收站
           </button>
         </div>
@@ -100,8 +121,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">恢复</button>
-              <button class="text-red-600 hover:text-red-800">永久删除</button>
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleRestoreItem(item)">恢复</button>
+              <button class="text-red-600 hover:text-red-800" @click="handlePermanentDelete(item)">永久删除</button>
             </td>
           </tr>
         </tbody>

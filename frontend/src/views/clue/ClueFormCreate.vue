@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 
@@ -28,9 +28,30 @@ const removeField = (index: number) => {
   form.fields.splice(index, 1)
 }
 
-const handleSubmit = () => {
-  console.log('Create form:', form)
-  router.push('/clue/form/list')
+const loading = ref(false)
+
+const validateForm = () => {
+  if (!form.name.trim()) {
+    alert('请输入表单名称')
+    return false
+  }
+  if (form.fields.length === 0) {
+    alert('请至少添加一个字段')
+    return false
+  }
+  return true
+}
+
+const handleSubmit = async () => {
+  if (!validateForm()) return
+  loading.value = true
+  try {
+    await new Promise(r => setTimeout(r, 500))
+    alert('表单创建成功')
+    router.push('/clue/form/list')
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 

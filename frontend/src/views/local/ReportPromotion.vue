@@ -34,8 +34,8 @@
             <option value="paused">已暂停</option>
           </select>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
-        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+        <button @click="handleExport" class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
       </div>
     </div>
 
@@ -88,7 +88,7 @@
           <tbody class="divide-y divide-gray-200">
             <tr v-for="item in reportData" :key="item.id">
               <td class="px-4 py-3">
-                <div class="font-medium text-blue-600 hover:underline cursor-pointer">{{ item.name }}</div>
+                <div class="font-medium text-blue-600 hover:underline cursor-pointer" @click="handleViewPromotion(item)">{{ item.name }}</div>
                 <div class="text-xs text-gray-400">{{ item.id }}</div>
               </td>
               <td class="px-4 py-3 text-sm">{{ item.project }}</td>
@@ -119,6 +119,14 @@
 import { ref } from 'vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
+
+const handleSearch = () => {
+  alert('查询推广报表')
+}
+
+const handleExport = () => {
+  alert('导出报表')
+}
 
 const filters = ref({
   startDate: '',
@@ -167,5 +175,9 @@ const formatNumber = (num: number) => {
     return (num / 10000).toFixed(1) + 'w'
   }
   return num.toLocaleString()
+}
+
+const handleViewPromotion = (item: typeof reportData.value[0]) => {
+  alert(`查看推广详情: ${item.name}`)
 }
 </script>

@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">自定义报表</h1>
         <p class="text-gray-600 mt-1">自定义数据维度和指标生成报表</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">新建报表</button>
+<button @click="handleCreate" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">新建报表</button>
     </div>
 
     <!-- 报表列表 -->
@@ -42,9 +42,9 @@
             </td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">查看</button>
-                <button class="text-blue-600 hover:text-blue-800 text-sm">下载</button>
-                <button class="text-red-600 hover:text-red-800 text-sm">删除</button>
+<button @click="handleView(report)" class="text-blue-600 hover:text-blue-800 text-sm">查看</button>
+                <button @click="handleDownload(report)" class="text-blue-600 hover:text-blue-800 text-sm">下载</button>
+                <button @click="handleDelete(report)" class="text-red-600 hover:text-red-800 text-sm">删除</button>
               </div>
             </td>
           </tr>
@@ -69,4 +69,20 @@ const reports = ref([
   { id: 4, name: '关键词转化分析', dimensions: ['关键词', '日期'], createTime: '2024-06-16 11:00', updateTime: '2024-06-16 11:08', status: 'ready' },
   { id: 5, name: '商品销售报表', dimensions: ['商品', '日期'], createTime: '2024-06-15 16:00', updateTime: '2024-06-15 16:00', status: 'pending' }
 ])
+
+const handleCreate = () => {
+  alert('新建报表')
+}
+
+const handleView = (report: typeof reports.value[0]) => {
+  alert(`查看报表: ${report.name}`)
+}
+
+const handleDownload = (report: typeof reports.value[0]) => {
+  alert(`下载报表: ${report.name}`)
+}
+
+const handleDelete = (report: typeof reports.value[0]) => {
+  alert(`删除报表: ${report.name}`)
+}
 </script>

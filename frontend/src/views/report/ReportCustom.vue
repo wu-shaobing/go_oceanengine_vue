@@ -14,6 +14,30 @@ const customReports = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreate = () => {
+  alert('创建新的自定义报表')
+}
+
+const handleRun = (report: typeof customReports.value[0]) => {
+  alert(`运行报表: ${report.name}`)
+}
+
+const handleEdit = (report: typeof customReports.value[0]) => {
+  alert(`编辑报表: ${report.name}`)
+}
+
+const handleDelete = (report: typeof customReports.value[0]) => {
+  if (confirm(`确定删除报表「${report.name}」吗？`)) {
+    const idx = customReports.value.findIndex(r => r.id === report.id)
+    if (idx > -1) customReports.value.splice(idx, 1)
+    alert('删除成功')
+  }
+}
+
+const handleUseTemplate = (name: string) => {
+  alert(`使用${name}模板创建报表`)
+}
 </script>
 
 <template>
@@ -25,7 +49,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">自定义报表</h1>
           <p class="mt-2 text-gray-600">创建和管理自定义数据报表</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button @click="handleCreate" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           创建报表
         </button>
       </div>
@@ -58,9 +82,9 @@ const handlePageChange = (page: number) => {
               <td class="px-6 py-4 text-sm text-gray-600">{{ report.schedule }}</td>
               <td class="px-6 py-4 text-sm text-gray-500">{{ report.lastRun }}</td>
               <td class="px-6 py-4 text-sm">
-                <button class="text-blue-600 hover:text-blue-800 mr-3">运行</button>
-                <button class="text-gray-600 hover:text-gray-800 mr-3">编辑</button>
-                <button class="text-red-600 hover:text-red-800">删除</button>
+                <button @click="handleRun(report)" class="text-blue-600 hover:text-blue-800 mr-3">运行</button>
+                <button @click="handleEdit(report)" class="text-gray-600 hover:text-gray-800 mr-3">编辑</button>
+                <button @click="handleDelete(report)" class="text-red-600 hover:text-red-800">删除</button>
               </td>
             </tr>
           </tbody>
@@ -74,15 +98,15 @@ const handlePageChange = (page: number) => {
         <div class="bg-white rounded-lg border border-gray-200 p-4">
           <h4 class="font-medium text-gray-900 mb-3">报表模板</h4>
           <div class="space-y-2">
-            <button class="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100">
+            <button @click="handleUseTemplate('消耗分析')" class="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100">
               <p class="text-sm font-medium text-gray-900">消耗分析模板</p>
               <p class="text-xs text-gray-500">按账户/广告组分析消耗</p>
             </button>
-            <button class="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100">
+            <button @click="handleUseTemplate('转化追踪')" class="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100">
               <p class="text-sm font-medium text-gray-900">转化追踪模板</p>
               <p class="text-xs text-gray-500">追踪转化漏斗数据</p>
             </button>
-            <button class="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100">
+            <button @click="handleUseTemplate('ROI分析')" class="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100">
               <p class="text-sm font-medium text-gray-900">ROI分析模板</p>
               <p class="text-xs text-gray-500">分析投资回报率</p>
             </button>

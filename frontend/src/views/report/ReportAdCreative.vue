@@ -6,6 +6,10 @@ import Pagination from '@/components/common/Pagination.vue'
 const pagination = reactive({ page: 1, pageSize: 10, total: 356 })
 const dateRange = ref('7d')
 
+const filterType = ref('')
+const sortBy = ref('')
+const searchKeyword = ref('')
+
 const creativeData = ref([
   { id: 'CRE001', name: '产品展示视频A', type: 'video', impressions: 1560000, clicks: 62400, ctr: 4.0, conversions: 856, cost: 12560 },
   { id: 'CRE002', name: '品牌宣传图片', type: 'image', impressions: 980000, clicks: 29400, ctr: 3.0, conversions: 325, cost: 8960 },
@@ -15,6 +19,10 @@ const creativeData = ref([
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleExport = () => {
+  alert('导出创意报表')
 }
 </script>
 
@@ -33,7 +41,7 @@ const handlePageChange = (page: number) => {
             <option value="30d">最近30天</option>
             <option value="90d">最近90天</option>
           </select>
-          <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">导出</button>
+<button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50" @click="handleExport">导出</button>
         </div>
       </div>
     </div>
@@ -63,18 +71,18 @@ const handlePageChange = (page: number) => {
 
     <div class="bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex gap-4">
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterType" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部类型</option>
           <option value="video">视频</option>
           <option value="image">图片</option>
         </select>
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="sortBy" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">按CTR排序</option>
           <option value="ctr_desc">CTR从高到低</option>
           <option value="impressions_desc">展示从高到低</option>
           <option value="conversions_desc">转化从高到低</option>
         </select>
-        <input type="text" placeholder="搜索创意..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
+        <input v-model="searchKeyword" type="text" placeholder="搜索创意..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
       </div>
     </div>
 

@@ -15,6 +15,18 @@ const slots = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreate = () => {
+  alert('创建广告位')
+}
+
+const handleEdit = (slot: typeof slots.value[0]) => {
+  alert(`编辑广告位: ${slot.name}`)
+}
+
+const handleData = (slot: typeof slots.value[0]) => {
+  alert(`查看数据: ${slot.name}`)
+}
 </script>
 
 <template>
@@ -26,7 +38,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">穿山甲广告位管理</h1>
           <p class="mt-2 text-gray-600">管理流量变现广告位</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreate">
           创建广告位
         </button>
       </div>
@@ -91,8 +103,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button class="text-gray-600 hover:text-gray-800">数据</button>
+<button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleEdit(slot)">编辑</button>
+              <button class="text-gray-600 hover:text-gray-800" @click="handleData(slot)">数据</button>
             </td>
           </tr>
         </tbody>

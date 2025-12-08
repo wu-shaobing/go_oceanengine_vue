@@ -18,6 +18,18 @@ const stats = ref({ totalChecks: 56, passRate: 85, avgAnchors: 3.5 })
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleStartCheck = () => {
+  alert('开始检测')
+}
+
+const handleDetail = (item: typeof checkResults.value[0]) => {
+  alert(`查看详情: ${item.url}`)
+}
+
+const handleRecheck = (item: typeof checkResults.value[0]) => {
+  alert(`重新检测: ${item.url}`)
+}
 </script>
 
 <template>
@@ -32,9 +44,9 @@ const handlePageChange = (page: number) => {
       <div class="flex gap-4">
         <input v-model="checkUrl" type="url" placeholder="输入落地页URL进行检测..."
                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">开始检测</button>
-      </div>
-    </div>
+<button @click="handleStartCheck" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          开始检测
+        </button>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       <div class="bg-white rounded-lg border border-gray-200 p-4">
@@ -81,8 +93,8 @@ const handlePageChange = (page: number) => {
             </td>
             <td class="px-6 py-4 text-sm text-gray-500">{{ item.checkedAt }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-              <button class="text-gray-600 hover:text-gray-800">重新检测</button>
+<button @click="handleDetail(item)" class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
+              <button @click="handleRecheck(item)" class="text-gray-600 hover:text-gray-800">重新检测</button>
             </td>
           </tr>
         </tbody>

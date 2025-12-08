@@ -27,6 +27,11 @@ const handleQuery = () => {
 }
 
 const selectedCount = () => suggestions.value.filter(s => s.selected).length
+
+const handleAddToPlan = () => {
+  const selected = suggestions.value.filter(s => s.selected)
+  alert(`添加 ${selected.length} 个关键词到计划`)
+}
 </script>
 
 <template>
@@ -66,7 +71,7 @@ const selectedCount = () => suggestions.value.filter(s => s.selected).length
         <h3 class="font-semibold text-gray-900">推荐结果 ({{ suggestions.length }})</h3>
         <div class="flex items-center gap-4">
           <span class="text-sm text-gray-500">已选 {{ selectedCount() }} 个</span>
-          <button v-if="selectedCount() > 0" class="px-4 py-1.5 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700">
+<button v-if="selectedCount() > 0" @click="handleAddToPlan" class="px-4 py-1.5 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700">
             添加到计划
           </button>
         </div>

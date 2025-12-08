@@ -17,6 +17,33 @@ const editOptions = ref({
 })
 
 const cropRatios = ['自由', '1:1', '4:3', '16:9', '9:16']
+
+const handleCancel = () => {
+  alert('取消编辑')
+}
+
+const handleSave = () => {
+  alert('保存编辑')
+}
+
+const handleRotate = () => {
+  alert('旋转 90°')
+}
+
+const handleFlipHorizontal = () => {
+  alert('水平翻转')
+}
+
+const handleFlipVertical = () => {
+  alert('垂直翻转')
+}
+
+const handleReset = () => {
+  editOptions.value.brightness = 50
+  editOptions.value.contrast = 50
+  editOptions.value.saturation = 50
+  alert('已重置')
+}
 </script>
 
 <template>
@@ -65,8 +92,8 @@ const cropRatios = ['自由', '1:1', '4:3', '16:9', '9:16']
         </div>
 
         <div class="flex justify-end gap-4">
-          <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
-          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">保存编辑</button>
+          <button @click="handleCancel" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
+          <button @click="handleSave" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">保存编辑</button>
         </div>
       </div>
 
@@ -108,10 +135,10 @@ const cropRatios = ['自由', '1:1', '4:3', '16:9', '9:16']
         <div class="bg-white rounded-lg border border-gray-200 p-4">
           <h4 class="font-medium text-gray-900 mb-3">快捷操作</h4>
           <div class="grid grid-cols-2 gap-2">
-            <button class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">旋转 90°</button>
-            <button class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">水平翻转</button>
-            <button class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">垂直翻转</button>
-            <button class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">重置</button>
+            <button @click="handleRotate" class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">旋转 90°</button>
+            <button @click="handleFlipHorizontal" class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">水平翻转</button>
+            <button @click="handleFlipVertical" class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">垂直翻转</button>
+            <button @click="handleReset" class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">重置</button>
           </div>
         </div>
 

@@ -12,6 +12,10 @@ const uploadHistory = ref([
   { id: 'U002', fileName: 'codes_batch2.csv', count: 3000, uploadedAt: '2025-11-26 14:20', status: 'success' },
   { id: 'U003', fileName: 'codes_batch3.csv', count: 2000, uploadedAt: '2025-11-27 09:15', status: 'processing' }
 ])
+
+const handleSelectFile = () => {
+  alert('选择文件上传')
+}
 </script>
 
 <template>
@@ -35,12 +39,12 @@ const uploadHistory = ref([
             </select>
           </div>
 
-          <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors cursor-pointer">
+<div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors cursor-pointer" @click="handleSelectFile">
             <div class="text-5xl mb-4">📤</div>
             <p class="text-lg font-medium text-gray-700">拖拽文件到此处上传</p>
             <p class="text-sm text-gray-500 mt-2">或点击选择文件</p>
             <p class="text-xs text-gray-400 mt-4">支持 CSV、TXT 格式，每行一个优惠码</p>
-            <button class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSelectFile">
               选择文件
             </button>
           </div>

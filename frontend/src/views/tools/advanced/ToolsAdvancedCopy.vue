@@ -4,6 +4,11 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 10, total: 45 })
+const copyForm = reactive({
+  sourceAd: '',
+  targetAccount: '',
+  copyCount: 1
+})
 
 const copyHistory = ref([
   { id: 'CP001', source: '促销广告A', target: '促销广告A-副本', copyItems: ['广告组', '创意', '定向'], status: 'success', time: '2025-11-28 10:00' },
@@ -13,6 +18,10 @@ const copyHistory = ref([
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleStartCopy = () => {
+  alert('开始复制广告')
 }
 </script>
 
@@ -25,7 +34,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">广告复制</h1>
           <p class="mt-2 text-gray-600">快速复制广告计划和创意</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleStartCopy" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           开始复制
         </button>
       </div>
@@ -59,7 +68,7 @@ const handlePageChange = (page: number) => {
         <div class="space-y-4">
           <div>
             <label class="block text-sm text-gray-600 mb-2">选择源广告</label>
-            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+            <select v-model="copyForm.sourceAd" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
               <option value="">请选择要复制的广告</option>
               <option value="1">促销广告A</option>
               <option value="2">推广计划B</option>
@@ -68,7 +77,7 @@ const handlePageChange = (page: number) => {
           </div>
           <div>
             <label class="block text-sm text-gray-600 mb-2">目标账户</label>
-            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+            <select v-model="copyForm.targetAccount" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
               <option value="">当前账户</option>
               <option value="1">子账户A</option>
               <option value="2">子账户B</option>
@@ -76,7 +85,7 @@ const handlePageChange = (page: number) => {
           </div>
           <div>
             <label class="block text-sm text-gray-600 mb-2">复制份数</label>
-            <input type="number" value="1" min="1" max="10" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+            <input v-model="copyForm.copyCount" type="number" min="1" max="10" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
           </div>
         </div>
       </div>

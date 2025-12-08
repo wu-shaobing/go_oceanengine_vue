@@ -14,6 +14,18 @@ const syncConfigs = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleAddSyncConfig = () => {
+  alert('添加同步配置')
+}
+
+const handleSyncNow = (config: typeof syncConfigs.value[0]) => {
+  alert(`立即同步: ${config.name}`)
+}
+
+const handleEditSyncConfig = (config: typeof syncConfigs.value[0]) => {
+  alert(`编辑配置: ${config.name}`)
+}
 </script>
 
 <template>
@@ -25,7 +37,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">商品同步配置</h1>
           <p class="mt-2 text-gray-600">管理商品数据自动同步</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleAddSyncConfig">
           添加同步配置
         </button>
       </div>
@@ -84,8 +96,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">立即同步</button>
-              <button class="text-gray-600 hover:text-gray-800">编辑</button>
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleSyncNow(config)">立即同步</button>
+              <button class="text-gray-600 hover:text-gray-800" @click="handleEditSyncConfig(config)">编辑</button>
             </td>
           </tr>
         </tbody>

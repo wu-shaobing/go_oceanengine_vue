@@ -14,6 +14,19 @@ const schedules = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreate = () => {
+  alert('创建排期')
+}
+
+const handleEdit = (schedule: typeof schedules.value[0]) => {
+  alert(`编辑排期: ${schedule.name}`)
+}
+
+const handleToggle = (schedule: typeof schedules.value[0]) => {
+  schedule.status = schedule.status === 'active' ? 'inactive' : 'active'
+  alert(`已${schedule.status === 'active' ? '启用' : '禁用'}: ${schedule.name}`)
+}
 </script>
 
 <template>
@@ -25,7 +38,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">排期工具</h1>
           <p class="mt-2 text-gray-600">管理广告投放时段</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleCreate" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           创建排期
         </button>
       </div>
@@ -82,8 +95,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button :class="schedule.status === 'active' ? 'text-yellow-600 hover:text-yellow-800' : 'text-green-600 hover:text-green-800'">
+<button @click="handleEdit(schedule)" class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
+              <button @click="handleToggle(schedule)" :class="schedule.status === 'active' ? 'text-yellow-600 hover:text-yellow-800' : 'text-green-600 hover:text-green-800'">
                 {{ schedule.status === 'active' ? '禁用' : '启用' }}
               </button>
             </td>

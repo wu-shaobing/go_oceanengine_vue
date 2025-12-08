@@ -27,6 +27,14 @@ const getTypeLabel = (type: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleEdit = (item: typeof converts.value[0]) => {
+  alert(`编辑转化: ${item.name}`)
+}
+
+const handleDetail = (item: typeof converts.value[0]) => {
+  alert(`查看详情: ${item.name}`)
+}
 </script>
 
 <template>
@@ -94,8 +102,8 @@ const handlePageChange = (page: number) => {
               </td>
               <td class="px-6 py-4 text-sm text-gray-500">{{ item.createdAt }}</td>
               <td class="px-6 py-4 text-sm">
-                <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-                <button class="text-gray-600 hover:text-gray-800">详情</button>
+<button @click="handleEdit(item)" class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
+                <button @click="handleDetail(item)" class="text-gray-600 hover:text-gray-800">详情</button>
               </td>
             </tr>
           </tbody>

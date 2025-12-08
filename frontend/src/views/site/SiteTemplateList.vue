@@ -25,6 +25,14 @@ const filteredTemplates = () => {
   if (category.value === 'all') return templates.value
   return templates.value.filter(t => t.category === category.value)
 }
+
+const handlePreviewTemplate = (tpl: typeof templates.value[0]) => {
+  alert(`预览模板: ${tpl.name}`)
+}
+
+const handleUseTemplate = (tpl: typeof templates.value[0]) => {
+  alert(`使用模板: ${tpl.name}`)
+}
 </script>
 
 <template>
@@ -60,10 +68,10 @@ const filteredTemplates = () => {
             </span>
           </div>
           <div class="flex gap-2 mt-4">
-            <button class="flex-1 py-2 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-50">
+            <button class="flex-1 py-2 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-50" @click="handlePreviewTemplate(tpl)">
               预览
             </button>
-            <button class="flex-1 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700">
+            <button class="flex-1 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700" @click="handleUseTemplate(tpl)">
               使用模板
             </button>
           </div>

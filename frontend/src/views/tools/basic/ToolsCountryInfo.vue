@@ -28,6 +28,11 @@ const filteredCountries = computed(() => {
     c.region.toLowerCase().includes(keyword)
   )
 })
+
+const handleCopyCode = (code: string) => {
+  navigator.clipboard.writeText(code)
+  alert(`已复制代码: ${code}`)
+}
 </script>
 
 <template>
@@ -66,7 +71,7 @@ const filteredCountries = computed(() => {
               <td class="px-6 py-4 text-sm text-gray-700">{{ country.currency }}</td>
               <td class="px-6 py-4 text-sm text-gray-500">{{ country.timezone }}</td>
               <td class="px-6 py-4">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">复制代码</button>
+<button @click="handleCopyCode(country.code)" class="text-blue-600 hover:text-blue-800 text-sm">复制代码</button>
               </td>
             </tr>
           </tbody>

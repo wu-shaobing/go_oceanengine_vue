@@ -20,6 +20,18 @@ const formatNumber = (num: number) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreate = () => {
+  alert('创建预约活动')
+}
+
+const handleDetail = (booking: typeof bookings.value[0]) => {
+  alert(`查看详情: ${booking.appName}`)
+}
+
+const handlePromote = (booking: typeof bookings.value[0]) => {
+  alert(`推广活动: ${booking.appName}`)
+}
 </script>
 
 <template>
@@ -31,7 +43,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">应用预约</h1>
           <p class="mt-2 text-gray-600">管理应用预约推广活动</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleCreate" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           创建预约活动
         </button>
       </div>
@@ -94,8 +106,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-              <button class="text-gray-600 hover:text-gray-800">推广</button>
+<button @click="handleDetail(booking)" class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
+              <button @click="handlePromote(booking)" class="text-gray-600 hover:text-gray-800">推广</button>
             </td>
           </tr>
         </tbody>

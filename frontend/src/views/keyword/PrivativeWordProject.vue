@@ -15,6 +15,18 @@ const projects = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreate = () => {
+  alert('创建否定词项目')
+}
+
+const handleManage = (project: typeof projects.value[0]) => {
+  alert(`管理项目: ${project.name}`)
+}
+
+const handleEdit = (project: typeof projects.value[0]) => {
+  alert(`编辑项目: ${project.name}`)
+}
 </script>
 
 <template>
@@ -26,7 +38,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">否定词项目</h1>
           <p class="mt-2 text-gray-600">按项目管理否定关键词</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleCreate" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           创建项目
         </button>
       </div>
@@ -79,8 +91,8 @@ const handlePageChange = (page: number) => {
             </td>
             <td class="px-6 py-4 text-sm text-gray-500">{{ project.updatedAt }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">管理</button>
-              <button class="text-gray-600 hover:text-gray-800">编辑</button>
+<button @click="handleManage(project)" class="text-blue-600 hover:text-blue-800 mr-3">管理</button>
+              <button @click="handleEdit(project)" class="text-gray-600 hover:text-gray-800">编辑</button>
             </td>
           </tr>
         </tbody>

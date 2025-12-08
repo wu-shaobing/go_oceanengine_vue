@@ -20,6 +20,15 @@ const handlePageChange = (page: number) => {
 const markAllRead = () => {
   notifications.value.forEach(n => n.read = true)
 }
+
+const handleDismissNotification = (notification: typeof notifications.value[0]) => {
+  notifications.value = notifications.value.filter(n => n.id !== notification.id)
+}
+
+const handleViewNotification = (notification: typeof notifications.value[0]) => {
+  notification.read = true
+  alert(`查看通知: ${notification.title}`)
+}
 </script>
 
 <template>
@@ -71,7 +80,8 @@ const markAllRead = () => {
 
       <div class="divide-y divide-gray-200">
         <div v-for="notification in notifications" :key="notification.id"
-             :class="['px-6 py-4 hover:bg-gray-50 cursor-pointer', !notification.read ? 'bg-blue-50' : '']">
+             :class="['px-6 py-4 hover:bg-gray-50 cursor-pointer', !notification.read ? 'bg-blue-50' : '']"
+             @click="handleViewNotification(notification)">
           <div class="flex items-start gap-4">
             <div :class="['w-2 h-2 mt-2 rounded-full', !notification.read ? 'bg-blue-500' : 'bg-transparent']"></div>
             <div class="flex-1">
@@ -88,7 +98,7 @@ const markAllRead = () => {
               <p class="text-sm text-gray-600 mt-1">{{ notification.content }}</p>
               <p class="text-xs text-gray-400 mt-2">{{ notification.time }}</p>
             </div>
-            <button class="text-gray-400 hover:text-gray-600">×</button>
+            <button class="text-gray-400 hover:text-gray-600" @click.stop="handleDismissNotification(notification)">×</button>
           </div>
         </div>
       </div>

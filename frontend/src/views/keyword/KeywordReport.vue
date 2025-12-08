@@ -16,6 +16,10 @@ const reportData = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleExport = () => {
+  alert('导出关键词报表')
+}
 </script>
 
 <template>
@@ -33,7 +37,7 @@ const handlePageChange = (page: number) => {
             <option value="30d">最近30天</option>
             <option value="90d">最近90天</option>
           </select>
-          <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">导出</button>
+<button @click="handleExport" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">导出</button>
         </div>
       </div>
     </div>

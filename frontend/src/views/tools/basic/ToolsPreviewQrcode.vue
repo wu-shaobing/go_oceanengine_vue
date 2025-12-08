@@ -17,6 +17,10 @@ const handleGenerate = () => {
     loading.value = false
   }, 1000)
 }
+
+const handleDownload = () => {
+  alert('下载二维码')
+}
 </script>
 
 <template>
@@ -56,7 +60,7 @@ const handleGenerate = () => {
           </div>
           <p class="mt-4 text-sm text-gray-500">使用抖音/今日头条APP扫码预览</p>
           <p class="mt-2 text-xs text-gray-400">二维码有效期：24小时</p>
-          <button class="mt-4 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+<button @click="handleDownload" class="mt-4 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
             下载二维码
           </button>
         </div>

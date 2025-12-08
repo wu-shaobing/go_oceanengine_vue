@@ -17,6 +17,18 @@ const formatNumber = (num: number) => {
   if (num >= 10000) return (num / 10000).toFixed(1) + '万'
   return num.toLocaleString()
 }
+
+const handleSearch = () => {
+  alert(`搜索: ${searchKeyword.value}`)
+}
+
+const handleViewDetail = (author: typeof similarAuthors.value[0]) => {
+  alert(`查看详情: ${author.name}`)
+}
+
+const handleAddTarget = (author: typeof similarAuthors.value[0]) => {
+  alert(`添加定向: ${author.name}`)
+}
 </script>
 
 <template>
@@ -31,7 +43,7 @@ const formatNumber = (num: number) => {
       <div class="flex gap-4">
         <input v-model="searchKeyword" type="text" placeholder="输入抖音号或达人名称"
                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleSearch" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           搜索相似达人
         </button>
       </div>
@@ -62,11 +74,11 @@ const formatNumber = (num: number) => {
             </div>
           </div>
         </div>
-        <div class="flex gap-2 mt-4">
-          <button class="flex-1 py-2 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-50">
+<div class="flex gap-2 mt-4">
+          <button @click="handleViewDetail(author)" class="flex-1 py-2 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-50">
             查看详情
           </button>
-          <button class="flex-1 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700">
+          <button @click="handleAddTarget(author)" class="flex-1 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700">
             添加定向
           </button>
         </div>

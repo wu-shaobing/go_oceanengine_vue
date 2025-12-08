@@ -14,6 +14,18 @@ const ads = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleBatchDiagnose = () => {
+  alert('批量诊断广告')
+}
+
+const handleDetail = (ad: typeof ads.value[0]) => {
+  alert(`诊断详情: ${ad.name}`)
+}
+
+const handleOptimize = (ad: typeof ads.value[0]) => {
+  alert(`一键优化: ${ad.name}`)
+}
 </script>
 
 <template>
@@ -25,7 +37,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">广告诊断</h1>
           <p class="mt-2 text-gray-600">分析广告投放效果问题</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleBatchDiagnose">
           批量诊断
         </button>
       </div>
@@ -92,8 +104,8 @@ const handlePageChange = (page: number) => {
             </td>
             <td class="px-6 py-4 text-sm text-blue-600">{{ ad.suggestions }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">诊断详情</button>
-              <button class="text-green-600 hover:text-green-800">一键优化</button>
+<button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleDetail(ad)">诊断详情</button>
+              <button class="text-green-600 hover:text-green-800" @click="handleOptimize(ad)">一键优化</button>
             </td>
           </tr>
         </tbody>

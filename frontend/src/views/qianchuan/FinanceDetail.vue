@@ -18,8 +18,8 @@
           <option value="recharge">充值</option>
           <option value="transfer">转账</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
-        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
+<button @click="handleQuery" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+        <button @click="handleExport" class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
       </div>
     </div>
 
@@ -80,5 +80,13 @@ const getTypeClass = (type: string) => {
 const getTypeText = (type: string) => {
   const texts: Record<string, string> = { consume: '消耗', recharge: '充值', transfer: '转账' }
   return texts[type] || type
+}
+
+const handleQuery = () => {
+  alert('查询流水明细')
+}
+
+const handleExport = () => {
+  alert('导出流水明细')
 }
 </script>

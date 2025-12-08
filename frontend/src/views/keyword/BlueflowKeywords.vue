@@ -5,6 +5,10 @@ import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 10, total: 89 })
 
+const filterCategory = ref('')
+const filterCompetition = ref('')
+const filterTrend = ref('')
+
 const keywords = ref([
   { id: 'BK001', keyword: '智能手表续航', searchVolume: 12500, competition: 'low', suggestBid: 1.2, trend: 'up', category: '数码' },
   { id: 'BK002', keyword: '运动手环防水', searchVolume: 8900, competition: 'low', suggestBid: 0.9, trend: 'up', category: '数码' },
@@ -30,6 +34,14 @@ const getTrendIcon = (trend: string) => {
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleAdd = (kw: typeof keywords.value[0]) => {
+  alert(`添加蓝海词: ${kw.keyword}`)
+}
+
+const handleDetail = (kw: typeof keywords.value[0]) => {
+  alert(`查看详情: ${kw.keyword}`)
 }
 </script>
 
@@ -62,18 +74,18 @@ const handlePageChange = (page: number) => {
 
     <div class="bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex flex-wrap gap-4">
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterCategory" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部分类</option>
           <option value="digital">数码</option>
           <option value="fashion">服装</option>
           <option value="beauty">美妆</option>
         </select>
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterCompetition" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">竞争程度</option>
           <option value="low">低竞争</option>
           <option value="medium">中竞争</option>
         </select>
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterTrend" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">趋势</option>
           <option value="up">上升</option>
           <option value="stable">稳定</option>
@@ -109,8 +121,8 @@ const handlePageChange = (page: number) => {
             <td class="px-6 py-4 text-sm">{{ getTrendIcon(kw.trend) }}</td>
             <td class="px-6 py-4 text-sm text-gray-600">{{ kw.category }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">添加</button>
-              <button class="text-gray-600 hover:text-gray-800">详情</button>
+<button @click="handleAdd(kw)" class="text-blue-600 hover:text-blue-800 mr-3">添加</button>
+              <button @click="handleDetail(kw)" class="text-gray-600 hover:text-gray-800">详情</button>
             </td>
           </tr>
         </tbody>

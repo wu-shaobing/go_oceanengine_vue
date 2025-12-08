@@ -71,6 +71,11 @@ const formatNumber = (value: number) => value.toLocaleString()
 onMounted(() => {
   fetchCampaigns()
 })
+
+const handleToggleStatus = (campaign: any) => {
+  const action = campaign.status === 'active' ? '暂停' : '启用'
+  alert(`${action}广告系列: ${campaign.name}`)
+}
 </script>
 
 <template>
@@ -205,12 +210,12 @@ onMounted(() => {
           />
         </template>
 
-        <template #actions="{ row }">
+<template #actions="{ row }">
           <div class="flex items-center gap-2">
             <router-link :to="`/campaigns/${row.id}`" class="text-blue-600 hover:text-blue-800">
               查看
             </router-link>
-            <button class="text-gray-600 hover:text-gray-800">
+            <button class="text-gray-600 hover:text-gray-800" @click="handleToggleStatus(row)">
               {{ row.status === 'active' ? '暂停' : '启用' }}
             </button>
           </div>

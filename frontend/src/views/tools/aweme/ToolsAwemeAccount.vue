@@ -14,6 +14,24 @@ const accounts = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleBind = () => {
+  alert('绑定新账号')
+}
+
+const handleDetail = (account: typeof accounts.value[0]) => {
+  alert(`查看详情: ${account.nickname}`)
+}
+
+const handleReauth = (account: typeof accounts.value[0]) => {
+  alert(`重新授权: ${account.nickname}`)
+}
+
+const handleUnbind = (account: typeof accounts.value[0]) => {
+  if (confirm(`确定解绑「${account.nickname}」吗？`)) {
+    alert('解绑成功')
+  }
+}
 </script>
 
 <template>
@@ -25,7 +43,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">抖音账号管理</h1>
           <p class="mt-2 text-gray-600">管理已绑定的抖音号</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleBind" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           绑定新账号
         </button>
       </div>
@@ -83,9 +101,9 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-              <button v-if="account.status === 'expired'" class="text-green-600 hover:text-green-800 mr-3">重新授权</button>
-              <button class="text-red-600 hover:text-red-800">解绑</button>
+<button @click="handleDetail(account)" class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
+              <button v-if="account.status === 'expired'" @click="handleReauth(account)" class="text-green-600 hover:text-green-800 mr-3">重新授权</button>
+              <button @click="handleUnbind(account)" class="text-red-600 hover:text-red-800">解绑</button>
             </td>
           </tr>
         </tbody>

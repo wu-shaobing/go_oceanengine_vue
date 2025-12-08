@@ -14,6 +14,18 @@ const contracts = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreateContract = () => {
+  alert('新建合同')
+}
+
+const handleViewContract = (contract: any) => {
+  alert(`查看合同: ${contract.name}`)
+}
+
+const handleDownloadContract = (contract: any) => {
+  alert(`下载合同: ${contract.name}`)
+}
 </script>
 
 <template>
@@ -25,7 +37,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">合同管理</h1>
           <p class="mt-2 text-gray-600">管理广告投放合同</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreateContract">
           新建合同
         </button>
       </div>
@@ -74,9 +86,9 @@ const handlePageChange = (page: number) => {
                 {{ contract.status === 'active' ? '生效中' : '已过期' }}
               </span>
             </td>
-            <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">查看</button>
-              <button class="text-gray-600 hover:text-gray-800">下载</button>
+<td class="px-6 py-4 text-sm">
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleViewContract(contract)">查看</button>
+              <button class="text-gray-600 hover:text-gray-800" @click="handleDownloadContract(contract)">下载</button>
             </td>
           </tr>
         </tbody>

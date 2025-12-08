@@ -1,9 +1,29 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 
 const route = useRoute()
+const router = useRouter()
+const authStore = useAuthStore()
 const showUserMenu = ref(false)
+
+// 用户菜单操作
+const goToSettings = () => {
+  showUserMenu.value = false
+  router.push('/settings')
+}
+
+const goToAccount = () => {
+  showUserMenu.value = false
+  router.push('/account')
+}
+
+const handleLogout = () => {
+  showUserMenu.value = false
+  authStore.logout()
+  router.push('/login')
+}
 
 // 产品线快捷导航
 const productNavItems = [
@@ -93,10 +113,10 @@ const isProductActive = (path: string) => {
             v-if="showUserMenu"
             class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50"
           >
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">个人设置</a>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">账户信息</a>
+            <button @click="goToSettings" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">个人设置</button>
+            <button @click="goToAccount" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">账户信息</button>
             <hr class="my-1">
-            <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">退出登录</a>
+            <button @click="handleLogout" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">退出登录</button>
           </div>
         </div>
       </div>

@@ -23,6 +23,10 @@ const getTrendIcon = (trend: string) => {
   if (trend === 'down') return '📉'
   return '➡️'
 }
+
+const handleViewDetail = (author: typeof topAuthors.value[0]) => {
+  alert(`查看详情: ${author.name}`)
+}
 </script>
 
 <template>
@@ -71,7 +75,7 @@ const getTrendIcon = (trend: string) => {
           <p class="text-xs text-gray-500">获赞数</p>
         </div>
         <div class="text-2xl">{{ getTrendIcon(author.trend) }}</div>
-        <button class="px-4 py-2 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-50">
+<button @click="handleViewDetail(author)" class="px-4 py-2 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-50">
           查看详情
         </button>
       </div>

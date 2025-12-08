@@ -13,8 +13,8 @@
         <div class="text-sm opacity-80">账户余额</div>
         <div class="text-3xl font-bold mt-2">¥{{ walletInfo.balance.toLocaleString() }}</div>
         <div class="mt-4 flex space-x-3">
-          <button class="px-4 py-1.5 bg-white text-blue-600 rounded text-sm font-medium">充值</button>
-          <button class="px-4 py-1.5 bg-blue-400 rounded text-sm">提现</button>
+<button @click="handleRecharge" class="px-4 py-1.5 bg-white text-blue-600 rounded text-sm font-medium">充值</button>
+          <button @click="handleWithdraw" class="px-4 py-1.5 bg-blue-400 rounded text-sm">提现</button>
         </div>
       </div>
       <div class="bg-white rounded-lg shadow p-6">
@@ -86,4 +86,12 @@ const recentRecords = ref([
   { id: 4, time: '2024-03-14 22:30', type: '广告消耗', description: '千川广告投放消耗', amount: -3260, balance: 111240 },
   { id: 5, time: '2024-03-14 16:45', type: '广告消耗', description: '千川广告投放消耗', amount: -2180, balance: 114500 }
 ])
+
+const handleRecharge = () => {
+  alert('账户充值')
+}
+
+const handleWithdraw = () => {
+  alert('账户提现')
+}
 </script>

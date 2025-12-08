@@ -86,6 +86,26 @@ const getRoleLabel = (role: string) => {
   return map[role] || role
 }
 
+const handleAddUser = () => {
+  alert('添加用户')
+}
+
+const handleEditUser = (user: User) => {
+  alert(`编辑用户: ${user.username}`)
+}
+
+const handleResetPassword = (user: User) => {
+  if (confirm(`确定重置 ${user.username} 的密码?`)) {
+    alert('密码重置成功')
+  }
+}
+
+const handleDeleteUser = (user: User) => {
+  if (confirm(`确定删除用户 ${user.username}?`)) {
+    alert('删除成功')
+  }
+}
+
 onMounted(fetchUsers)
 </script>
 
@@ -98,7 +118,7 @@ onMounted(fetchUsers)
           <h1 class="text-3xl font-bold text-gray-900">用户管理</h1>
           <p class="mt-2 text-gray-600">管理系统用户和权限</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2" @click="handleAddUser">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
           </svg>
@@ -159,11 +179,11 @@ onMounted(fetchUsers)
           />
         </template>
 
-        <template #actions>
+        <template #actions="{ row }">
           <div class="flex items-center justify-center gap-2">
-            <button class="text-blue-600 hover:text-blue-800">编辑</button>
-            <button class="text-gray-600 hover:text-gray-800">重置密码</button>
-            <button class="text-red-600 hover:text-red-800">删除</button>
+            <button class="text-blue-600 hover:text-blue-800" @click="handleEditUser(row)">编辑</button>
+            <button class="text-gray-600 hover:text-gray-800" @click="handleResetPassword(row)">重置密码</button>
+            <button class="text-red-600 hover:text-red-800" @click="handleDeleteUser(row)">删除</button>
           </div>
         </template>
       </DataTable>

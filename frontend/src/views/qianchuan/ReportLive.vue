@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">直播间报表</h1>
         <p class="text-gray-600 mt-1">直播投放数据分析</p>
       </div>
-      <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+<button @click="handleExport" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
         导出报表
       </button>
     </div>
@@ -25,7 +25,7 @@
           <span>至</span>
           <input type="date" v-model="filters.endDate" class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm">
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">查询</button>
+<button @click="handleQuery" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">查询</button>
       </div>
     </div>
 
@@ -75,7 +75,7 @@
             <td class="px-4 py-3 text-sm text-right">{{ room.productClick.toLocaleString() }}</td>
             <td class="px-4 py-3 text-sm text-right">{{ room.buyers }}</td>
             <td class="px-4 py-3">
-              <button class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
+<button @click="handleDetail(room)" class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
             </td>
           </tr>
         </tbody>
@@ -113,4 +113,16 @@ const liveRooms = ref([
   { id: 3, name: '达人B直播间', cover: 'https://via.placeholder.com/48', date: '2024-03-15', cost: 18600, gmv: 76800, roi: '4.13', enter: 28600, duration: 38, productClick: 8200, buyers: 568 },
   { id: 4, name: '新品首发间', cover: 'https://via.placeholder.com/48', date: '2024-03-14', cost: 6800, gmv: 24600, roi: '3.62', enter: 12800, duration: 32, productClick: 3600, buyers: 178 }
 ])
+
+const handleExport = () => {
+  alert('导出直播间报表')
+}
+
+const handleQuery = () => {
+  alert('查询直播数据')
+}
+
+const handleDetail = (room: typeof liveRooms.value[0]) => {
+  alert(`查看详情: ${room.name}`)
+}
 </script>

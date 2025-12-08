@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">图片素材</h1>
         <p class="text-gray-600 mt-1">管理图片广告素材</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleUpload" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
         上传图片
       </button>
     </div>
@@ -22,7 +22,7 @@
           <option value="banner">Banner</option>
           <option value="poster">海报</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+<button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -32,8 +32,8 @@
         <div class="aspect-square bg-gray-100 relative">
           <img :src="image.url" alt="" class="w-full h-full object-cover">
           <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
-            <button class="px-3 py-1 bg-white rounded text-sm mr-2">预览</button>
-            <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm">使用</button>
+<button @click="handlePreview(image)" class="px-3 py-1 bg-white rounded text-sm mr-2">预览</button>
+            <button @click="handleUse(image)" class="px-3 py-1 bg-blue-600 text-white rounded text-sm">使用</button>
           </div>
         </div>
         <div class="p-3">
@@ -73,4 +73,20 @@ const images = ref([
   { id: 11, name: '用户好评截图', url: 'https://via.placeholder.com/200', resolution: '720x1280', size: '0.4MB' },
   { id: 12, name: '店铺Banner', url: 'https://via.placeholder.com/200', resolution: '1920x600', size: '2.5MB' }
 ])
+
+const handleUpload = () => {
+  alert('上传图片')
+}
+
+const handleSearch = () => {
+  alert('搜索图片')
+}
+
+const handlePreview = (image: typeof images.value[0]) => {
+  alert(`预览图片: ${image.name}`)
+}
+
+const handleUse = (image: typeof images.value[0]) => {
+  alert(`使用图片: ${image.name}`)
+}
 </script>

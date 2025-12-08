@@ -4,6 +4,7 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 10, total: 18 })
+const testDeeplinkUrl = ref('')
 
 const deeplinks = ref([
   { id: 'DL001', name: '首页跳转', app: '购物 App', scheme: 'myapp://home', status: 'active', createTime: '2025-10-15' },
@@ -13,6 +14,30 @@ const deeplinks = ref([
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleAddDeeplink = () => {
+  alert('添加新的Deeplink配置')
+}
+
+const handleEdit = (link: typeof deeplinks.value[0]) => {
+  alert(`编辑Deeplink: ${link.name}`)
+}
+
+const handleTest = (link: typeof deeplinks.value[0]) => {
+  alert(`测试Deeplink: ${link.scheme}`)
+}
+
+const handleDelete = (link: typeof deeplinks.value[0]) => {
+  if (confirm(`确定删除Deeplink「${link.name}」吗？`)) {
+    const idx = deeplinks.value.findIndex(l => l.id === link.id)
+    if (idx > -1) deeplinks.value.splice(idx, 1)
+    alert('删除成功')
+  }
+}
+
+const handleValidate = () => {
+  alert('正在验证链接...')
 }
 </script>
 
@@ -25,7 +50,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">Deeplink配置</h1>
           <p class="mt-2 text-gray-600">管理应用深度链接</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button @click="handleAddDeeplink" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           添加Deeplink
         </button>
       </div>
@@ -60,9 +85,9 @@ const handlePageChange = (page: number) => {
                 </span>
               </td>
               <td class="px-6 py-4 text-sm">
-                <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-                <button class="text-gray-600 hover:text-gray-800 mr-3">测试</button>
-                <button class="text-red-600 hover:text-red-800">删除</button>
+                <button @click="handleEdit(link)" class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
+                <button @click="handleTest(link)" class="text-gray-600 hover:text-gray-800 mr-3">测试</button>
+                <button @click="handleDelete(link)" class="text-red-600 hover:text-red-800">删除</button>
               </td>
             </tr>
           </tbody>
@@ -91,8 +116,8 @@ const handlePageChange = (page: number) => {
         <div class="bg-white rounded-lg border border-gray-200 p-4">
           <h4 class="font-medium text-gray-900 mb-3">测试工具</h4>
           <div class="space-y-3">
-            <input type="text" placeholder="输入Deeplink URL" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-            <button class="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm">
+            <input v-model="testDeeplinkUrl" type="text" placeholder="输入Deeplink URL" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+            <button @click="handleValidate" class="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm">
               验证链接
             </button>
           </div>

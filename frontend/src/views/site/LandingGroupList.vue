@@ -20,6 +20,18 @@ const formatNumber = (num: number) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreateGroup = () => {
+  alert('创建分组')
+}
+
+const handleManageGroup = (group: typeof groups.value[0]) => {
+  alert(`管理分组: ${group.name}`)
+}
+
+const handleEditGroup = (group: typeof groups.value[0]) => {
+  alert(`编辑分组: ${group.name}`)
+}
 </script>
 
 <template>
@@ -31,7 +43,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">站点分组</h1>
           <p class="mt-2 text-gray-600">将落地页按活动或主题进行分组管理</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreateGroup">
           创建分组
         </button>
       </div>
@@ -90,8 +102,8 @@ const handlePageChange = (page: number) => {
             </td>
             <td class="px-6 py-4 text-sm text-gray-500">{{ group.createdAt }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">管理</button>
-              <button class="text-gray-600 hover:text-gray-800">编辑</button>
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleManageGroup(group)">管理</button>
+              <button class="text-gray-600 hover:text-gray-800" @click="handleEditGroup(group)">编辑</button>
             </td>
           </tr>
         </tbody>

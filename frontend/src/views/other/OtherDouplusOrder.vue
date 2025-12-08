@@ -20,6 +20,10 @@ const formatNumber = (num: number) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreateOrder = () => {
+  alert('创建抖+订单')
+}
 </script>
 
 <template>
@@ -31,7 +35,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">抖+订单管理</h1>
           <p class="mt-2 text-gray-600">管理抖音视频推广订单</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreateOrder">
           创建抖+订单
         </button>
       </div>

@@ -26,6 +26,14 @@ const getTypeConfig = (type: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleUploadAsset = () => {
+  alert('上传素材')
+}
+
+const handleViewAsset = (asset: typeof assets.value[0]) => {
+  alert(`查看素材: ${asset.name}`)
+}
 </script>
 
 <template>
@@ -37,7 +45,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">DPA素材库</h1>
           <p class="mt-2 text-gray-600">管理DPA广告素材和组件</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleUploadAsset">
           上传素材
         </button>
       </div>
@@ -64,7 +72,8 @@ const handlePageChange = (page: number) => {
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
       <div v-for="asset in assets" :key="asset.id"
-           class="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group">
+           class="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group"
+           @click="handleViewAsset(asset)">
         <div class="aspect-square bg-gray-100 flex items-center justify-center text-5xl relative">
           {{ asset.preview }}
           <span :class="['absolute top-2 left-2 px-2 py-0.5 rounded text-xs', getTypeConfig(asset.type).class]">

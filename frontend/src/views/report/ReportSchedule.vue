@@ -15,6 +15,22 @@ const schedules = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreate = () => {
+  alert('创建定时任务')
+}
+
+const handleEdit = (schedule: typeof schedules.value[0]) => {
+  alert(`编辑: ${schedule.name}`)
+}
+
+const handlePause = (schedule: typeof schedules.value[0]) => {
+  alert(`暂停: ${schedule.name}`)
+}
+
+const handleEnable = (schedule: typeof schedules.value[0]) => {
+  alert(`启用: ${schedule.name}`)
+}
 </script>
 
 <template>
@@ -26,7 +42,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">定时报表</h1>
           <p class="mt-2 text-gray-600">配置自动发送的定时报表</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreate">
           创建定时任务
         </button>
       </div>
@@ -85,9 +101,9 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button v-if="schedule.status === 'active'" class="text-yellow-600 hover:text-yellow-800">暂停</button>
-              <button v-else class="text-green-600 hover:text-green-800">启用</button>
+<button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleEdit(schedule)">编辑</button>
+              <button v-if="schedule.status === 'active'" class="text-yellow-600 hover:text-yellow-800" @click="handlePause(schedule)">暂停</button>
+              <button v-else class="text-green-600 hover:text-green-800" @click="handleEnable(schedule)">启用</button>
             </td>
           </tr>
         </tbody>

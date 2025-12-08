@@ -47,7 +47,7 @@
           <option value="live">直播</option>
           <option value="video">短视频</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -91,9 +91,9 @@
             <td class="px-4 py-3">
               <div class="flex space-x-2">
                 <router-link :to="`/qianchuan/uni/${item.id}`" class="text-blue-600 hover:text-blue-800 text-sm">详情</router-link>
-                <button class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
-                <button v-if="item.status === 'running'" class="text-orange-600 hover:text-orange-800 text-sm">暂停</button>
-                <button v-else class="text-green-600 hover:text-green-800 text-sm">启动</button>
+                <button @click="handleEdit(item)" class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
+                <button v-if="item.status === 'running'" @click="handlePause(item)" class="text-orange-600 hover:text-orange-800 text-sm">暂停</button>
+                <button v-else @click="handleStart(item)" class="text-green-600 hover:text-green-800 text-sm">启动</button>
               </div>
             </td>
           </tr>
@@ -148,5 +148,28 @@ const getStatusText = (status: string) => {
     end: '已结束'
   }
   return texts[status] || status
+}
+
+const handleSearch = () => {
+  console.log('搜索:', filters.value)
+  alert('查询完成')
+}
+
+const handleEdit = (item: typeof promotions.value[0]) => {
+  alert(`编辑推广: ${item.name}`)
+}
+
+const handlePause = (item: typeof promotions.value[0]) => {
+  item.status = 'pause'
+  alert(`推广「${item.name}」已暂停`)
+}
+
+const handleStart = (item: typeof promotions.value[0]) => {
+  if (item.status !== 'end') {
+    item.status = 'running'
+    alert(`推广「${item.name}」已启动`)
+  } else {
+    alert('已结束的推广无法重新启动')
+  }
 }
 </script>

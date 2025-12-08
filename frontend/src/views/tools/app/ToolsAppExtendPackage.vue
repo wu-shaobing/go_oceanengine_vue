@@ -21,6 +21,18 @@ const formatNumber = (num: number) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreate = () => {
+  alert('创建拓展包')
+}
+
+const handleUse = (pkg: typeof packages.value[0]) => {
+  alert(`使用拓展包: ${pkg.name}`)
+}
+
+const handleDetail = (pkg: typeof packages.value[0]) => {
+  alert(`查看详情: ${pkg.name}`)
+}
 </script>
 
 <template>
@@ -32,7 +44,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">应用拓展包</h1>
           <p class="mt-2 text-gray-600">基于已有用户数据拓展相似人群</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleCreate" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           创建拓展包
         </button>
       </div>
@@ -94,8 +106,8 @@ const handlePageChange = (page: number) => {
             </td>
             <td class="px-6 py-4 text-sm text-gray-500">{{ pkg.createdAt }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">使用</button>
-              <button class="text-gray-600 hover:text-gray-800">详情</button>
+<button @click="handleUse(pkg)" class="text-blue-600 hover:text-blue-800 mr-3">使用</button>
+              <button @click="handleDetail(pkg)" class="text-gray-600 hover:text-gray-800">详情</button>
             </td>
           </tr>
         </tbody>

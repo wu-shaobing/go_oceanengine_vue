@@ -4,6 +4,8 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 12, total: 86 })
+const filterCategory = ref('')
+const searchKeyword = ref('')
 
 const actionTexts = ref([
   { id: 'AT001', text: '立即购买', category: '电商', usedCount: 12560, ctr: 3.2 },
@@ -19,6 +21,18 @@ const actionTexts = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCustomText = () => {
+  alert('自定义文案')
+}
+
+const handleUseText = (item: typeof actionTexts.value[0]) => {
+  alert(`使用文案: ${item.text}`)
+}
+
+const handleViewText = (item: typeof actionTexts.value[0]) => {
+  alert(`查看文案详情: ${item.text}`)
+}
 </script>
 
 <template>
@@ -30,7 +44,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">行动号召文案</h1>
           <p class="mt-2 text-gray-600">选择合适的行动号召提升点击率</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleCustomText" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           自定义文案
         </button>
       </div>
@@ -38,7 +52,7 @@ const handlePageChange = (page: number) => {
 
     <div class="bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex flex-wrap gap-4">
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterCategory" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部分类</option>
           <option value="ecommerce">电商</option>
           <option value="activity">活动</option>
@@ -46,13 +60,14 @@ const handlePageChange = (page: number) => {
           <option value="app">APP</option>
           <option value="game">游戏</option>
         </select>
-        <input type="text" placeholder="搜索文案..." class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg">
+        <input v-model="searchKeyword" type="text" placeholder="搜索文案..." class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg">
       </div>
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <div v-for="item in actionTexts" :key="item.id"
-           class="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-lg transition-shadow cursor-pointer group">
+           class="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-lg transition-shadow cursor-pointer group"
+           @click="handleViewText(item)">
         <div class="flex items-center justify-between mb-3">
           <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">{{ item.category }}</span>
           <span class="text-xs text-gray-400">{{ item.id }}</span>
@@ -66,7 +81,7 @@ const handlePageChange = (page: number) => {
           <span>使用 {{ (item.usedCount / 1000).toFixed(1) }}K</span>
           <span class="text-green-600">CTR {{ item.ctr }}%</span>
         </div>
-        <button class="w-full mt-3 py-2 text-sm text-blue-600 border border-blue-300 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-blue-50">
+<button @click="handleUseText(item)" class="w-full mt-3 py-2 text-sm text-blue-600 border border-blue-300 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-blue-50">
           使用此文案
         </button>
       </div>

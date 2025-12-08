@@ -23,6 +23,10 @@ const formatValue = (value: number, isPercent?: boolean, isCurrency?: boolean) =
   if (value >= 10000) return (value / 10000).toFixed(1) + '万'
   return value.toLocaleString()
 }
+
+const handleCompare = () => {
+  alert(`开始对比: ${period1.value} VS ${period2.value}`)
+}
 </script>
 
 <template>
@@ -45,7 +49,7 @@ const formatValue = (value: number, isPercent?: boolean, isCurrency?: boolean) =
           <span class="text-gray-500">VS</span>
           <input v-model="period2" type="date" class="px-4 py-2 border border-gray-300 rounded-lg">
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCompare">
           开始对比
         </button>
       </div>

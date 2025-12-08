@@ -4,6 +4,7 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 10, total: 78 })
+const searchKeyword = ref('')
 
 const trackLinks = ref([
   { id: 'TL001', name: '双11落地页追踪', url: 'https://track.example.com/c/abc123', clicks: 125600, conversions: 3560, cvr: 2.83, createdAt: '2025-11-01' },
@@ -14,6 +15,22 @@ const trackLinks = ref([
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleCreateTrack = () => {
+  alert('创建追踪链接')
+}
+
+const handleSearch = () => {
+  alert('搜索链接')
+}
+
+const handleCopyLink = (link: typeof trackLinks.value[0]) => {
+  alert(`已复制链接: ${link.url}`)
+}
+
+const handleViewDetail = (link: typeof trackLinks.value[0]) => {
+  alert(`查看详情: ${link.name}`)
 }
 </script>
 
@@ -26,7 +43,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">追踪链接管理</h1>
           <p class="mt-2 text-gray-600">管理广告追踪链接</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreateTrack">
           创建追踪链接
         </button>
       </div>
@@ -53,8 +70,8 @@ const handlePageChange = (page: number) => {
 
     <div class="bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex gap-4">
-        <input type="text" placeholder="搜索链接名称..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <input v-model="searchKeyword" type="text" placeholder="搜索链接名称..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSearch">搜索</button>
       </div>
     </div>
 
@@ -89,8 +106,8 @@ const handlePageChange = (page: number) => {
             </td>
             <td class="px-6 py-4 text-sm text-gray-500">{{ link.createdAt }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">复制</button>
-              <button class="text-gray-600 hover:text-gray-800">详情</button>
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleCopyLink(link)">复制</button>
+              <button class="text-gray-600 hover:text-gray-800" @click="handleViewDetail(link)">详情</button>
             </td>
           </tr>
         </tbody>

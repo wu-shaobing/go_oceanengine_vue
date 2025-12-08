@@ -14,6 +14,18 @@ const idTypes = [
   { value: 'idfa', label: 'IDFA', icon: '🍎', desc: 'iOS广告标识符' },
   { value: 'oaid', label: 'OAID', icon: '🤖', desc: '安卓匿名设备标识' }
 ]
+
+const handleSelectFile = () => {
+  alert('选择文件')
+}
+
+const handleCancel = () => {
+  alert('取消')
+}
+
+const handleCreate = () => {
+  alert(`创建人群包: ${formData.value.name}`)
+}
 </script>
 
 <template>
@@ -61,18 +73,18 @@ const idTypes = [
 
         <div class="bg-white rounded-lg border border-gray-200 p-6">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">上传文件</h3>
-          <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors cursor-pointer">
+<div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors cursor-pointer" @click="handleSelectFile">
             <div class="text-5xl mb-4">📤</div>
             <p class="text-lg font-medium text-gray-700">拖拽文件到此处上传</p>
             <p class="text-sm text-gray-500 mt-2">或点击选择文件</p>
             <p class="text-xs text-gray-400 mt-4">支持 CSV、TXT 格式，每行一个ID，最大100MB</p>
-            <button class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">选择文件</button>
+<button @click="handleSelectFile" class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">选择文件</button>
           </div>
         </div>
 
-        <div class="flex justify-end gap-4">
-          <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
-          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建人群包</button>
+<div class="flex justify-end gap-4">
+          <button @click="handleCancel" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
+          <button @click="handleCreate" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建人群包</button>
         </div>
       </div>
 

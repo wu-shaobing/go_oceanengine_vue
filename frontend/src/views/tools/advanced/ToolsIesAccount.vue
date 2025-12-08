@@ -15,6 +15,22 @@ const accounts = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleBind = () => {
+  alert('绑定新账号')
+}
+
+const handleSync = (account: typeof accounts.value[0]) => {
+  alert(`同步账号: ${account.name}`)
+}
+
+const handleBindAccount = (account: typeof accounts.value[0]) => {
+  alert(`绑定账号: ${account.name}`)
+}
+
+const handleSettings = (account: typeof accounts.value[0]) => {
+  alert(`账号设置: ${account.name}`)
+}
 </script>
 
 <template>
@@ -26,7 +42,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">巨量账号管理</h1>
           <p class="mt-2 text-gray-600">管理绑定的巨量引擎账号</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleBind" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           绑定新账号
         </button>
       </div>
@@ -84,9 +100,9 @@ const handlePageChange = (page: number) => {
             </td>
             <td class="px-6 py-4 text-sm text-gray-500">{{ account.lastSync }}</td>
             <td class="px-6 py-4 text-sm">
-              <button v-if="account.bindStatus === 'bound'" class="text-blue-600 hover:text-blue-800 mr-3">同步</button>
-              <button v-else class="text-green-600 hover:text-green-800 mr-3">绑定</button>
-              <button class="text-gray-600 hover:text-gray-800">设置</button>
+<button v-if="account.bindStatus === 'bound'" @click="handleSync(account)" class="text-blue-600 hover:text-blue-800 mr-3">同步</button>
+              <button v-else @click="handleBindAccount(account)" class="text-green-600 hover:text-green-800 mr-3">绑定</button>
+              <button @click="handleSettings(account)" class="text-gray-600 hover:text-gray-800">设置</button>
             </td>
           </tr>
         </tbody>

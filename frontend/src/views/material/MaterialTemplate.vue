@@ -26,6 +26,14 @@ const templates = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleUploadTemplate = () => {
+  alert('上传模板')
+}
+
+const handleUseTemplate = (tpl: typeof templates.value[0]) => {
+  alert(`使用模板: ${tpl.name}`)
+}
 </script>
 
 <template>
@@ -37,7 +45,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">素材模板</h1>
           <p class="mt-2 text-gray-600">选择模板快速制作广告素材</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleUploadTemplate">
           上传模板
         </button>
       </div>
@@ -60,7 +68,7 @@ const handlePageChange = (page: number) => {
         <div class="aspect-[9/16] bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center text-6xl relative">
           {{ tpl.preview }}
           <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <button class="px-4 py-2 bg-white text-gray-900 rounded-lg text-sm font-medium">
+            <button class="px-4 py-2 bg-white text-gray-900 rounded-lg text-sm font-medium" @click.stop="handleUseTemplate(tpl)">
               使用模板
             </button>
           </div>

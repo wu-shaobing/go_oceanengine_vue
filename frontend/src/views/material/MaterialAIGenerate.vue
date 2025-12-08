@@ -23,6 +23,14 @@ const ratios = [
 ]
 
 const generatedImages = ref<string[]>([])
+
+const handleGenerate = () => {
+  if (!formData.value.prompt) {
+    alert('请输入描述内容')
+    return
+  }
+  alert('开始生成素材')
+}
 </script>
 
 <template>
@@ -72,7 +80,7 @@ const generatedImages = ref<string[]>([])
             </div>
           </div>
 
-          <button class="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 font-medium">
+          <button class="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 font-medium" @click="handleGenerate">
             🚀 开始生成
           </button>
         </div>

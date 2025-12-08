@@ -74,6 +74,22 @@ const getStatusConfig = (status: string) => {
 onMounted(() => {
   fetchCreatives()
 })
+
+const handleCreateCreative = () => {
+  alert('创建创意')
+}
+
+const handleEditCreative = (creative: any) => {
+  alert(`编辑创意: ${creative.name}`)
+}
+
+const handleCopyCreative = (creative: any) => {
+  alert(`复制创意: ${creative.name}`)
+}
+
+const handleMoreActions = (creative: any) => {
+  alert(`更多操作: ${creative.name}`)
+}
 </script>
 
 <template>
@@ -85,8 +101,9 @@ onMounted(() => {
           <h1 class="text-3xl font-bold text-gray-900">创意管理</h1>
           <p class="mt-2 text-gray-600">管理您的广告创意素材</p>
         </div>
-        <button
+<button
           class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+          @click="handleCreateCreative"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -207,14 +224,14 @@ onMounted(() => {
             </div>
           </div>
 
-          <div class="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
-            <button class="flex-1 px-3 py-1.5 text-sm text-blue-600 hover:bg-blue-50 rounded transition-colors">
+<div class="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
+            <button class="flex-1 px-3 py-1.5 text-sm text-blue-600 hover:bg-blue-50 rounded transition-colors" @click="handleEditCreative(creative)">
               编辑
             </button>
-            <button class="flex-1 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 rounded transition-colors">
+            <button class="flex-1 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 rounded transition-colors" @click="handleCopyCreative(creative)">
               复制
             </button>
-            <button class="px-3 py-1.5 text-sm text-gray-400 hover:text-gray-600 rounded transition-colors">
+            <button class="px-3 py-1.5 text-sm text-gray-400 hover:text-gray-600 rounded transition-colors" @click="handleMoreActions(creative)">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
               </svg>

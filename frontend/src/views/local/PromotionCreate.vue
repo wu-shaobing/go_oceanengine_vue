@@ -170,7 +170,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
+
+const router = useRouter()
+const loading = ref(false)
 
 const form = ref({
   name: '',
@@ -204,11 +208,41 @@ const promotionGoals = [
 
 const ageOptions = Array.from({ length: 50 }, (_, i) => i + 16)
 
-const saveDraft = () => {
-  console.log('保存草稿', form.value)
+const validateForm = () => {
+  if (!form.value.name.trim()) {
+    alert('请输入推广名称')
+    return false
+  }
+  if (!form.value.projectId) {
+    alert('请选择所属项目')
+    return false
+  }
+  return true
 }
 
-const submit = () => {
-  console.log('提交审核', form.value)
+const saveDraft = async () => {
+  if (!form.value.name.trim()) {
+    alert('请先输入推广名称')
+    return
+  }
+  loading.value = true
+  try {
+    await new Promise(r => setTimeout(r, 500))
+    alert('草稿保存成功')
+  } finally {
+    loading.value = false
+  }
+}
+
+const submit = async () => {
+  if (!validateForm()) return
+  loading.value = true
+  try {
+    await new Promise(r => setTimeout(r, 500))
+    alert('推广提交成功，等待审核')
+    router.push('/local/promotion')
+  } finally {
+    loading.value = false
+  }
 }
 </script>

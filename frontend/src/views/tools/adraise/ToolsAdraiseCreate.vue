@@ -23,6 +23,14 @@ const durations = [
   { value: '7', label: '7天' },
   { value: 'custom', label: '自定义' }
 ]
+
+const handleCancel = () => {
+  alert('取消创建')
+}
+
+const handleCreate = () => {
+  alert(`创建任务: ${formData.value.name}`)
+}
 </script>
 
 <template>
@@ -98,9 +106,9 @@ const durations = [
           </p>
         </div>
 
-        <div class="flex justify-end gap-4 pt-4 border-t">
-          <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
-          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建任务</button>
+<div class="flex justify-end gap-4 pt-4 border-t">
+          <button @click="handleCancel" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
+          <button @click="handleCreate" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建任务</button>
         </div>
       </div>
     </div>

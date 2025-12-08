@@ -17,8 +17,8 @@
           <option value="income">收入</option>
           <option value="expense">支出</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
-        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
+<button @click="handleQuery" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+        <button @click="handleExport" class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
       </div>
     </div>
 
@@ -73,4 +73,12 @@ const transactions = ref([
   { id: 4, time: '2024-06-17 18:45:00', type: 'expense', desc: '平台服务费', remark: '6月服务费', amount: 12000, balance: 201800 },
   { id: 5, time: '2024-06-17 16:30:15', type: 'income', desc: '任务结算', remark: '护肤测评任务-Lisa', amount: 18000, balance: 213800 }
 ])
+
+const handleQuery = () => {
+  alert('查询交易明细')
+}
+
+const handleExport = () => {
+  alert('导出交易明细')
+}
 </script>

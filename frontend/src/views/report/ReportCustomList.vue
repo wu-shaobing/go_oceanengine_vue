@@ -20,6 +20,18 @@ const getTypeLabel = (type: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleRun = (item: typeof reports.value[0]) => {
+  alert(`运行报表: ${item.name}`)
+}
+
+const handleEdit = (item: typeof reports.value[0]) => {
+  alert(`编辑报表: ${item.name}`)
+}
+
+const handleDownload = (item: typeof reports.value[0]) => {
+  alert(`下载报表: ${item.name}`)
+}
 </script>
 
 <template>
@@ -89,9 +101,9 @@ const handlePageChange = (page: number) => {
               <td class="px-6 py-4 text-sm text-gray-600">{{ item.schedule }}</td>
               <td class="px-6 py-4 text-sm text-gray-500">{{ item.lastRun }}</td>
               <td class="px-6 py-4 text-sm">
-                <button class="text-blue-600 hover:text-blue-800 mr-3">运行</button>
-                <button class="text-gray-600 hover:text-gray-800 mr-3">编辑</button>
-                <button class="text-gray-600 hover:text-gray-800">下载</button>
+<button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleRun(item)">运行</button>
+                <button class="text-gray-600 hover:text-gray-800 mr-3" @click="handleEdit(item)">编辑</button>
+                <button class="text-gray-600 hover:text-gray-800" @click="handleDownload(item)">下载</button>
               </td>
             </tr>
           </tbody>

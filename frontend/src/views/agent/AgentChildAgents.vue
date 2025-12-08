@@ -15,6 +15,22 @@ const childAgents = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleAddChildAgent = () => {
+  alert('新增子代理')
+}
+
+const handleAgentDetail = (agent: typeof childAgents.value[0]) => {
+  alert(`子代理详情: ${agent.name}`)
+}
+
+const handleAgentRecharge = (agent: typeof childAgents.value[0]) => {
+  alert(`为 ${agent.name} 充值`)
+}
+
+const handleAgentEdit = (agent: typeof childAgents.value[0]) => {
+  alert(`编辑子代理: ${agent.name}`)
+}
 </script>
 
 <template>
@@ -26,7 +42,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">二级代理商列表</h1>
           <p class="mt-2 text-gray-600">管理您的二级代理商账户</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2">
+        <button @click="handleAddChildAgent" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
           </svg>
@@ -90,9 +106,9 @@ const handlePageChange = (page: number) => {
               </td>
               <td class="px-6 py-4 text-sm text-gray-500">{{ agent.createdAt }}</td>
               <td class="px-6 py-4 text-sm">
-                <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-                <button class="text-green-600 hover:text-green-800 mr-3">充值</button>
-                <button class="text-gray-600 hover:text-gray-800">编辑</button>
+                <button @click="handleAgentDetail(agent)" class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
+                <button @click="handleAgentRecharge(agent)" class="text-green-600 hover:text-green-800 mr-3">充值</button>
+                <button @click="handleAgentEdit(agent)" class="text-gray-600 hover:text-gray-800">编辑</button>
               </td>
             </tr>
           </tbody>

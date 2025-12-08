@@ -14,6 +14,18 @@ const callbacks = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleAddCallback = () => {
+  alert('创建新的飞鱼CRM回调配置')
+}
+
+const handleEditCallback = (cb: typeof callbacks.value[0]) => {
+  alert(`编辑回调配置: ${cb.name}`)
+}
+
+const handleViewLogs = (cb: typeof callbacks.value[0]) => {
+  alert(`查看「${cb.name}」的同步日志`)
+}
 </script>
 
 <template>
@@ -25,7 +37,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">飞鱼CRM回调</h1>
           <p class="mt-2 text-gray-600">配置飞鱼CRM线索同步回调</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button @click="handleAddCallback" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           添加回调
         </button>
       </div>
@@ -87,8 +99,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button class="text-gray-600 hover:text-gray-800">日志</button>
+              <button @click="handleEditCallback(cb)" class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
+              <button @click="handleViewLogs(cb)" class="text-gray-600 hover:text-gray-800">日志</button>
             </td>
           </tr>
         </tbody>

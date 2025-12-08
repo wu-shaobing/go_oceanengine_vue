@@ -69,6 +69,24 @@ const handlePageChange = (page: number) => {
   fetchAudiences()
 }
 
+const handleCreateAudience = () => {
+  alert('创建人群')
+}
+
+const handleAudienceDetail = (audience: any) => {
+  alert(`人群详情: ${audience.name}`)
+}
+
+const handleAudienceEdit = (audience: any) => {
+  alert(`编辑人群: ${audience.name}`)
+}
+
+const handleAudienceDelete = (audience: any) => {
+  if (confirm(`确定删除人群 ${audience.name} 吗？`)) {
+    alert(`已删除: ${audience.name}`)
+  }
+}
+
 const formatNumber = (value: number) => {
   if (value >= 1000000) {
     return `${(value / 1000000).toFixed(1)}M`
@@ -93,6 +111,7 @@ onMounted(() => {
           <p class="mt-2 text-gray-600">管理您的目标受众人群</p>
         </div>
         <button
+          @click="handleCreateAudience"
           class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -205,11 +224,11 @@ onMounted(() => {
           />
         </template>
 
-        <template #actions>
+        <template #actions="{ row }">
           <div class="flex items-center gap-2">
-            <button class="text-blue-600 hover:text-blue-800">详情</button>
-            <button class="text-gray-600 hover:text-gray-800">编辑</button>
-            <button class="text-red-600 hover:text-red-800">删除</button>
+            <button @click="handleAudienceDetail(row)" class="text-blue-600 hover:text-blue-800">详情</button>
+            <button @click="handleAudienceEdit(row)" class="text-gray-600 hover:text-gray-800">编辑</button>
+            <button @click="handleAudienceDelete(row)" class="text-red-600 hover:text-red-800">删除</button>
           </div>
         </template>
       </DataTable>

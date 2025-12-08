@@ -13,8 +13,8 @@
         <input type="date" v-model="filters.startDate" class="border border-gray-300 rounded px-3 py-2">
         <span>至</span>
         <input type="date" v-model="filters.endDate" class="border border-gray-300 rounded px-3 py-2">
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
-        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
+<button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" @click="handleQuery">查询</button>
+        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50" @click="handleExport">导出</button>
       </div>
     </div>
 
@@ -67,6 +67,14 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const filters = ref({ startDate: '', endDate: '' })
+
+const handleQuery = () => {
+  alert('查询直播间报表')
+}
+
+const handleExport = () => {
+  alert('导出直播间报表')
+}
 
 const rooms = ref([
   { id: 1, name: '618大促专场直播', cover: 'https://via.placeholder.com/48', date: '2024-06-18 19:00', cost: 25680, pv: 580000, enter: 125000, productClick: 38500, orders: 856, gmv: 128560, roi: 5.0 },

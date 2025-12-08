@@ -14,6 +14,18 @@ const callbacks = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleAddCallback = () => {
+  alert('添加回调')
+}
+
+const handleEditCallback = (cb: typeof callbacks.value[0]) => {
+  alert(`编辑回调: ${cb.name}`)
+}
+
+const handleTestCallback = (cb: typeof callbacks.value[0]) => {
+  alert(`测试回调: ${cb.name}`)
+}
 </script>
 
 <template>
@@ -25,7 +37,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">追踪回调配置</h1>
           <p class="mt-2 text-gray-600">管理转化追踪回调接口</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleAddCallback">
           添加回调
         </button>
       </div>
@@ -88,8 +100,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button class="text-gray-600 hover:text-gray-800">测试</button>
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleEditCallback(cb)">编辑</button>
+              <button class="text-gray-600 hover:text-gray-800" @click="handleTestCallback(cb)">测试</button>
             </td>
           </tr>
         </tbody>

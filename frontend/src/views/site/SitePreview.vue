@@ -14,6 +14,26 @@ const site = ref({
   status: 'published',
   lastUpdated: '2025-11-25 14:30'
 })
+
+const handlePublish = () => {
+  alert('发布页面')
+}
+
+const handleCopyLink = () => {
+  alert(`已复制链接: ${site.value.url}`)
+}
+
+const handleViewData = () => {
+  alert('查看数据')
+}
+
+const handleGenerateQR = () => {
+  alert('生成二维码')
+}
+
+const handleExportPage = () => {
+  alert('导出页面')
+}
 </script>
 
 <template>
@@ -39,7 +59,7 @@ const site = ref({
           <router-link :to="`/site/edit/${site.id}`" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
             编辑
           </router-link>
-          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handlePublish">
             发布
           </button>
         </div>
@@ -100,10 +120,10 @@ const site = ref({
         <div class="bg-white rounded-lg border border-gray-200 p-4">
           <h3 class="font-semibold text-gray-900 mb-4">快捷操作</h3>
           <div class="space-y-2">
-            <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 rounded">📋 复制链接</button>
-            <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 rounded">📊 查看数据</button>
-            <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 rounded">🔄 生成二维码</button>
-            <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 rounded">📥 导出页面</button>
+            <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 rounded" @click="handleCopyLink">📋 复制链接</button>
+            <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 rounded" @click="handleViewData">📊 查看数据</button>
+            <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 rounded" @click="handleGenerateQR">🔄 生成二维码</button>
+            <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 rounded" @click="handleExportPage">📥 导出页面</button>
           </div>
         </div>
       </div>

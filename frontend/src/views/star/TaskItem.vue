@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">任务管理</h1>
         <p class="text-gray-600 mt-1">管理达人合作任务</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">创建任务</button>
+      <button @click="handleCreate" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">创建任务</button>
     </div>
 
     <div class="bg-white rounded-lg shadow p-4 mb-6">
@@ -25,7 +25,7 @@
           <option value="live">直播推广</option>
           <option value="article">图文推广</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
       </div>
     </div>
 
@@ -57,7 +57,7 @@
           </div>
           <div class="flex space-x-2">
             <router-link :to="`/star/task/${task.id}`" class="px-3 py-1 text-sm text-blue-600 border border-blue-600 rounded hover:bg-blue-50">详情</router-link>
-            <button v-if="task.status === 'pending'" class="px-3 py-1 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-50">编辑</button>
+            <button v-if="task.status === 'pending'" @click="handleEdit(task)" class="px-3 py-1 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-50">编辑</button>
           </div>
         </div>
       </div>
@@ -71,9 +71,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
+const router = useRouter()
 const filters = ref({ keyword: '', status: '', type: '' })
 
 const tasks = ref([
@@ -90,5 +92,18 @@ const getStatusClass = (status: string) => {
 const getStatusText = (status: string) => {
   const texts: Record<string, string> = { pending: '待开始', processing: '进行中', completed: '已完成' }
   return texts[status] || status
+}
+
+const handleCreate = () => {
+  router.push('/star/task/create')
+}
+
+const handleSearch = () => {
+  console.log('搜索:', filters.value)
+  alert('查询完成')
+}
+
+const handleEdit = (task: typeof tasks.value[0]) => {
+  alert(`编辑任务: ${task.name}`)
 }
 </script>

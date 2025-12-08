@@ -18,7 +18,7 @@
           <option value="comment">评论操作</option>
           <option value="setting">设置操作</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
       </div>
     </div>
 
@@ -62,6 +62,10 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const filters = ref({ startDate: '', endDate: '', type: '' })
+
+const handleSearch = () => {
+  alert('查询操作日志')
+}
 
 const logs = ref([
   { id: 1, time: '2024-06-18 15:30:25', type: '视频操作', content: '发布视频《618大促预告》', operator: '管理员', result: 'success' },

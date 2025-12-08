@@ -10,6 +10,10 @@ const topProducts = ref([
   { id: 'P003', name: '快充充电器', impressions: 125600, clicks: 4398, cost: 5680, conversions: 145, revenue: 14500 },
   { id: 'P004', name: '手机保护壳', impressions: 98600, clicks: 3452, cost: 3560, conversions: 125, revenue: 6250 }
 ])
+
+const handleExportReport = () => {
+  alert('导出报表')
+}
 </script>
 
 <template>
@@ -27,7 +31,7 @@ const topProducts = ref([
             <option value="30d">最近30天</option>
             <option value="90d">最近90天</option>
           </select>
-          <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">导出报表</button>
+          <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50" @click="handleExportReport">导出报表</button>
         </div>
       </div>
     </div>

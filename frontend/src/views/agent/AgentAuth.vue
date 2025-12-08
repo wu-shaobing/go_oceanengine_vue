@@ -14,6 +14,18 @@ const auths = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleApplyAuth = () => {
+  alert('申请授权')
+}
+
+const handleAuthDetail = (auth: typeof auths.value[0]) => {
+  alert(`授权详情: ${auth.advertiser}`)
+}
+
+const handleRenewAuth = (auth: typeof auths.value[0]) => {
+  alert(`续期授权: ${auth.advertiser}`)
+}
 </script>
 
 <template>
@@ -25,7 +37,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">授权管理</h1>
           <p class="mt-2 text-gray-600">管理广告主授权</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button @click="handleApplyAuth" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           申请授权
         </button>
       </div>
@@ -85,8 +97,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-              <button v-if="auth.status === 'expiring'" class="text-green-600 hover:text-green-800">续期</button>
+              <button @click="handleAuthDetail(auth)" class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
+              <button v-if="auth.status === 'expiring'" @click="handleRenewAuth(auth)" class="text-green-600 hover:text-green-800">续期</button>
             </td>
           </tr>
         </tbody>

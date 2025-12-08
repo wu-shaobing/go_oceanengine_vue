@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">达人授权管理</h1>
         <p class="text-gray-600 mt-1">管理抖音达人账号授权</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleAddAuth" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
         添加达人授权
       </button>
     </div>
@@ -47,7 +47,7 @@
           <option value="7001">品牌官方旗舰店</option>
           <option value="7002">美妆专营店</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+<button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -93,9 +93,9 @@
             </td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">编辑权限</button>
-                <button class="text-blue-600 hover:text-blue-800 text-sm">续期</button>
-                <button class="text-red-600 hover:text-red-800 text-sm">取消授权</button>
+<button @click="handleEditPermission(aweme)" class="text-blue-600 hover:text-blue-800 text-sm">编辑权限</button>
+                <button @click="handleRenew(aweme)" class="text-blue-600 hover:text-blue-800 text-sm">续期</button>
+                <button @click="handleRevoke(aweme)" class="text-red-600 hover:text-red-800 text-sm">取消授权</button>
               </div>
             </td>
           </tr>
@@ -157,5 +157,25 @@ const getStatusText = (status: string) => {
     expired: '已过期'
   }
   return texts[status] || status
+}
+
+const handleAddAuth = () => {
+  alert('添加达人授权')
+}
+
+const handleSearch = () => {
+  alert('搜索达人')
+}
+
+const handleEditPermission = (aweme: typeof awemeList.value[0]) => {
+  alert(`编辑权限: ${aweme.nickname}`)
+}
+
+const handleRenew = (aweme: typeof awemeList.value[0]) => {
+  alert(`续期授权: ${aweme.nickname}`)
+}
+
+const handleRevoke = (aweme: typeof awemeList.value[0]) => {
+  alert(`取消授权: ${aweme.nickname}`)
 }
 </script>

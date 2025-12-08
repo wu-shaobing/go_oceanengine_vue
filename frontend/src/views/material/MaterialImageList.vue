@@ -6,6 +6,10 @@ import Pagination from '@/components/common/Pagination.vue'
 const pagination = reactive({ page: 1, pageSize: 20, total: 245 })
 const selectedImages = ref<string[]>([])
 
+const searchKeyword = ref('')
+const filterStatus = ref('')
+const filterFormat = ref('')
+
 const images = ref([
   { id: 'IMG001', name: '产品主图', thumbnail: '🖼️', size: '1.2MB', dimensions: '800x800', format: 'JPG', status: 'active', usedCount: 45, createdAt: '2025-10-01' },
   { id: 'IMG002', name: '促销Banner', thumbnail: '🎨', size: '856KB', dimensions: '1200x628', format: 'PNG', status: 'active', usedCount: 32, createdAt: '2025-10-03' },
@@ -38,6 +42,13 @@ const getStatusConfig = (status: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleBatchDelete = () => {
+  if (confirm(`确定删除选中的 ${selectedImages.value.length} 张图片?`)) {
+    alert('删除成功')
+    selectedImages.value = []
+  }
+}
 </script>
 
 <template>
@@ -53,7 +64,7 @@ const handlePageChange = (page: number) => {
           <span v-if="selectedImages.length > 0" class="text-sm text-gray-600">
             已选择 {{ selectedImages.length }} 张
           </span>
-          <button v-if="selectedImages.length > 0" class="px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50">
+          <button v-if="selectedImages.length > 0" class="px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50" @click="handleBatchDelete">
             批量删除
           </button>
           <router-link to="/material/image/upload" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
@@ -84,15 +95,15 @@ const handlePageChange = (page: number) => {
 
     <div class="bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex flex-wrap gap-4">
-        <input type="text" placeholder="搜索图片名称..."
+        <input v-model="searchKeyword" type="text" placeholder="搜索图片名称..."
                class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterStatus" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部状态</option>
           <option value="active">可用</option>
           <option value="reviewing">审核中</option>
           <option value="rejected">已拒绝</option>
         </select>
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterFormat" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部格式</option>
           <option value="jpg">JPG</option>
           <option value="png">PNG</option>

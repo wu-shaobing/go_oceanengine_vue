@@ -2,6 +2,14 @@
 import { reactive } from 'vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 
+const handleEditInfo = () => {
+  alert('编辑代理商信息')
+}
+
+const handleViewQualification = () => {
+  alert('查看资质文件')
+}
+
 const agentInfo = reactive({
   id: '1234567890',
   name: '北京巨量引擎代理商',
@@ -129,10 +137,10 @@ const agentInfo = reactive({
         </div>
 
         <div class="flex flex-col gap-3">
-          <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button @click="handleEditInfo" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
             编辑信息
           </button>
-          <button class="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+          <button @click="handleViewQualification" class="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
             查看资质
           </button>
         </div>

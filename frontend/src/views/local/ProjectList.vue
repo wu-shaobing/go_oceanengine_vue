@@ -28,7 +28,7 @@
           <option value="education">教育</option>
           <option value="auto">汽车</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -67,9 +67,9 @@
             <td class="px-4 py-3">
               <div class="flex space-x-2">
                 <router-link :to="`/local/project/${project.id}`" class="text-blue-600 hover:text-blue-800 text-sm">详情</router-link>
-                <button class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
-                <button v-if="project.status === 'running'" class="text-orange-600 hover:text-orange-800 text-sm">暂停</button>
-                <button v-else class="text-green-600 hover:text-green-800 text-sm">启动</button>
+                <button @click="handleEdit(project)" class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
+                <button v-if="project.status === 'running'" @click="handlePause(project)" class="text-orange-600 hover:text-orange-800 text-sm">暂停</button>
+                <button v-else @click="handleStart(project)" class="text-green-600 hover:text-green-800 text-sm">启动</button>
               </div>
             </td>
           </tr>
@@ -180,4 +180,20 @@ onMounted(() => {
 watch(() => advertiserStore.currentAdvertiserId, () => {
   fetchProjects()
 })
+
+const handleEdit = (project: ProjectItem) => {
+  alert(`编辑项目: ${project.name}`)
+}
+
+const handlePause = async (project: ProjectItem) => {
+  if (confirm(`确定暂停项目「${project.name}」吗？`)) {
+    project.status = 'pause'
+    alert('项目已暂停')
+  }
+}
+
+const handleStart = async (project: ProjectItem) => {
+  project.status = 'running'
+  alert(`项目「${project.name}」已启动`)
+}
 </script>

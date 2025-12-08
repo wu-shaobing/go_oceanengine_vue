@@ -22,6 +22,14 @@ const layouts = [
   { value: 'horizontal', label: '横版', ratio: '16:9' },
   { value: 'square', label: '方形', ratio: '1:1' }
 ]
+
+const handleCancel = () => {
+  alert('取消')
+}
+
+const handleCreateTemplate = () => {
+  alert('创建模板')
+}
 </script>
 
 <template>
@@ -87,8 +95,8 @@ const layouts = [
           </div>
 
           <div class="flex justify-end gap-4 pt-4 border-t">
-            <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
-            <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建模板</button>
+            <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50" @click="handleCancel">取消</button>
+            <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreateTemplate">创建模板</button>
           </div>
         </div>
       </div>

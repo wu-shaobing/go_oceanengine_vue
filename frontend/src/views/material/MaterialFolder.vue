@@ -12,6 +12,22 @@ const folders = ref([
 
 const showCreateModal = ref(false)
 const newFolderName = ref('')
+
+const handleOpenFolder = (folder: typeof folders.value[0]) => {
+  alert(`打开文件夹: ${folder.name}`)
+}
+
+const handleFolderMenu = (folder: typeof folders.value[0]) => {
+  alert(`文件夹菜单: ${folder.name}`)
+}
+
+const handleCreateFolder = () => {
+  if (newFolderName.value) {
+    alert(`创建文件夹: ${newFolderName.value}`)
+    showCreateModal.value = false
+    newFolderName.value = ''
+  }
+}
 </script>
 
 <template>
@@ -51,10 +67,11 @@ const newFolderName = ref('')
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <div v-for="folder in folders" :key="folder.id"
-           class="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow cursor-pointer">
+           class="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow cursor-pointer"
+           @click="handleOpenFolder(folder)">
         <div class="flex items-start justify-between">
           <span class="text-4xl">📁</span>
-          <button class="text-gray-400 hover:text-gray-600">⋮</button>
+          <button class="text-gray-400 hover:text-gray-600" @click.stop="handleFolderMenu(folder)">⋮</button>
         </div>
         <h4 class="font-medium text-gray-900 mt-3">{{ folder.name }}</h4>
         <div class="flex items-center justify-between mt-2 text-sm text-gray-500">
@@ -76,9 +93,8 @@ const newFolderName = ref('')
         <input v-model="newFolderName" type="text" placeholder="请输入文件夹名称"
                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
         <div class="flex justify-end gap-3 mt-4">
-          <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
-                  @click="showCreateModal = false">取消</button>
-          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建</button>
+          <button @click="showCreateModal = false" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
+          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreateFolder">创建</button>
         </div>
       </div>
     </div>

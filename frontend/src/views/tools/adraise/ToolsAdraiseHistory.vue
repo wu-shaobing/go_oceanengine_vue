@@ -14,6 +14,14 @@ const histories = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleDetail = (history: typeof histories.value[0]) => {
+  alert(`查看详情: ${history.adName}`)
+}
+
+const handleReuse = (history: typeof histories.value[0]) => {
+  alert(`复用策略: ${history.adName}`)
+}
 </script>
 
 <template>
@@ -80,8 +88,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-              <button class="text-gray-600 hover:text-gray-800">复用</button>
+<button @click="handleDetail(history)" class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
+              <button @click="handleReuse(history)" class="text-gray-600 hover:text-gray-800">复用</button>
             </td>
           </tr>
         </tbody>

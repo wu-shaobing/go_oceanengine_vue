@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
+
+const router = useRouter()
 
 const pagination = reactive({ page: 1, pageSize: 10, total: 45 })
 
@@ -23,6 +26,14 @@ const getTypeLabel = (type: string) => {
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleEditCoupon = (coupon: typeof coupons.value[0]) => {
+  router.push(`/clue/coupon/edit/${coupon.id}`)
+}
+
+const handleViewData = (coupon: typeof coupons.value[0]) => {
+  alert(`查看优惠券「${coupon.name}」的使用数据`)
 }
 </script>
 
@@ -102,8 +113,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button class="text-gray-600 hover:text-gray-800">数据</button>
+              <button @click="handleEditCoupon(coupon)" class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
+              <button @click="handleViewData(coupon)" class="text-gray-600 hover:text-gray-800">数据</button>
             </td>
           </tr>
         </tbody>

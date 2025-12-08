@@ -32,6 +32,18 @@ const addField = () => {
     required: false
   })
 }
+
+const removeField = (fieldId: number) => {
+  fields.value = fields.value.filter(f => f.id !== fieldId)
+}
+
+const handleCancel = () => {
+  alert('取消')
+}
+
+const handleCreateForm = () => {
+  alert('创建表单')
+}
 </script>
 
 <template>
@@ -84,7 +96,7 @@ const addField = () => {
                 <input v-model="field.required" type="checkbox" class="rounded text-blue-600">
                 必填
               </label>
-              <button class="text-red-500 hover:text-red-700">×</button>
+              <button class="text-red-500 hover:text-red-700" @click="removeField(field.id)">×</button>
             </div>
           </div>
         </div>
@@ -106,8 +118,8 @@ const addField = () => {
         </div>
 
         <div class="flex justify-end gap-4">
-          <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
-          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建表单</button>
+          <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50" @click="handleCancel">取消</button>
+          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreateForm">创建表单</button>
         </div>
       </div>
 

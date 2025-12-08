@@ -4,6 +4,9 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 20, total: 5680 })
+const filterStrategy = ref('')
+const filterResult = ref('')
+const searchKeyword = ref('')
 
 const logs = ref([
   { id: 'RL001', strategyName: '高价值用户策略', requestId: 'req_abc123', responseTime: 32, result: 'accept', bidPrice: 15.5, time: '2025-11-28 09:30:25.123' },
@@ -14,6 +17,18 @@ const logs = ref([
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleExport = () => {
+  alert('导出日志')
+}
+
+const handleSearch = () => {
+  alert('搜索日志')
+}
+
+const handleLogDetail = (log: typeof logs.value[0]) => {
+  alert(`查看详情: ${log.requestId}`)
 }
 </script>
 
@@ -26,7 +41,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">RTA调用日志</h1>
           <p class="mt-2 text-gray-600">查看RTA接口调用记录</p>
         </div>
-        <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+<button @click="handleExport" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
           导出日志
         </button>
       </div>
@@ -57,20 +72,20 @@ const handlePageChange = (page: number) => {
 
     <div class="bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex gap-4">
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterStrategy" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部策略</option>
           <option value="RTA001">高价值用户策略</option>
           <option value="RTA002">新用户转化策略</option>
           <option value="RTA003">促销活动策略</option>
         </select>
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterResult" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部结果</option>
           <option value="accept">接受</option>
           <option value="reject">拒绝</option>
           <option value="timeout">超时</option>
         </select>
-        <input type="text" placeholder="搜索请求ID..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <input v-model="searchKeyword" type="text" placeholder="搜索请求ID..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
+<button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -107,7 +122,7 @@ const handlePageChange = (page: number) => {
             <td class="px-6 py-4 text-sm text-gray-900">{{ log.bidPrice > 0 ? `¥${log.bidPrice}` : '-' }}</td>
             <td class="px-6 py-4 text-xs text-gray-500 font-mono">{{ log.time }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800">详情</button>
+<button @click="handleLogDetail(log)" class="text-blue-600 hover:text-blue-800">详情</button>
             </td>
           </tr>
         </tbody>

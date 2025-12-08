@@ -24,6 +24,18 @@ const getTypeLabel = (type: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreateTrack = () => {
+  alert('创建转化追踪')
+}
+
+const handleConfigTrack = (track: any) => {
+  alert(`配置追踪: ${track.name}`)
+}
+
+const handleViewTrackData = (track: any) => {
+  alert(`查看数据: ${track.name}`)
+}
 </script>
 
 <template>
@@ -35,7 +47,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">转化追踪管理</h1>
           <p class="mt-2 text-gray-600">配置和管理广告转化追踪点</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreateTrack">
           创建追踪
         </button>
       </div>
@@ -96,9 +108,9 @@ const handlePageChange = (page: number) => {
                 {{ track.status === 'active' ? '启用' : '停用' }}
               </span>
             </td>
-            <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">配置</button>
-              <button class="text-gray-600 hover:text-gray-800">数据</button>
+<td class="px-6 py-4 text-sm">
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleConfigTrack(track)">配置</button>
+              <button class="text-gray-600 hover:text-gray-800" @click="handleViewTrackData(track)">数据</button>
             </td>
           </tr>
         </tbody>

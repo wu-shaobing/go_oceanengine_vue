@@ -18,8 +18,8 @@
           <option value="following">跟进中</option>
           <option value="converted">已转化</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
-        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
+<button @click="handleQuery" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+        <button @click="handleExport" class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
       </div>
     </div>
 
@@ -69,8 +69,8 @@
             <td class="px-4 py-3 text-sm text-gray-500">{{ clue.createTime }}</td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
-                <button class="text-blue-600 hover:text-blue-800 text-sm">跟进</button>
+<button @click="handleDetail(clue)" class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
+                <button @click="handleFollow(clue)" class="text-blue-600 hover:text-blue-800 text-sm">跟进</button>
               </div>
             </td>
           </tr>
@@ -106,5 +106,21 @@ const getStatusClass = (status: string) => {
 const getStatusText = (status: string) => {
   const texts: Record<string, string> = { pending: '待跟进', following: '跟进中', converted: '已转化' }
   return texts[status] || status
+}
+
+const handleQuery = () => {
+  alert('查询线索')
+}
+
+const handleExport = () => {
+  alert('导出线索数据')
+}
+
+const handleDetail = (clue: typeof clues.value[0]) => {
+  alert(`查看线索详情: ${clue.name}`)
+}
+
+const handleFollow = (clue: typeof clues.value[0]) => {
+  alert(`跟进线索: ${clue.name}`)
 }
 </script>

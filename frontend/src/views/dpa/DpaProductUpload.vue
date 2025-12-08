@@ -12,6 +12,14 @@ const uploadHistory = ref([
   { id: 'U002', fileName: 'products_20251126.csv', count: 3200, status: 'success', time: '2025-11-26 14:20' },
   { id: 'U003', fileName: 'products_20251127.csv', count: 1500, status: 'processing', time: '2025-11-27 09:15' }
 ])
+
+const handleSelectFile = () => {
+  alert('选择文件')
+}
+
+const handleDownloadTemplate = () => {
+  alert('下载模板')
+}
 </script>
 
 <template>
@@ -35,12 +43,12 @@ const uploadHistory = ref([
             </select>
           </div>
 
-          <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors cursor-pointer">
+<div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors cursor-pointer" @click="handleSelectFile">
             <div class="text-5xl mb-4">📦</div>
             <p class="text-lg font-medium text-gray-700">拖拽文件到此处上传</p>
             <p class="text-sm text-gray-500 mt-2">或点击选择文件</p>
             <p class="text-xs text-gray-400 mt-4">支持 CSV、XML 格式，最大 50MB</p>
-            <button class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">选择文件</button>
+            <button class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSelectFile">选择文件</button>
           </div>
 
           <div class="flex items-center gap-4 p-4 bg-blue-50 rounded-lg">
@@ -49,7 +57,7 @@ const uploadHistory = ref([
               <p class="text-sm font-medium text-blue-800">下载模板文件</p>
               <p class="text-xs text-blue-600">使用标准模板可确保数据格式正确</p>
             </div>
-            <button class="ml-auto px-4 py-1 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-100">下载模板</button>
+            <button class="ml-auto px-4 py-1 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-100" @click="handleDownloadTemplate">下载模板</button>
           </div>
         </div>
       </div>

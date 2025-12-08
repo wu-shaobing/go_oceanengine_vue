@@ -9,6 +9,30 @@ const videoInfo = ref({
   size: '45MB'
 })
 
+const handleCancel = () => {
+  alert('取消编辑')
+}
+
+const handleSave = () => {
+  alert('保存视频编辑')
+}
+
+const handleRotate = () => {
+  alert('旋转视频')
+}
+
+const handleCrop = () => {
+  alert('裁剪视频')
+}
+
+const handleSpeed = () => {
+  alert('调整播放速度')
+}
+
+const handleFilter = () => {
+  alert('添加滤镜')
+}
+
 const editOptions = ref({
   trimStart: 0,
   trimEnd: 30,
@@ -69,8 +93,8 @@ const editOptions = ref({
         </div>
 
         <div class="flex justify-end gap-4">
-          <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
-          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">保存编辑</button>
+          <button @click="handleCancel" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
+          <button @click="handleSave" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">保存编辑</button>
         </div>
       </div>
 
@@ -122,10 +146,10 @@ const editOptions = ref({
         <div class="bg-white rounded-lg border border-gray-200 p-4">
           <h4 class="font-medium text-gray-900 mb-3">快捷操作</h4>
           <div class="grid grid-cols-2 gap-2">
-            <button class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">旋转</button>
-            <button class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">裁剪</button>
-            <button class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">调速</button>
-            <button class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">滤镜</button>
+            <button @click="handleRotate" class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">旋转</button>
+            <button @click="handleCrop" class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">裁剪</button>
+            <button @click="handleSpeed" class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">调速</button>
+            <button @click="handleFilter" class="p-2 text-sm text-gray-700 bg-gray-50 rounded hover:bg-gray-100">滤镜</button>
           </div>
         </div>
       </div>

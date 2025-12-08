@@ -14,6 +14,18 @@ const budgetItems = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleBatchAdjust = () => {
+  alert('批量调整预算')
+}
+
+const handleAdjust = (item: typeof budgetItems.value[0]) => {
+  alert(`调整预算: ${item.name}`)
+}
+
+const handleDetail = (item: typeof budgetItems.value[0]) => {
+  alert(`查看详情: ${item.name}`)
+}
 </script>
 
 <template>
@@ -25,7 +37,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">预算工具</h1>
           <p class="mt-2 text-gray-600">管理广告预算分配</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleBatchAdjust" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           批量调整
         </button>
       </div>
@@ -91,8 +103,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">调整</button>
-              <button class="text-gray-600 hover:text-gray-800">详情</button>
+<button @click="handleAdjust(item)" class="text-blue-600 hover:text-blue-800 mr-3">调整</button>
+              <button @click="handleDetail(item)" class="text-gray-600 hover:text-gray-800">详情</button>
             </td>
           </tr>
         </tbody>

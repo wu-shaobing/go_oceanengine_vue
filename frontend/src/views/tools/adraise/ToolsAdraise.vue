@@ -22,6 +22,21 @@ const getEffectConfig = (effect: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreateStrategy = () => {
+  alert('创建新的提价策略')
+}
+
+const handleAdjust = (record: typeof raiseRecords.value[0]) => {
+  alert(`调整提价策略: ${record.adName}\n当前出价: ¥${record.raisedBid}`)
+}
+
+const handleCancel = (record: typeof raiseRecords.value[0]) => {
+  if (confirm(`确定取消「${record.adName}」的提价吗？`)) {
+    record.status = 'paused'
+    alert('已取消提价')
+  }
+}
 </script>
 
 <template>
@@ -33,7 +48,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">智能提价</h1>
           <p class="mt-2 text-gray-600">智能优化出价，提升广告竞争力</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button @click="handleCreateStrategy" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           创建提价策略
         </button>
       </div>
@@ -94,8 +109,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">调整</button>
-              <button class="text-gray-600 hover:text-gray-800">取消</button>
+              <button @click="handleAdjust(record)" class="text-blue-600 hover:text-blue-800 mr-3">调整</button>
+              <button @click="handleCancel(record)" class="text-gray-600 hover:text-gray-800">取消</button>
             </td>
           </tr>
         </tbody>

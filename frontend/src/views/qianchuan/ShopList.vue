@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">店铺管理</h1>
         <p class="text-gray-600 mt-1">管理已授权的抖音小店</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+      <button @click="handleAddShop" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
         添加店铺授权
       </button>
     </div>
@@ -26,8 +26,8 @@
           <option value="self">自营店铺</option>
           <option value="pop">POP店铺</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
-        <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">重置</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <button @click="handleReset" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">重置</button>
       </div>
     </div>
 
@@ -68,9 +68,9 @@
             <td class="px-4 py-3 text-sm">¥{{ shop.totalCost.toLocaleString() }}</td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">查看详情</button>
-                <button class="text-blue-600 hover:text-blue-800 text-sm">续期授权</button>
-                <button class="text-red-600 hover:text-red-800 text-sm">取消授权</button>
+                <button @click="handleViewDetail(shop)" class="text-blue-600 hover:text-blue-800 text-sm">查看详情</button>
+                <button @click="handleRenew(shop)" class="text-blue-600 hover:text-blue-800 text-sm">续期授权</button>
+                <button @click="handleRevoke(shop)" class="text-red-600 hover:text-red-800 text-sm">取消授权</button>
               </div>
             </td>
           </tr>
@@ -101,4 +101,33 @@ const shops = ref([
   { id: '7004', name: '数码配件店', logo: 'https://via.placeholder.com/40', type: '自营店铺', status: 'active', expireTime: '2024-08-20', awemeCount: 12, totalCost: 428000 },
   { id: '7005', name: '服装精品店', logo: 'https://via.placeholder.com/40', type: 'POP店铺', status: 'active', expireTime: '2024-11-30', awemeCount: 20, totalCost: 756000 }
 ])
+
+const handleAddShop = () => {
+  alert('添加新的店铺授权')
+}
+
+const handleSearch = () => {
+  console.log('搜索:', filters.value)
+  alert('查询完成')
+}
+
+const handleReset = () => {
+  filters.value = { keyword: '', status: '', type: '' }
+}
+
+const handleViewDetail = (shop: typeof shops.value[0]) => {
+  alert(`查看店铺详情: ${shop.name}`)
+}
+
+const handleRenew = (shop: typeof shops.value[0]) => {
+  alert(`续期授权: ${shop.name}`)
+}
+
+const handleRevoke = (shop: typeof shops.value[0]) => {
+  if (confirm(`确定取消「${shop.name}」的授权吗？`)) {
+    const idx = shops.value.findIndex(s => s.id === shop.id)
+    if (idx > -1) shops.value.splice(idx, 1)
+    alert('授权已取消')
+  }
+}
 </script>

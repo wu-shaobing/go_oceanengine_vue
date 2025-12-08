@@ -21,6 +21,18 @@ const formatNumber = (num: number) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleAddBehavior = () => {
+  alert('添加行为')
+}
+
+const handleEditBehavior = (behavior: typeof behaviors.value[0]) => {
+  alert(`编辑行为: ${behavior.name}`)
+}
+
+const handleViewBehaviorData = (behavior: typeof behaviors.value[0]) => {
+  alert(`查看数据: ${behavior.name}`)
+}
 </script>
 
 <template>
@@ -32,7 +44,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">DPA行为追踪</h1>
           <p class="mt-2 text-gray-600">配置商品行为追踪事件</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleAddBehavior">
           添加行为
         </button>
       </div>
@@ -87,8 +99,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button class="text-gray-600 hover:text-gray-800">数据</button>
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleEditBehavior(behavior)">编辑</button>
+              <button class="text-gray-600 hover:text-gray-800" @click="handleViewBehaviorData(behavior)">数据</button>
             </td>
           </tr>
         </tbody>

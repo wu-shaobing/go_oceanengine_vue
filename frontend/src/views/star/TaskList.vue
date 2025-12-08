@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">任务管理</h1>
         <p class="text-gray-600 mt-1">管理达人营销任务</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleCreate" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
         创建任务
       </button>
     </div>
@@ -48,7 +48,7 @@
           <option value="live">直播带货</option>
           <option value="post">图文推广</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+<button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -92,8 +92,8 @@
             </td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
-                <button class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
+<button @click="handleDetail(task)" class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
+                <button @click="handleEdit(task)" class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
               </div>
             </td>
           </tr>
@@ -222,5 +222,17 @@ const getStatusText = (status: string) => {
     completed: '已完成'
   }
   return texts[status] || status
+}
+
+const handleCreate = () => {
+  alert('创建任务')
+}
+
+const handleDetail = (task: TaskItem) => {
+  alert(`查看任务详情: ${task.name}`)
+}
+
+const handleEdit = (task: TaskItem) => {
+  alert(`编辑任务: ${task.name}`)
 }
 </script>

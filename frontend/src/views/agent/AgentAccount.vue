@@ -14,6 +14,24 @@ const accounts = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleAddAccount = () => {
+  alert('添加账号')
+}
+
+const handleEditAccount = (account: typeof accounts.value[0]) => {
+  alert(`编辑账号: ${account.name}`)
+}
+
+const handleAccountPermission = (account: typeof accounts.value[0]) => {
+  alert(`权限管理: ${account.name}`)
+}
+
+const handleDisableAccount = (account: typeof accounts.value[0]) => {
+  if (confirm(`确定禁用账号 ${account.name} 吗？`)) {
+    alert(`已禁用: ${account.name}`)
+  }
+}
 </script>
 
 <template>
@@ -25,7 +43,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">账号管理</h1>
           <p class="mt-2 text-gray-600">管理代理商下的账号权限</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button @click="handleAddAccount" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           添加账号
         </button>
       </div>
@@ -84,9 +102,9 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button class="text-gray-600 hover:text-gray-800 mr-3">权限</button>
-              <button class="text-red-600 hover:text-red-800">禁用</button>
+              <button @click="handleEditAccount(account)" class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
+              <button @click="handleAccountPermission(account)" class="text-gray-600 hover:text-gray-800 mr-3">权限</button>
+              <button @click="handleDisableAccount(account)" class="text-red-600 hover:text-red-800">禁用</button>
             </td>
           </tr>
         </tbody>

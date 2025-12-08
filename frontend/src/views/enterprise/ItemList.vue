@@ -19,7 +19,7 @@
           <option value="reviewing">审核中</option>
           <option value="rejected">已拒绝</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -55,8 +55,8 @@
             </div>
           </div>
           <div class="flex space-x-2 mt-3">
-            <button class="flex-1 px-3 py-1 text-sm text-blue-600 hover:bg-blue-50 rounded">详情</button>
-            <button class="flex-1 px-3 py-1 text-sm text-gray-600 hover:bg-gray-50 rounded">数据</button>
+            <button @click="handleVideoDetail(video)" class="flex-1 px-3 py-1 text-sm text-blue-600 hover:bg-blue-50 rounded">详情</button>
+            <button @click="handleVideoData(video)" class="flex-1 px-3 py-1 text-sm text-gray-600 hover:bg-gray-50 rounded">数据</button>
           </div>
         </div>
       </div>
@@ -152,6 +152,14 @@ const handleSearch = () => {
 const handlePageChange = (page: number) => {
   pagination.value.page = page
   fetchVideos()
+}
+
+const handleVideoDetail = (video: VideoItem) => {
+  alert(`视频详情: ${video.title}`)
+}
+
+const handleVideoData = (video: VideoItem) => {
+  alert(`视频数据: ${video.title}`)
 }
 
 onMounted(() => {

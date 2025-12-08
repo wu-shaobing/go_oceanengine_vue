@@ -18,6 +18,14 @@ const formatNumber = (num: number) => {
   if (num >= 10000) return (num / 10000).toFixed(0) + '万'
   return num.toLocaleString()
 }
+
+const handleSearch = () => {
+  alert(`搜索: ${searchKeyword.value}`)
+}
+
+const handleSelect = (item: typeof keywords.value[0]) => {
+  alert(`选择关键词: ${item.keyword}`)
+}
 </script>
 
 <template>
@@ -32,7 +40,7 @@ const formatNumber = (num: number) => {
       <div class="flex gap-4">
         <input v-model="searchKeyword" type="text" placeholder="搜索关键词..."
                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+<button @click="handleSearch" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -44,7 +52,7 @@ const formatNumber = (num: number) => {
             <h4 class="font-semibold text-gray-900">{{ item.keyword }}</h4>
             <span class="text-xs text-gray-500">{{ item.category }}</span>
           </div>
-          <button class="px-3 py-1 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-50">
+<button @click="handleSelect(item)" class="px-3 py-1 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-50">
             选择
           </button>
         </div>

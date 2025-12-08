@@ -43,6 +43,14 @@ const toggleExpand = (id: string) => {
     expandedCategories.value.push(id)
   }
 }
+
+const handleCreateCategory = () => {
+  alert('新建分类')
+}
+
+const handleEditCategory = (childId: string, childName: string) => {
+  alert(`编辑分类: ${childName} (ID: ${childId})`)
+}
 </script>
 
 <template>
@@ -54,7 +62,7 @@ const toggleExpand = (id: string) => {
           <h1 class="text-3xl font-bold text-gray-900">商品分类管理</h1>
           <p class="mt-2 text-gray-600">管理DPA商品库分类目录</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreateCategory">
           新建分类
         </button>
       </div>
@@ -107,7 +115,7 @@ const toggleExpand = (id: string) => {
             </div>
             <div class="flex items-center gap-4">
               <span class="text-sm text-gray-500">{{ child.count }} 件</span>
-              <button class="text-blue-600 text-sm hover:text-blue-800">编辑</button>
+              <button class="text-blue-600 text-sm hover:text-blue-800" @click="handleEditCategory(child.id, child.name)">编辑</button>
             </div>
           </div>
         </div>

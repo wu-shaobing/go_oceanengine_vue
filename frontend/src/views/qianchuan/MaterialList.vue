@@ -14,7 +14,7 @@
         <router-link to="/qianchuan/material/image" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
           图片素材
         </router-link>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleUpload">
           上传素材
         </button>
       </div>
@@ -55,7 +55,7 @@
           <option value="live">直播间录制</option>
           <option value="aweme">抖音视频</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSearch">搜索</button>
       </div>
     </div>
 
@@ -68,8 +68,8 @@
             {{ material.duration }}
           </div>
           <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
-            <button class="px-3 py-1 bg-white rounded text-sm mr-2">预览</button>
-            <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm">使用</button>
+<button class="px-3 py-1 bg-white rounded text-sm mr-2" @click="handlePreview(material)">预览</button>
+            <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm" @click="handleUse(material)">使用</button>
           </div>
         </div>
         <div class="p-3">
@@ -117,4 +117,20 @@ const materials = ref([
   { id: 11, name: '使用教程', cover: 'https://via.placeholder.com/200', type: 'video', duration: '00:25', size: '22.4MB', createTime: '03-10' },
   { id: 12, name: '产品对比图', cover: 'https://via.placeholder.com/200', type: 'image', duration: '', size: '1.8MB', createTime: '03-10' }
 ])
+
+const handleUpload = () => {
+  alert('上传素材')
+}
+
+const handleSearch = () => {
+  alert(`搜索: ${filters.value.keyword}`)
+}
+
+const handlePreview = (material: typeof materials.value[0]) => {
+  alert(`预览素材: ${material.name}`)
+}
+
+const handleUse = (material: typeof materials.value[0]) => {
+  alert(`使用素材: ${material.name}`)
+}
 </script>

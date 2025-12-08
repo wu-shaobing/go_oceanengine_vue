@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">广告主报表</h1>
         <p class="text-gray-600 mt-1">账户整体投放数据分析</p>
       </div>
-      <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+<button @click="handleExport" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
         导出报表
       </button>
     </div>
@@ -28,7 +28,7 @@
           <span>至</span>
           <input type="date" v-model="filters.endDate" class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm">
         </div>
-        <button class="px-4 py-1.5 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700">查询</button>
+<button @click="handleQuery" class="px-4 py-1.5 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700">查询</button>
       </div>
     </div>
 
@@ -144,4 +144,12 @@ const reportData = ref([
   { date: '2024-03-12', cost: 17600, gmv: 76800, roi: '4.36', impression: 812000, click: 26800, conversion: 356, conversionCost: 49.4 },
   { date: '2024-03-11', cost: 18200, gmv: 82500, roi: '4.53', impression: 835000, click: 27600, conversion: 372, conversionCost: 48.9 }
 ])
+
+const handleExport = () => {
+  alert('导出广告主报表')
+}
+
+const handleQuery = () => {
+  alert('查询广告主报表')
+}
 </script>

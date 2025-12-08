@@ -79,6 +79,10 @@ const getStatusConfig = (status: string) => {
 onMounted(() => {
   fetchAds()
 })
+
+const handleCopyAd = (ad: any) => {
+  alert(`复制广告: ${ad.name}`)
+}
 </script>
 
 <template>
@@ -209,12 +213,12 @@ onMounted(() => {
           />
         </template>
 
-        <template #actions="{ row }">
+<template #actions="{ row }">
           <div class="flex items-center gap-2">
             <router-link :to="`/ads/${row.id}`" class="text-blue-600 hover:text-blue-800">
               查看
             </router-link>
-            <button class="text-gray-600 hover:text-gray-800">
+            <button class="text-gray-600 hover:text-gray-800" @click="handleCopyAd(row)">
               复制
             </button>
           </div>

@@ -14,8 +14,38 @@ const recentRecords = ref([
   { id: 3, advertiser: '深圳电商公司', amount: 200000, time: '2025-11-10 16:45', status: '成功' }
 ])
 
-const handleSubmit = () => {
-  console.log('Submit:', form)
+const loading = ref(false)
+
+const validateForm = () => {
+  if (!form.advertiserId) {
+    alert('请选择广告主')
+    return false
+  }
+  if (!form.amount || parseFloat(form.amount) < 1000) {
+    alert('充值金额不能小于1000元')
+    return false
+  }
+  return true
+}
+
+const handleSubmit = async () => {
+  if (!validateForm()) return
+  loading.value = true
+  try {
+    await new Promise(r => setTimeout(r, 500))
+    alert(`充值成功！金额: ¥${parseFloat(form.amount).toLocaleString()}`)
+    form.advertiserId = ''
+    form.amount = ''
+    form.remark = ''
+  } finally {
+    loading.value = false
+  }
+}
+
+const handleCancel = () => {
+  form.advertiserId = ''
+  form.amount = ''
+  form.remark = ''
 }
 </script>
 
@@ -53,10 +83,10 @@ const handleSubmit = () => {
                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
           </div>
           <div class="flex gap-4">
-            <button type="submit" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-              确认充值
+            <button type="submit" :disabled="loading" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50">
+              {{ loading ? '处理中...' : '确认充值' }}
             </button>
-            <button type="button" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+            <button type="button" @click="handleCancel" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
               取消
             </button>
           </div>

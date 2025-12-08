@@ -15,9 +15,18 @@ const logs = ref([
 
 const filterModule = ref('')
 const filterDate = ref('')
+const searchKeyword = ref('')
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleExportLogs = () => {
+  alert('导出日志')
+}
+
+const handleSearch = () => {
+  alert('搜索日志')
 }
 </script>
 
@@ -30,7 +39,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">操作日志</h1>
           <p class="mt-2 text-gray-600">查看系统操作记录</p>
         </div>
-        <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+        <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50" @click="handleExportLogs">
           导出日志
         </button>
       </div>
@@ -47,8 +56,8 @@ const handlePageChange = (page: number) => {
           <option value="report">报表中心</option>
         </select>
         <input v-model="filterDate" type="date" class="px-4 py-2 border border-gray-300 rounded-lg">
-        <input type="text" placeholder="搜索操作内容..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <input v-model="searchKeyword" type="text" placeholder="搜索操作内容..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSearch">搜索</button>
       </div>
     </div>
 

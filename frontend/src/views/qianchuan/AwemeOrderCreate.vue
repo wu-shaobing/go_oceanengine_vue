@@ -126,7 +126,7 @@
       <!-- 操作按钮 -->
       <div class="flex justify-end space-x-4">
         <router-link to="/qianchuan/aweme-order" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</router-link>
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">提交订单 (¥{{ totalBudget }})</button>
+<button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSubmit">提交订单 (¥{{ totalBudget }})</button>
       </div>
     </div>
   </div>
@@ -169,4 +169,8 @@ const form = ref({
 const totalBudget = computed(() => {
   return form.value.customBudget || form.value.budget
 })
+
+const handleSubmit = () => {
+  alert(`提交订单: ¥${totalBudget.value}`)
+}
 </script>

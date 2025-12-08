@@ -51,3 +51,15 @@ frontend/.env.local
 coverage/
 *.cover
 *.out
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+
+# 证书和密钥
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx

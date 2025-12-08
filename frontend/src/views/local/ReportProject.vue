@@ -12,8 +12,8 @@
         <input type="date" v-model="filters.startDate" class="border border-gray-300 rounded px-3 py-2">
         <span>至</span>
         <input type="date" v-model="filters.endDate" class="border border-gray-300 rounded px-3 py-2">
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
-        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+        <button @click="handleExport" class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
       </div>
     </div>
 
@@ -77,6 +77,14 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const filters = ref({ startDate: '', endDate: '' })
+
+const handleSearch = () => {
+  alert('查询项目报表')
+}
+
+const handleExport = () => {
+  alert('导出报表')
+}
 
 const summary = ref({ cost: 125680, clues: 2856, clueCost: 44.0, validRate: 68.5 })
 

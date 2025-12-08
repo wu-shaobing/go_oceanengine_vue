@@ -35,6 +35,10 @@ const adStats = ref({
   conversions: 328,
   cost: 15680
 })
+
+const handleCreateAd = () => {
+  alert('创建广告')
+}
 </script>
 
 <template>
@@ -47,7 +51,7 @@ const adStats = ref({
           <router-link :to="`/dpa/product/edit/${product.id}`" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
             编辑商品
           </router-link>
-          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreateAd">
             创建广告
           </button>
         </div>

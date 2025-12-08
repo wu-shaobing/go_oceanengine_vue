@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">创意管理</h1>
         <p class="text-gray-600 mt-1">管理广告创意素材</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleUpload" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
         上传创意
       </button>
     </div>
@@ -27,7 +27,7 @@
           <option value="video">视频</option>
           <option value="image">图片</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+<button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -60,9 +60,9 @@
             </div>
           </div>
           <div class="flex justify-between mt-3 pt-3 border-t">
-            <button class="text-blue-600 hover:text-blue-800 text-sm">预览</button>
-            <button class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
-            <button class="text-red-600 hover:text-red-800 text-sm">删除</button>
+<button @click="handlePreview(creative)" class="text-blue-600 hover:text-blue-800 text-sm">预览</button>
+            <button @click="handleEditCreative(creative)" class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
+            <button @click="handleDelete(creative)" class="text-red-600 hover:text-red-800 text-sm">删除</button>
           </div>
         </div>
       </div>
@@ -175,5 +175,21 @@ const getStatusText = (status: string) => {
     reject: '审核拒绝'
   }
   return texts[status] || status
+}
+
+const handleUpload = () => {
+  alert('上传创意')
+}
+
+const handlePreview = (creative: CreativeItem) => {
+  alert(`预览创意: ${creative.name}`)
+}
+
+const handleEditCreative = (creative: CreativeItem) => {
+  alert(`编辑创意: ${creative.name}`)
+}
+
+const handleDelete = (creative: CreativeItem) => {
+  alert(`删除创意: ${creative.name}`)
 }
 </script>

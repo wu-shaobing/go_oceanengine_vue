@@ -19,6 +19,23 @@ const formatNumber = (num: number) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreate = () => {
+  alert('创建分享链接')
+}
+
+const handleCopy = (url: string) => {
+  navigator.clipboard.writeText(url)
+  alert('链接已复制')
+}
+
+const handleDetail = (link: typeof shareLinks.value[0]) => {
+  alert(`查看详情: ${link.appName}`)
+}
+
+const handleQrcode = (link: typeof shareLinks.value[0]) => {
+  alert(`生成二维码: ${link.shortUrl}`)
+}
 </script>
 
 <template>
@@ -30,7 +47,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">应用分享链接</h1>
           <p class="mt-2 text-gray-600">创建和管理应用分享短链</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleCreate" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           创建分享链接
         </button>
       </div>
@@ -75,9 +92,9 @@ const handlePageChange = (page: number) => {
               <div class="text-xs text-gray-500">{{ link.id }}</div>
             </td>
             <td class="px-6 py-4">
-              <div class="flex items-center gap-2">
+<div class="flex items-center gap-2">
                 <a :href="link.shortUrl" target="_blank" class="text-sm text-blue-600 hover:underline">{{ link.shortUrl }}</a>
-                <button class="text-gray-400 hover:text-gray-600">📋</button>
+                <button @click="handleCopy(link.shortUrl)" class="text-gray-400 hover:text-gray-600">📋</button>
               </div>
             </td>
             <td class="px-6 py-4 text-sm text-gray-900">{{ formatNumber(link.clicks) }}</td>
@@ -85,8 +102,8 @@ const handlePageChange = (page: number) => {
             <td class="px-6 py-4 text-sm text-gray-900">{{ link.cvr }}%</td>
             <td class="px-6 py-4 text-sm text-gray-500">{{ link.createdAt }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-              <button class="text-gray-600 hover:text-gray-800">二维码</button>
+<button @click="handleDetail(link)" class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
+              <button @click="handleQrcode(link)" class="text-gray-600 hover:text-gray-800">二维码</button>
             </td>
           </tr>
         </tbody>

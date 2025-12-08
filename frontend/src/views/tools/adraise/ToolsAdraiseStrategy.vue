@@ -14,6 +14,24 @@ const strategies = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreateStrategy = () => {
+  alert('创建策略')
+}
+
+const handleStrategyDetail = (strategy: typeof strategies.value[0]) => {
+  alert(`查看详情: ${strategy.name}`)
+}
+
+const handlePause = (strategy: typeof strategies.value[0]) => {
+  strategy.status = 'paused'
+  alert(`已暂停: ${strategy.name}`)
+}
+
+const handleResume = (strategy: typeof strategies.value[0]) => {
+  strategy.status = 'active'
+  alert(`已恢复: ${strategy.name}`)
+}
 </script>
 
 <template>
@@ -25,7 +43,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">起量策略</h1>
           <p class="mt-2 text-gray-600">管理广告起量策略</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleCreateStrategy" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           创建策略
         </button>
       </div>
@@ -88,9 +106,9 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-              <button v-if="strategy.status === 'active'" class="text-yellow-600 hover:text-yellow-800">暂停</button>
-              <button v-if="strategy.status === 'paused'" class="text-green-600 hover:text-green-800">恢复</button>
+<button @click="handleStrategyDetail(strategy)" class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
+              <button v-if="strategy.status === 'active'" @click="handlePause(strategy)" class="text-yellow-600 hover:text-yellow-800">暂停</button>
+              <button v-if="strategy.status === 'paused'" @click="handleResume(strategy)" class="text-green-600 hover:text-green-800">恢复</button>
             </td>
           </tr>
         </tbody>

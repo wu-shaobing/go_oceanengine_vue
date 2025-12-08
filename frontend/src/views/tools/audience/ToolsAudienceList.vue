@@ -4,6 +4,9 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 10, total: 68 })
+const filterSource = ref('')
+const filterStatus = ref('')
+const searchKeyword = ref('')
 
 const audiences = ref([
   { id: 'AU001', name: '高价值用户包', source: '自定义上传', coverage: 1250000, matchRate: 85, usageCount: 45, status: 'ready' },
@@ -14,6 +17,18 @@ const audiences = ref([
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleCreate = () => {
+  alert('创建新的人群包')
+}
+
+const handleApply = (audience: typeof audiences.value[0]) => {
+  alert(`应用人群包: ${audience.name}\n覆盖人数: ${(audience.coverage / 10000).toFixed(0)}万`)
+}
+
+const handleDetail = (audience: typeof audiences.value[0]) => {
+  alert(`人群包详情: ${audience.name}\n来源: ${audience.source}\n匹配率: ${audience.matchRate}%`)
 }
 </script>
 
@@ -26,7 +41,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">人群包管理</h1>
           <p class="mt-2 text-gray-600">创建和管理自定义人群包</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button @click="handleCreate" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           创建人群包
         </button>
       </div>
@@ -53,19 +68,19 @@ const handlePageChange = (page: number) => {
 
     <div class="bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex gap-4">
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterSource" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部来源</option>
           <option value="upload">自定义上传</option>
           <option value="crm">CRM同步</option>
           <option value="lookalike">Lookalike扩展</option>
         </select>
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterStatus" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部状态</option>
           <option value="ready">可用</option>
           <option value="processing">处理中</option>
           <option value="expired">已过期</option>
         </select>
-        <input type="text" placeholder="搜索人群包..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
+        <input v-model="searchKeyword" type="text" placeholder="搜索人群包..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
       </div>
     </div>
 
@@ -108,8 +123,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">应用</button>
-              <button class="text-gray-600 hover:text-gray-800">详情</button>
+              <button @click="handleApply(audience)" class="text-blue-600 hover:text-blue-800 mr-3">应用</button>
+              <button @click="handleDetail(audience)" class="text-gray-600 hover:text-gray-800">详情</button>
             </td>
           </tr>
         </tbody>

@@ -8,7 +8,7 @@
         <p class="text-gray-600 mt-1">订单ID: {{ order.id }}</p>
       </div>
       <div v-if="order.status === 'running'" class="flex space-x-3">
-        <button class="px-4 py-2 border border-orange-500 text-orange-500 rounded-lg hover:bg-orange-50">停止投放</button>
+<button class="px-4 py-2 border border-orange-500 text-orange-500 rounded-lg hover:bg-orange-50" @click="handleStopDelivery">停止投放</button>
       </div>
     </div>
 
@@ -190,4 +190,8 @@ const order = ref({
     fansIncrease: '126'
   }
 })
+
+const handleStopDelivery = () => {
+  alert(`停止投放: ${order.value.id}`)
+}
 </script>

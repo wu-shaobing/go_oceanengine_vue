@@ -4,6 +4,7 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 12, total: 156 })
+const filterAccount = ref('')
 
 const videos = ref([
   { id: 'V001', title: '新品发布会精彩回顾', account: '品牌官方号', plays: 125600, likes: 8560, comments: 356, shares: 189, time: '2025-11-25' },
@@ -13,6 +14,18 @@ const videos = ref([
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handlePublish = () => {
+  alert('发布视频')
+}
+
+const handleView = (video: typeof videos.value[0]) => {
+  alert(`查看视频: ${video.title}`)
+}
+
+const handleAnalyze = (video: typeof videos.value[0]) => {
+  alert(`分析视频: ${video.title}`)
 }
 </script>
 
@@ -26,12 +39,12 @@ const handlePageChange = (page: number) => {
           <p class="mt-2 text-gray-600">管理抖音账号发布的视频</p>
         </div>
         <div class="flex gap-3">
-          <select class="px-4 py-2 border border-gray-300 rounded-lg">
+          <select v-model="filterAccount" class="px-4 py-2 border border-gray-300 rounded-lg">
             <option value="">全部账号</option>
             <option value="AWM001">品牌官方号</option>
             <option value="AWM002">产品测评号</option>
           </select>
-          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handlePublish" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
             发布视频
           </button>
         </div>
@@ -95,8 +108,8 @@ const handlePageChange = (page: number) => {
             <td class="px-6 py-4 text-sm text-gray-600">{{ video.shares }}</td>
             <td class="px-6 py-4 text-sm text-gray-500">{{ video.time }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">查看</button>
-              <button class="text-gray-600 hover:text-gray-800">分析</button>
+<button @click="handleView(video)" class="text-blue-600 hover:text-blue-800 mr-3">查看</button>
+              <button @click="handleAnalyze(video)" class="text-gray-600 hover:text-gray-800">分析</button>
             </td>
           </tr>
         </tbody>

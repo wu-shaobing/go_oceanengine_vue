@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">需求管理</h1>
         <p class="text-gray-600 mt-1">发布和管理达人合作需求</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handlePublish" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
         发布需求
       </button>
     </div>
@@ -28,7 +28,7 @@
           <option value="live">直播带货</option>
           <option value="post">图文种草</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+<button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -61,9 +61,9 @@
             <span class="text-gray-500">创建时间: {{ demand.createTime }}</span>
           </div>
           <div class="flex space-x-2">
-            <button class="px-4 py-1 text-blue-600 hover:bg-blue-50 rounded text-sm">查看详情</button>
-            <button class="px-4 py-1 text-blue-600 hover:bg-blue-50 rounded text-sm">管理申请</button>
-            <button v-if="demand.status === 'recruiting'" class="px-4 py-1 text-gray-600 hover:bg-gray-50 rounded text-sm">编辑</button>
+<button @click="handleViewDetail(demand)" class="px-4 py-1 text-blue-600 hover:bg-blue-50 rounded text-sm">查看详情</button>
+            <button @click="handleManageApply(demand)" class="px-4 py-1 text-blue-600 hover:bg-blue-50 rounded text-sm">管理申请</button>
+            <button v-if="demand.status === 'recruiting'" @click="handleEdit(demand)" class="px-4 py-1 text-gray-600 hover:bg-gray-50 rounded text-sm">编辑</button>
           </div>
         </div>
       </div>
@@ -105,5 +105,25 @@ const getStatusText = (status: string) => {
     completed: '已完成'
   }
   return texts[status] || status
+}
+
+const handlePublish = () => {
+  alert('发布新需求')
+}
+
+const handleSearch = () => {
+  alert('搜索需求')
+}
+
+const handleViewDetail = (demand: typeof demands.value[0]) => {
+  alert(`查看需求详情: ${demand.title}`)
+}
+
+const handleManageApply = (demand: typeof demands.value[0]) => {
+  alert(`管理申请: ${demand.title}`)
+}
+
+const handleEdit = (demand: typeof demands.value[0]) => {
+  alert(`编辑需求: ${demand.title}`)
 }
 </script>

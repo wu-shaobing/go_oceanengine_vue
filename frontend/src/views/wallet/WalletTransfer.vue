@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 
 const form = reactive({
@@ -14,8 +14,43 @@ const walletInfo = reactive({
   available: 5500000
 })
 
-const handleSubmit = () => {
-  console.log('Submit transfer:', form)
+const loading = ref(false)
+
+const validateForm = () => {
+  if (!form.targetId) {
+    alert('请选择目标账户')
+    return false
+  }
+  const amount = parseFloat(form.amount)
+  if (!amount || amount <= 0) {
+    alert('请输入有效的转账金额')
+    return false
+  }
+  if (amount > walletInfo.available) {
+    alert('转账金额不能超过可转金额')
+    return false
+  }
+  return true
+}
+
+const handleSubmit = async () => {
+  if (!validateForm()) return
+  loading.value = true
+  try {
+    await new Promise(r => setTimeout(r, 500))
+    alert(`转账成功！金额: ¥${parseFloat(form.amount).toLocaleString()}`)
+    form.targetId = ''
+    form.amount = ''
+    form.remark = ''
+  } finally {
+    loading.value = false
+  }
+}
+
+const handleCancel = () => {
+  form.targetId = ''
+  form.amount = ''
+  form.remark = ''
 }
 </script>
 
@@ -66,10 +101,10 @@ const handleSubmit = () => {
                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"></textarea>
           </div>
           <div class="flex gap-4">
-            <button type="submit" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-              确认转账
+            <button type="submit" :disabled="loading" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50">
+              {{ loading ? '处理中...' : '确认转账' }}
             </button>
-            <button type="button" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+            <button type="button" @click="handleCancel" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
               取消
             </button>
           </div>

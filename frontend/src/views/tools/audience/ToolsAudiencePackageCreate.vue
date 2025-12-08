@@ -21,6 +21,14 @@ const sourceTypes = [
   { value: 'api', label: 'API推送', icon: '🔌' },
   { value: 'dmp', label: 'DMP同步', icon: '🔄' }
 ]
+
+const handleCancel = () => {
+  alert('取消')
+}
+
+const handleCreate = () => {
+  alert(`创建人群包: ${formData.value.name}`)
+}
 </script>
 
 <template>
@@ -87,9 +95,9 @@ const sourceTypes = [
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"></textarea>
         </div>
 
-        <div class="flex justify-end gap-4 pt-4 border-t">
-          <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
-          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建人群包</button>
+<div class="flex justify-end gap-4 pt-4 border-t">
+          <button @click="handleCancel" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
+          <button @click="handleCreate" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建人群包</button>
         </div>
       </div>
     </div>

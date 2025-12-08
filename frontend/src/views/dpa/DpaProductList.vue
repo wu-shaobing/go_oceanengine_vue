@@ -4,6 +4,9 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 10, total: 156 })
+const searchKeyword = ref('')
+const filterCategory = ref('')
+const filterStatus = ref('')
 
 const products = ref([
   { id: 'P001', name: 'Apple iPhone 15 Pro Max 256GB', category: '手机数码', price: 9999, stock: 1250, status: 'active', image: '' },
@@ -15,6 +18,23 @@ const products = ref([
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleBatchImport = () => {
+  alert('批量导入')
+}
+
+const handleSearch = () => {
+  pagination.page = 1
+  alert('搜索商品')
+}
+
+const handleEditProduct = (product: typeof products.value[0]) => {
+  alert(`编辑: ${product.name}`)
+}
+
+const handleViewDetail = (product: typeof products.value[0]) => {
+  alert(`查看详情: ${product.name}`)
 }
 </script>
 
@@ -28,7 +48,7 @@ const handlePageChange = (page: number) => {
           <p class="mt-2 text-gray-600">管理动态商品广告的商品信息</p>
         </div>
         <div class="flex gap-3">
-          <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+          <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50" @click="handleBatchImport">
             批量导入
           </button>
           <router-link to="/dpa/product/create" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
@@ -59,20 +79,20 @@ const handlePageChange = (page: number) => {
 
     <div class="bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex flex-wrap gap-4">
-        <input type="text" placeholder="搜索商品名称或ID" class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg">
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <input v-model="searchKeyword" type="text" placeholder="搜索商品名称或ID" class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterCategory" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部分类</option>
           <option value="phone">手机数码</option>
           <option value="computer">电脑办公</option>
           <option value="tablet">平板电脑</option>
         </select>
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterStatus" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部状态</option>
           <option value="active">在售</option>
           <option value="out_of_stock">缺货</option>
           <option value="low_stock">低库存</option>
         </select>
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSearch">搜索</button>
       </div>
     </div>
 
@@ -121,8 +141,8 @@ const handlePageChange = (page: number) => {
                 </span>
               </td>
               <td class="px-6 py-4 text-sm">
-                <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-                <button class="text-gray-600 hover:text-gray-800">详情</button>
+                <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleEditProduct(product)">编辑</button>
+                <button class="text-gray-600 hover:text-gray-800" @click="handleViewDetail(product)">详情</button>
               </td>
             </tr>
           </tbody>

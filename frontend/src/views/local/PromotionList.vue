@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">推广管理</h1>
         <p class="text-gray-600 mt-1">管理本地推广计划</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+      <button @click="handleCreate" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
         新建推广
       </button>
     </div>
@@ -27,7 +27,7 @@
           <option value="1">北京朝阳店</option>
           <option value="2">上海静安店</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -62,9 +62,9 @@
             <td class="px-4 py-3 text-sm text-right">¥{{ promo.clueCost }}</td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
-                <button v-if="promo.status === 'running'" class="text-orange-600 hover:text-orange-800 text-sm">暂停</button>
-                <button v-else class="text-green-600 hover:text-green-800 text-sm">启动</button>
+                <button @click="handleDetail(promo)" class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
+                <button v-if="promo.status === 'running'" @click="handlePause(promo)" class="text-orange-600 hover:text-orange-800 text-sm">暂停</button>
+                <button v-else @click="handleStart(promo)" class="text-green-600 hover:text-green-800 text-sm">启动</button>
               </div>
             </td>
           </tr>
@@ -79,9 +79,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
+const router = useRouter()
 const filters = ref({ keyword: '', status: '', project: '' })
 
 const promotions = ref([
@@ -108,5 +110,30 @@ const getStatusText = (status: string) => {
     ended: '已结束'
   }
   return texts[status] || status
+}
+
+const handleCreate = () => {
+  router.push('/local/promotion/create')
+}
+
+const handleSearch = () => {
+  console.log('搜索推广:', filters.value)
+  alert('查询完成')
+}
+
+const handleDetail = (promo: typeof promotions.value[0]) => {
+  router.push(`/local/promotion/${promo.id}`)
+}
+
+const handlePause = (promo: typeof promotions.value[0]) => {
+  if (confirm(`确定暂停推广「${promo.name}」吗？`)) {
+    promo.status = 'paused'
+    alert('推广已暂停')
+  }
+}
+
+const handleStart = (promo: typeof promotions.value[0]) => {
+  promo.status = 'running'
+  alert(`推广「${promo.name}」已启动`)
 }
 </script>

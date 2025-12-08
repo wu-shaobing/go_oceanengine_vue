@@ -21,6 +21,16 @@ const formatNumber = (num: number) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleDetail = (item: typeof packages.value[0]) => {
+  alert(`查看详情: ${item.name}`)
+}
+
+const handleDelete = (item: typeof packages.value[0]) => {
+  if (confirm(`确定删除「${item.name}」吗？`)) {
+    alert('删除成功')
+  }
+}
 </script>
 
 <template>
@@ -88,8 +98,8 @@ const handlePageChange = (page: number) => {
                 </span>
               </td>
               <td class="px-6 py-4 text-sm">
-                <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-                <button class="text-gray-600 hover:text-gray-800">删除</button>
+<button @click="handleDetail(item)" class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
+                <button @click="handleDelete(item)" class="text-gray-600 hover:text-gray-800">删除</button>
               </td>
             </tr>
           </tbody>

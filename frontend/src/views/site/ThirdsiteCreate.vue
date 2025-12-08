@@ -16,6 +16,18 @@ const verifyMethods = [
 ]
 
 const generatedCode = ref('ocean_verify_abc123def456')
+
+const handleDownloadFile = () => {
+  alert('下载验证文件')
+}
+
+const handleCancel = () => {
+  alert('取消')
+}
+
+const handleStartVerify = () => {
+  alert('开始验证')
+}
 </script>
 
 <template>
@@ -76,7 +88,7 @@ const generatedCode = ref('ocean_verify_abc123def456')
           </div>
           <div v-else-if="formData.verifyMethod === 'file'" class="space-y-3">
             <p class="text-sm text-gray-600">1. 下载验证文件</p>
-            <button class="px-4 py-2 bg-gray-200 rounded-lg text-sm">下载 ocean_verify.txt</button>
+            <button class="px-4 py-2 bg-gray-200 rounded-lg text-sm" @click="handleDownloadFile">下载 ocean_verify.txt</button>
             <p class="text-sm text-gray-600">2. 将文件上传到网站根目录</p>
             <p class="text-sm text-gray-600">3. 点击验证按钮完成验证</p>
           </div>
@@ -91,8 +103,8 @@ const generatedCode = ref('ocean_verify_abc123def456')
         </div>
 
         <div class="flex justify-end gap-4 pt-4 border-t">
-          <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
-          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">开始验证</button>
+          <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50" @click="handleCancel">取消</button>
+          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleStartVerify">开始验证</button>
         </div>
       </div>
     </div>

@@ -15,6 +15,24 @@ const events = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleAddEvent = () => {
+  alert('添加事件')
+}
+
+const handleViewEvent = (event: typeof events.value[0]) => {
+  alert(`查看详情: ${event.name}`)
+}
+
+const handleEditEvent = (event: typeof events.value[0]) => {
+  alert(`编辑事件: ${event.name}`)
+}
+
+const handleDeleteEvent = (event: typeof events.value[0]) => {
+  if (confirm(`确定删除事件 ${event.name}?`)) {
+    alert('删除成功')
+  }
+}
 </script>
 
 <template>
@@ -26,7 +44,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">事件追踪</h1>
           <p class="mt-2 text-gray-600">管理自定义追踪事件</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleAddEvent">
           添加事件
         </button>
       </div>
@@ -83,9 +101,9 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-              <button class="text-gray-600 hover:text-gray-800 mr-3">编辑</button>
-              <button class="text-red-600 hover:text-red-800">删除</button>
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleViewEvent(event)">详情</button>
+              <button class="text-gray-600 hover:text-gray-800 mr-3" @click="handleEditEvent(event)">编辑</button>
+              <button class="text-red-600 hover:text-red-800" @click="handleDeleteEvent(event)">删除</button>
             </td>
           </tr>
         </tbody>

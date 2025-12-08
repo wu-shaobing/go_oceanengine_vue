@@ -73,16 +73,16 @@
               <span class="text-gray-500">累计消耗</span>
               <span>¥{{ account.totalSpent.toLocaleString() }}</span>
             </div>
-            <button class="w-full mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">充值</button>
+<button @click="handleRecharge" class="w-full mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">充值</button>
           </div>
         </div>
 
         <div class="bg-white rounded-lg shadow p-6">
           <h3 class="text-lg font-medium mb-4">快捷操作</h3>
           <div class="space-y-2">
-            <button class="w-full text-left px-4 py-2 hover:bg-gray-50 rounded text-sm">修改信息</button>
-            <button class="w-full text-left px-4 py-2 hover:bg-gray-50 rounded text-sm">资金流水</button>
-            <button class="w-full text-left px-4 py-2 hover:bg-gray-50 rounded text-sm">发票管理</button>
+<button @click="handleEditInfo" class="w-full text-left px-4 py-2 hover:bg-gray-50 rounded text-sm">修改信息</button>
+            <button @click="handleFundFlow" class="w-full text-left px-4 py-2 hover:bg-gray-50 rounded text-sm">资金流水</button>
+            <button @click="handleInvoice" class="w-full text-left px-4 py-2 hover:bg-gray-50 rounded text-sm">发票管理</button>
           </div>
         </div>
       </div>
@@ -106,4 +106,20 @@ const account = ref({
   frozen: 45000,
   totalSpent: 1568000
 })
+
+const handleRecharge = () => {
+  alert('账户充值')
+}
+
+const handleEditInfo = () => {
+  alert('修改信息')
+}
+
+const handleFundFlow = () => {
+  alert('查看资金流水')
+}
+
+const handleInvoice = () => {
+  alert('发票管理')
+}
 </script>

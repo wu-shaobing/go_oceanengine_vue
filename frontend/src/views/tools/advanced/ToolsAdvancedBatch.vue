@@ -14,6 +14,26 @@ const batchTasks = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreateTask = () => {
+  alert('创建新的批量任务')
+}
+
+const handleViewDetail = (task: typeof batchTasks.value[0]) => {
+  alert(`查看任务详情: ${task.name}\n进度: ${task.progress}%`)
+}
+
+const handleCancelTask = (task: typeof batchTasks.value[0]) => {
+  if (confirm(`确定取消任务「${task.name}」吗？`)) {
+    const idx = batchTasks.value.findIndex(t => t.id === task.id)
+    if (idx > -1) batchTasks.value.splice(idx, 1)
+    alert('任务已取消')
+  }
+}
+
+const handleBatchAction = (action: string) => {
+  alert(`执行批量操作: ${action}`)
+}
 </script>
 
 <template>
@@ -25,29 +45,29 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">批量操作</h1>
           <p class="mt-2 text-gray-600">批量管理广告投放</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button @click="handleCreateTask" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           新建批量任务
         </button>
       </div>
     </div>
 
-    <div class="grid grid-cols-4 gap-6">
-      <div class="bg-white rounded-lg border border-gray-200 p-6 cursor-pointer hover:shadow-md transition-shadow">
+<div class="grid grid-cols-4 gap-6">
+      <div class="bg-white rounded-lg border border-gray-200 p-6 cursor-pointer hover:shadow-md transition-shadow" @click="handleBatchAction('批量调价')">
         <div class="text-3xl mb-3">💰</div>
         <h4 class="font-medium text-gray-900">批量调价</h4>
         <p class="text-sm text-gray-500 mt-1">批量调整广告出价</p>
       </div>
-      <div class="bg-white rounded-lg border border-gray-200 p-6 cursor-pointer hover:shadow-md transition-shadow">
+      <div class="bg-white rounded-lg border border-gray-200 p-6 cursor-pointer hover:shadow-md transition-shadow" @click="handleBatchAction('批量调预算')">
         <div class="text-3xl mb-3">📊</div>
         <h4 class="font-medium text-gray-900">批量调预算</h4>
         <p class="text-sm text-gray-500 mt-1">批量修改广告预算</p>
       </div>
-      <div class="bg-white rounded-lg border border-gray-200 p-6 cursor-pointer hover:shadow-md transition-shadow">
+      <div class="bg-white rounded-lg border border-gray-200 p-6 cursor-pointer hover:shadow-md transition-shadow" @click="handleBatchAction('批量暂停')">
         <div class="text-3xl mb-3">⏸️</div>
         <h4 class="font-medium text-gray-900">批量暂停</h4>
         <p class="text-sm text-gray-500 mt-1">批量暂停广告投放</p>
       </div>
-      <div class="bg-white rounded-lg border border-gray-200 p-6 cursor-pointer hover:shadow-md transition-shadow">
+      <div class="bg-white rounded-lg border border-gray-200 p-6 cursor-pointer hover:shadow-md transition-shadow" @click="handleBatchAction('批量复制')">
         <div class="text-3xl mb-3">📋</div>
         <h4 class="font-medium text-gray-900">批量复制</h4>
         <p class="text-sm text-gray-500 mt-1">批量复制广告计划</p>
@@ -97,8 +117,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-              <button v-if="task.status === 'pending'" class="text-red-600 hover:text-red-800">取消</button>
+              <button @click="handleViewDetail(task)" class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
+              <button v-if="task.status === 'pending'" @click="handleCancelTask(task)" class="text-red-600 hover:text-red-800">取消</button>
             </td>
           </tr>
         </tbody>

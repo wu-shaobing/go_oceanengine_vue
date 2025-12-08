@@ -14,6 +14,14 @@ const packages = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleViewKeywords = (pkg: typeof packages.value[0]) => {
+  alert(`查看流量包关键词: ${pkg.name}`)
+}
+
+const handleSettings = (pkg: typeof packages.value[0]) => {
+  alert(`设置流量包: ${pkg.name}`)
+}
 </script>
 
 <template>
@@ -72,8 +80,8 @@ const handlePageChange = (page: number) => {
               </td>
               <td class="px-6 py-4 text-sm text-gray-500">{{ pkg.createdAt }}</td>
               <td class="px-6 py-4 text-sm">
-                <button class="text-blue-600 hover:text-blue-800 mr-3">查看词</button>
-                <button class="text-gray-600 hover:text-gray-800">设置</button>
+<button @click="handleViewKeywords(pkg)" class="text-blue-600 hover:text-blue-800 mr-3">查看词</button>
+                <button @click="handleSettings(pkg)" class="text-gray-600 hover:text-gray-800">设置</button>
               </td>
             </tr>
           </tbody>

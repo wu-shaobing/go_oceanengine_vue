@@ -15,6 +15,14 @@ const strategies = [
   { value: 'filter', label: '流量过滤', desc: '过滤低质量流量' },
   { value: 'creative', label: '创意优选', desc: '实时选择最优创意' }
 ]
+
+const handleCancel = () => {
+  alert('取消创建')
+}
+
+const handleCreate = () => {
+  alert(`创建RTA策略: ${formData.value.name}`)
+}
 </script>
 
 <template>
@@ -74,9 +82,9 @@ const strategies = [
           </p>
         </div>
 
-        <div class="flex justify-end gap-4 pt-4 border-t">
-          <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
-          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建策略</button>
+<div class="flex justify-end gap-4 pt-4 border-t">
+          <button @click="handleCancel" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
+          <button @click="handleCreate" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建策略</button>
         </div>
       </div>
     </div>

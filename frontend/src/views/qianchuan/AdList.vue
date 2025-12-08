@@ -28,7 +28,7 @@
           <option value="10001">618大促直播计划</option>
           <option value="10002">新品短视频推广</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+<button @click="handleSearchAds" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -74,9 +74,9 @@
             <td class="px-4 py-3 text-sm">{{ ad.conversion }}</td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <router-link :to="`/qianchuan/ad/${ad.id}`" class="text-blue-600 hover:text-blue-800 text-sm">详情</router-link>
-                <button class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
-                <button class="text-blue-600 hover:text-blue-800 text-sm">复制</button>
+<router-link :to="`/qianchuan/ad/${ad.id}`" class="text-blue-600 hover:text-blue-800 text-sm">详情</router-link>
+                <button @click="handleEditAd(ad)" class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
+                <button @click="handleCopyAd(ad)" class="text-blue-600 hover:text-blue-800 text-sm">复制</button>
               </div>
             </td>
           </tr>
@@ -201,5 +201,18 @@ const getStatusText = (status: string) => {
     disable: '已暂停'
   }
   return texts[status] || status
+}
+
+const handleSearchAds = () => {
+  pagination.value.page = 1
+  fetchAds()
+}
+
+const handleEditAd = (ad: AdItem) => {
+  alert(`编辑广告: ${ad.name}`)
+}
+
+const handleCopyAd = (ad: AdItem) => {
+  alert(`复制广告: ${ad.name}`)
 }
 </script>

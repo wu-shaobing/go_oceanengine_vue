@@ -11,7 +11,7 @@
       <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg shadow p-6 text-white">
         <div class="text-sm opacity-80">功能点余额</div>
         <div class="text-3xl font-bold mt-2">{{ balance.available.toLocaleString() }}</div>
-        <button class="mt-4 px-4 py-1 bg-white text-blue-600 rounded text-sm font-medium">充值</button>
+        <button @click="handleRecharge" class="mt-4 px-4 py-1 bg-white text-blue-600 rounded text-sm font-medium">充值</button>
       </div>
       <div class="bg-white rounded-lg shadow p-6">
         <div class="text-sm text-gray-500">本月消耗</div>
@@ -34,7 +34,7 @@
             </div>
             <div class="text-right">
               <div class="text-xl font-bold text-blue-600">¥{{ pkg.price }}</div>
-              <button class="mt-1 px-3 py-1 text-sm text-blue-600 border border-blue-600 rounded hover:bg-blue-50">购买</button>
+              <button @click="handleBuyPackage(pkg)" class="mt-1 px-3 py-1 text-sm text-blue-600 border border-blue-600 rounded hover:bg-blue-50">购买</button>
             </div>
           </div>
         </div>
@@ -67,6 +67,14 @@ import { ref } from 'vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 
 const balance = ref({ available: 12500, monthUsed: 3500, totalUsed: 85600 })
+
+const handleRecharge = () => {
+  alert('功能点充值')
+}
+
+const handleBuyPackage = (pkg: typeof packages.value[0]) => {
+  alert(`购买套餐: ${pkg.name} - ¥${pkg.price}`)
+}
 
 const packages = ref([
   { id: 1, name: '基础套餐', points: 1000, price: 99 },

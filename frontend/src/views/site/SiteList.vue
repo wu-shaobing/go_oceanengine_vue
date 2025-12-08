@@ -4,6 +4,9 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 10, total: 48 })
+const searchKeyword = ref('')
+const filterType = ref('')
+const filterStatus = ref('')
 
 const sites = ref([
   { id: 'S001', name: '618大促活动页', type: '活动页', template: '电商模板', pv: 125600, conversionRate: 3.2, status: 'published', updatedAt: '2025-11-10' },
@@ -14,6 +17,23 @@ const sites = ref([
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleSearch = () => {
+  pagination.page = 1
+  alert('搜索站点')
+}
+
+const handleEditSite = (site: typeof sites.value[0]) => {
+  alert(`编辑站点: ${site.name}`)
+}
+
+const handlePreviewSite = (site: typeof sites.value[0]) => {
+  alert(`预览站点: ${site.name}`)
+}
+
+const handleMoreActions = (site: typeof sites.value[0]) => {
+  alert(`更多操作: ${site.name}`)
 }
 </script>
 
@@ -56,19 +76,19 @@ const handlePageChange = (page: number) => {
 
     <div class="bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex flex-wrap gap-4">
-        <input type="text" placeholder="搜索站点名称" class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg">
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <input v-model="searchKeyword" type="text" placeholder="搜索站点名称" class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterType" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部类型</option>
           <option value="activity">活动页</option>
           <option value="product">产品页</option>
           <option value="brand">品牌页</option>
         </select>
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterStatus" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部状态</option>
           <option value="published">已发布</option>
           <option value="draft">草稿</option>
         </select>
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSearch">搜索</button>
       </div>
     </div>
 
@@ -93,13 +113,13 @@ const handlePageChange = (page: number) => {
             <span class="text-gray-500">转化率: {{ site.conversionRate }}%</span>
           </div>
           <div class="mt-4 flex gap-2">
-            <button class="flex-1 px-3 py-1.5 text-sm border border-gray-300 text-gray-700 rounded hover:bg-gray-50">
+            <button class="flex-1 px-3 py-1.5 text-sm border border-gray-300 text-gray-700 rounded hover:bg-gray-50" @click="handleEditSite(site)">
               编辑
             </button>
-            <button class="flex-1 px-3 py-1.5 text-sm border border-gray-300 text-gray-700 rounded hover:bg-gray-50">
+            <button class="flex-1 px-3 py-1.5 text-sm border border-gray-300 text-gray-700 rounded hover:bg-gray-50" @click="handlePreviewSite(site)">
               预览
             </button>
-            <button class="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-700">
+            <button class="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-700" @click="handleMoreActions(site)">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
               </svg>

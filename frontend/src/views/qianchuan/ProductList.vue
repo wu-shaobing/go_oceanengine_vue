@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">商品管理</h1>
         <p class="text-gray-600 mt-1">管理可投放的店铺商品</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+      <button @click="handleSync" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
         同步商品
       </button>
     </div>
@@ -26,7 +26,7 @@
           <option value="online">在售</option>
           <option value="offline">下架</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -76,8 +76,8 @@
             </td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">投放</button>
-                <button class="text-blue-600 hover:text-blue-800 text-sm">分析</button>
+                <button @click="handlePromote(product)" class="text-blue-600 hover:text-blue-800 text-sm">投放</button>
+                <button @click="handleAnalyze(product)" class="text-blue-600 hover:text-blue-800 text-sm">分析</button>
               </div>
             </td>
           </tr>
@@ -108,4 +108,25 @@ const products = ref([
   { id: 'P004', name: '无线蓝牙耳机 降噪运动', image: 'https://via.placeholder.com/64', shopName: '数码配件店', price: 159, stock: 2800, status: 'online', sales: 6780, cost: 28900, roi: '3.2' },
   { id: 'P005', name: '精华液套装 修复抗衰老', image: 'https://via.placeholder.com/64', shopName: '美妆专营店', price: 399, stock: 0, status: 'offline', sales: 4560, cost: 12340, roi: '4.5' }
 ])
+
+const handleSync = () => {
+  alert('正在同步商品...')
+}
+
+const handleSearch = () => {
+  console.log('搜索:', filters.value)
+  alert('查询完成')
+}
+
+const handlePromote = (product: typeof products.value[0]) => {
+  if (product.status === 'offline') {
+    alert('下架商品无法投放')
+    return
+  }
+  alert(`创建商品推广: ${product.name}`)
+}
+
+const handleAnalyze = (product: typeof products.value[0]) => {
+  alert(`查看商品分析: ${product.name}\nROI: ${product.roi}\n销量: ${product.sales}`)
+}
 </script>

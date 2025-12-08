@@ -31,6 +31,10 @@ const filterByCategory = (category: string) => {
     filteredServices.value = services.value.filter(s => s.category === category)
   }
 }
+
+const handleUseService = (service: any) => {
+  alert(`使用服务: ${service.name}`)
+}
 </script>
 
 <template>
@@ -79,7 +83,7 @@ const filterByCategory = (category: string) => {
             <span class="text-xl font-bold text-blue-600">¥{{ service.price }}</span>
             <span class="text-sm text-gray-500">/{{ service.priceUnit }}</span>
           </div>
-          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700" @click="handleUseService(service)">
             立即使用
           </button>
         </div>

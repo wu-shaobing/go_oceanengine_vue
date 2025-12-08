@@ -22,6 +22,22 @@ const pendingTasks = ref([
   { type: 'info', icon: 'document', title: '3个新广告主开户申请待审核', desc: '请及时审核新客户资料', action: '去审核' }
 ])
 
+const handleViewAdvertiser = (adv: typeof recentAdvertisers.value[0]) => {
+  alert(`查看广告主: ${adv.name}`)
+}
+
+const handleAdvAction = (adv: typeof recentAdvertisers.value[0]) => {
+  if (adv.status === '余额不足') {
+    alert(`为 ${adv.name} 充值`)
+  } else {
+    alert(`管理广告主: ${adv.name}`)
+  }
+}
+
+const handleTaskAction = (task: typeof pendingTasks.value[0]) => {
+  alert(`处理任务: ${task.title}`)
+}
+
 onMounted(() => {
   // Load data
 })
@@ -142,8 +158,8 @@ onMounted(() => {
                 </span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm">
-                <button class="text-blue-600 hover:text-blue-900 mr-3">查看</button>
-                <button :class="adv.status === '余额不足' ? 'text-orange-600 hover:text-orange-900' : 'text-gray-600 hover:text-gray-900'">
+                <button @click="handleViewAdvertiser(adv)" class="text-blue-600 hover:text-blue-900 mr-3">查看</button>
+                <button @click="handleAdvAction(adv)" :class="adv.status === '余额不足' ? 'text-orange-600 hover:text-orange-900' : 'text-gray-600 hover:text-gray-900'">
                   {{ adv.status === '余额不足' ? '充值' : '管理' }}
                 </button>
               </td>
@@ -171,7 +187,7 @@ onMounted(() => {
               <p class="text-xs text-gray-600 mt-1">{{ task.desc }}</p>
             </div>
           </div>
-          <button :class="['px-4 py-2 text-white text-sm rounded-lg transition-colors', task.type === 'warning' ? 'bg-orange-600 hover:bg-orange-700' : 'bg-blue-600 hover:bg-blue-700']">
+          <button @click="handleTaskAction(task)" :class="['px-4 py-2 text-white text-sm rounded-lg transition-colors', task.type === 'warning' ? 'bg-orange-600 hover:bg-orange-700' : 'bg-blue-600 hover:bg-blue-700']">
             {{ task.action }}
           </button>
         </div>

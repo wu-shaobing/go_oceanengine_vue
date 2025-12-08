@@ -13,6 +13,14 @@ const issues = ref([
   { id: 'I002', type: 'info', title: '出价建议', desc: '5个广告出价低于建议值', impact: '低', action: '优化出价' },
   { id: 'I003', type: 'error', title: '素材审核未通过', desc: '2个创意审核被拒', impact: '高', action: '修改素材' }
 ])
+
+const handleReDiagnose = () => {
+  alert('重新诊断账户')
+}
+
+const handleIssueAction = (issue: typeof issues.value[0]) => {
+  alert(`${issue.action}: ${issue.title}`)
+}
 </script>
 
 <template>
@@ -66,7 +74,7 @@ const issues = ref([
     <div class="bg-white rounded-lg border border-gray-200">
       <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
         <h3 class="text-lg font-semibold text-gray-900">待处理问题</h3>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm" @click="handleReDiagnose">
           重新诊断
         </button>
       </div>
@@ -90,7 +98,7 @@ const issues = ref([
             </div>
             <p class="text-sm text-gray-500 mt-1">{{ issue.desc }}</p>
           </div>
-          <button class="px-4 py-2 text-sm text-blue-600 border border-blue-300 rounded-lg hover:bg-blue-50">
+<button class="px-4 py-2 text-sm text-blue-600 border border-blue-300 rounded-lg hover:bg-blue-50" @click="handleIssueAction(issue)">
             {{ issue.action }}
           </button>
         </div>

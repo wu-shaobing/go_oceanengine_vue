@@ -69,6 +69,27 @@ const toggleDevice = (type: 'os' | 'network' | 'brand', value: string) => {
     arr.push(value)
   }
 }
+
+const handleUpload = () => {
+  alert('上传人群包')
+}
+
+const handleCreateRule = () => {
+  alert('创建规则')
+}
+
+const handleReset = () => {
+  geoData.selectedRegions = []
+  selectedInterests.value = []
+  selectedDevice.os = ['iOS', 'Android']
+  selectedDevice.network = ['WiFi', '4G', '5G']
+  selectedDevice.brand = []
+  alert('已重置所有定向')
+}
+
+const handleSave = () => {
+  alert('保存定向配置')
+}
 </script>
 
 <template>
@@ -249,11 +270,11 @@ const toggleDevice = (type: 'os' | 'network' | 'brand', value: string) => {
             </svg>
             <h3 class="mt-2 text-lg font-medium text-gray-900">自定义人群包</h3>
             <p class="mt-1 text-gray-500">上传自定义人群数据或创建人群规则</p>
-            <div class="mt-6 flex justify-center gap-3">
-              <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+<div class="mt-6 flex justify-center gap-3">
+              <button @click="handleUpload" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                 上传人群包
               </button>
-              <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+              <button @click="handleCreateRule" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
                 创建规则
               </button>
             </div>
@@ -266,11 +287,11 @@ const toggleDevice = (type: 'os' | 'network' | 'brand', value: string) => {
         <p class="text-sm text-gray-600">
           预估覆盖人群: <span class="font-medium text-blue-600">1,850万</span>
         </p>
-        <div class="flex gap-3">
-          <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+<div class="flex gap-3">
+          <button @click="handleReset" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
             重置
           </button>
-          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+          <button @click="handleSave" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
             保存定向
           </button>
         </div>

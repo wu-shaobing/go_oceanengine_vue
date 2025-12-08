@@ -15,6 +15,18 @@ const apps = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleAdd = () => {
+  alert('添加应用')
+}
+
+const handleManage = (app: typeof apps.value[0]) => {
+  alert(`管理应用: ${app.name}`)
+}
+
+const handleDetail = (app: typeof apps.value[0]) => {
+  alert(`查看详情: ${app.name}`)
+}
 </script>
 
 <template>
@@ -26,7 +38,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">应用管理</h1>
           <p class="mt-2 text-gray-600">管理穿山甲变现应用</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleAdd">
           添加应用
         </button>
       </div>
@@ -88,8 +100,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">管理</button>
-              <button class="text-gray-600 hover:text-gray-800">详情</button>
+<button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleManage(app)">管理</button>
+              <button class="text-gray-600 hover:text-gray-800" @click="handleDetail(app)">详情</button>
             </td>
           </tr>
         </tbody>

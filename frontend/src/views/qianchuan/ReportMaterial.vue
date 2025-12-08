@@ -18,8 +18,8 @@
           <option value="video">视频素材</option>
           <option value="image">图片素材</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
-        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
+<button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" @click="handleQuery">查询</button>
+        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50" @click="handleExport">导出</button>
       </div>
     </div>
 
@@ -71,6 +71,14 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const filters = ref({ startDate: '', endDate: '', type: '' })
+
+const handleQuery = () => {
+  alert('查询素材报表')
+}
+
+const handleExport = () => {
+  alert('导出素材报表')
+}
 
 const materials = ref([
   { id: 'M001', name: '618大促主视频', cover: 'https://via.placeholder.com/64x40', type: 'video', cost: 28560, show: 1580000, click: 48500, ctr: 3.07, convert: 986, convertCost: 29.0, adCount: 8 },

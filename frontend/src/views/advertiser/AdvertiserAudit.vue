@@ -14,6 +14,22 @@ const audits = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleViewAudit = (audit: typeof audits.value[0]) => {
+  alert(`查看审核: ${audit.name}`)
+}
+
+const handleApproveAudit = (audit: typeof audits.value[0]) => {
+  if (confirm(`确定通过 ${audit.name} 的审核吗？`)) {
+    alert(`已通过: ${audit.name}`)
+  }
+}
+
+const handleRejectAudit = (audit: typeof audits.value[0]) => {
+  if (confirm(`确定拒绝 ${audit.name} 的审核吗？`)) {
+    alert(`已拒绝: ${audit.name}`)
+  }
+}
 </script>
 
 <template>
@@ -82,9 +98,9 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">查看</button>
-              <button v-if="audit.status === 'pending'" class="text-green-600 hover:text-green-800 mr-2">通过</button>
-              <button v-if="audit.status === 'pending'" class="text-red-600 hover:text-red-800">拒绝</button>
+              <button @click="handleViewAudit(audit)" class="text-blue-600 hover:text-blue-800 mr-3">查看</button>
+              <button v-if="audit.status === 'pending'" @click="handleApproveAudit(audit)" class="text-green-600 hover:text-green-800 mr-2">通过</button>
+              <button v-if="audit.status === 'pending'" @click="handleRejectAudit(audit)" class="text-red-600 hover:text-red-800">拒绝</button>
             </td>
           </tr>
         </tbody>

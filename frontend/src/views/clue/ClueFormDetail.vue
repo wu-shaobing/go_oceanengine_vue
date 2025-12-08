@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
+
+const router = useRouter()
 
 const formInfo = ref({
   id: 'CF12345',
@@ -24,6 +27,14 @@ const recentClues = ref([
   { id: 'CL002', name: '李四', phone: '139****5678', city: '上海', time: '2025-11-28 09:25', status: 'followed' },
   { id: 'CL003', name: '王五', phone: '137****9012', city: '广州', time: '2025-11-28 09:20', status: 'new' }
 ])
+
+const handleEdit = () => {
+  router.push(`/clue/form/edit/${formInfo.value.id}`)
+}
+
+const handleExport = () => {
+  alert(`正在导出表单「${formInfo.value.name}」的 ${formInfo.value.totalClues} 条线索...`)
+}
 </script>
 
 <template>
@@ -36,8 +47,8 @@ const recentClues = ref([
           <p class="mt-2 text-gray-600">ID: {{ formInfo.id }}</p>
         </div>
         <div class="flex gap-3">
-          <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">编辑</button>
-          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">导出线索</button>
+          <button @click="handleEdit" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">编辑</button>
+          <button @click="handleExport" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">导出线索</button>
         </div>
       </div>
     </div>

@@ -94,10 +94,10 @@
         <div class="bg-white rounded-lg shadow p-6">
           <h3 class="text-lg font-medium mb-4">快捷操作</h3>
           <div class="space-y-2">
-            <button class="w-full text-left px-4 py-2 hover:bg-gray-50 rounded text-sm">修改头像</button>
-            <button class="w-full text-left px-4 py-2 hover:bg-gray-50 rounded text-sm">修改简介</button>
-            <button class="w-full text-left px-4 py-2 hover:bg-gray-50 rounded text-sm">绑定管理</button>
-            <button class="w-full text-left px-4 py-2 hover:bg-gray-50 rounded text-sm text-red-600">解绑账号</button>
+            <button @click="handleChangeAvatar" class="w-full text-left px-4 py-2 hover:bg-gray-50 rounded text-sm">修改头像</button>
+            <button @click="handleChangeBio" class="w-full text-left px-4 py-2 hover:bg-gray-50 rounded text-sm">修改简介</button>
+            <button @click="handleBindManage" class="w-full text-left px-4 py-2 hover:bg-gray-50 rounded text-sm">绑定管理</button>
+            <button @click="handleUnbindAccount" class="w-full text-left px-4 py-2 hover:bg-gray-50 rounded text-sm text-red-600">解绑账号</button>
           </div>
         </div>
       </div>
@@ -108,6 +108,24 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
+
+const handleChangeAvatar = () => {
+  alert('修改头像')
+}
+
+const handleChangeBio = () => {
+  alert('修改简介')
+}
+
+const handleBindManage = () => {
+  alert('绑定管理')
+}
+
+const handleUnbindAccount = () => {
+  if (confirm('确定解绑账号吗？')) {
+    alert('已解绑账号')
+  }
+}
 
 const accountInfo = ref({
   avatar: 'https://via.placeholder.com/80',

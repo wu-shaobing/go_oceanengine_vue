@@ -4,6 +4,10 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 20, total: 256 })
+const searchKeyword = ref('')
+const filterType = ref('')
+const startDate = ref('')
+const endDate = ref('')
 
 const transactions = ref([
   { id: 'W20251111001', type: '广告消耗', advertiser: '北京科技有限公司', amount: -5680, balance: 5674320, time: '2025-11-11 15:30:25' },
@@ -15,6 +19,14 @@ const transactions = ref([
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleSearch = () => {
+  alert('搜索流水记录')
+}
+
+const handleExport = () => {
+  alert('导出流水记录')
 }
 </script>
 
@@ -29,18 +41,18 @@ const handlePageChange = (page: number) => {
     <!-- Filter -->
     <div class="bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex flex-wrap gap-4">
-        <input type="text" placeholder="搜索流水号" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 w-48">
-        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <input v-model="searchKeyword" type="text" placeholder="搜索流水号" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 w-48">
+        <select v-model="filterType" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
           <option value="">全部类型</option>
           <option value="spend">广告消耗</option>
           <option value="recharge">充值</option>
           <option value="transfer">转账</option>
           <option value="fee">服务费</option>
         </select>
-        <input type="date" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-        <input type="date" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
-        <button class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">导出</button>
+        <input v-model="startDate" type="date" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <input v-model="endDate" type="date" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+<button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSearch">搜索</button>
+        <button class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50" @click="handleExport">导出</button>
       </div>
     </div>
 

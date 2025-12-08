@@ -20,6 +20,18 @@ const formatNumber = (num: number) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleAddAction = () => {
+  alert('添加新的关键行为追踪')
+}
+
+const handleEditAction = (action: typeof actions.value[0]) => {
+  alert(`编辑关键行为: ${action.name}`)
+}
+
+const handleViewData = (action: typeof actions.value[0]) => {
+  alert(`查看「${action.name}」的详细数据`)
+}
 </script>
 
 <template>
@@ -31,7 +43,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">关键行为追踪</h1>
           <p class="mt-2 text-gray-600">定义和追踪线索转化关键行为</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button @click="handleAddAction" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           添加行为
         </button>
       </div>
@@ -88,8 +100,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button class="text-gray-600 hover:text-gray-800">数据</button>
+              <button @click="handleEditAction(action)" class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
+              <button @click="handleViewData(action)" class="text-gray-600 hover:text-gray-800">数据</button>
             </td>
           </tr>
         </tbody>

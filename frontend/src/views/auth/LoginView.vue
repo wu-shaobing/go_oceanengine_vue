@@ -15,6 +15,10 @@ const form = reactive({
   remember: false
 })
 
+const handleForgotPassword = () => {
+  alert('请联系管理员重置密码')
+}
+
 const handleLogin = async () => {
   if (!form.username || !form.password) {
     errorMessage.value = '请输入用户名和密码'
@@ -96,7 +100,7 @@ const handleLogin = async () => {
               />
               <span class="ml-2 text-sm text-gray-600">记住我</span>
             </label>
-            <a href="#" class="text-sm text-blue-600 hover:text-blue-800">忘记密码？</a>
+<a href="#" class="text-sm text-blue-600 hover:text-blue-800" @click.prevent="handleForgotPassword">忘记密码？</a>
           </div>
 
           <!-- Submit -->

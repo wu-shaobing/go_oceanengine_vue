@@ -4,6 +4,9 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 20, total: 1256 })
+const searchKeyword = ref('')
+const filterStatus = ref('')
+const filterMethod = ref('')
 
 const logs = ref([
   { id: 'LOG001', endpoint: '/api/v3/ad/get', method: 'GET', status: 200, duration: 125, time: '2025-11-28 10:30:15', ip: '192.168.1.100' },
@@ -14,6 +17,14 @@ const logs = ref([
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleFilter = () => {
+  alert('筛选日志')
+}
+
+const handleViewLogDetail = (log: typeof logs.value[0]) => {
+  alert(`查看日志详情: ${log.endpoint}`)
 }
 </script>
 
@@ -50,21 +61,21 @@ const handlePageChange = (page: number) => {
 
     <div class="bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex gap-4">
-        <input type="text" placeholder="搜索接口路径..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <input v-model="searchKeyword" type="text" placeholder="搜索接口路径..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterStatus" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部状态</option>
           <option value="200">成功 (2xx)</option>
           <option value="400">客户端错误 (4xx)</option>
           <option value="500">服务端错误 (5xx)</option>
         </select>
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterMethod" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部方法</option>
           <option value="GET">GET</option>
           <option value="POST">POST</option>
           <option value="PUT">PUT</option>
           <option value="DELETE">DELETE</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">筛选</button>
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleFilter">筛选</button>
       </div>
     </div>
 
@@ -107,7 +118,7 @@ const handlePageChange = (page: number) => {
             </td>
             <td class="px-6 py-4 text-sm text-gray-500">{{ log.ip }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800">详情</button>
+              <button class="text-blue-600 hover:text-blue-800" @click="handleViewLogDetail(log)">详情</button>
             </td>
           </tr>
         </tbody>

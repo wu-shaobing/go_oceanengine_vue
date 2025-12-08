@@ -24,6 +24,10 @@ const toggleBehavior = (id: string) => {
   if (idx > -1) selectedBehaviors.value.splice(idx, 1)
   else selectedBehaviors.value.push(id)
 }
+
+const handleConfirm = () => {
+  alert(`已选择 ${selectedBehaviors.value.length} 个行为标签`)
+}
 </script>
 
 <template>
@@ -73,7 +77,7 @@ const toggleBehavior = (id: string) => {
     <div v-if="selectedBehaviors.length > 0" class="sticky bottom-4">
       <div class="bg-white rounded-lg border border-gray-200 shadow-lg p-4 flex items-center justify-between">
         <span class="text-gray-600">已选择 {{ selectedBehaviors.length }} 个行为标签</span>
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleConfirm" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           确认选择
         </button>
       </div>

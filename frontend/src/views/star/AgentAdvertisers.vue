@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">代理商广告主</h1>
         <p class="text-gray-600 mt-1">管理代理的广告主账户</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">添加广告主</button>
+<button @click="handleAdd" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">添加广告主</button>
     </div>
 
     <div class="bg-white rounded-lg shadow p-4 mb-6">
@@ -18,7 +18,7 @@
           <option value="active">正常</option>
           <option value="inactive">停用</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+<button @click="handleQuery" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
       </div>
     </div>
 
@@ -69,8 +69,8 @@
             </td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
-                <button class="text-blue-600 hover:text-blue-800 text-sm">充值</button>
+<button @click="handleDetail(adv)" class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
+                <button @click="handleRecharge(adv)" class="text-blue-600 hover:text-blue-800 text-sm">充值</button>
               </div>
             </td>
           </tr>
@@ -96,6 +96,22 @@ const advertisers = ref([
   { id: 'ADV001', name: '美妆品牌A', industry: '美妆护肤', balance: 125600, monthSpent: 356800, status: 'active' },
   { id: 'ADV002', name: '服装品牌B', industry: '服装配饰', balance: 89500, monthSpent: 268500, status: 'active' },
   { id: 'ADV003', name: '食品品牌C', industry: '食品饮料', balance: 56800, monthSpent: 185600, status: 'active' },
-  { id: 'ADV004', name: '数码品牌D', industry: '数码3C', balance: 12500, monthSpent: 125800, status: 'inactive' }
+  { id: 'ADV004', name: '数码品牌D', industry: '数码 3C', balance: 12500, monthSpent: 125800, status: 'inactive' }
 ])
+
+const handleAdd = () => {
+  alert('添加广告主')
+}
+
+const handleQuery = () => {
+  alert('查询广告主')
+}
+
+const handleDetail = (adv: typeof advertisers.value[0]) => {
+  alert(`查看广告主详情: ${adv.name}`)
+}
+
+const handleRecharge = (adv: typeof advertisers.value[0]) => {
+  alert(`充值: ${adv.name}`)
+}
 </script>

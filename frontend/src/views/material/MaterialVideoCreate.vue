@@ -10,6 +10,10 @@ const formData = ref({
 })
 
 const uploadList = ref<{ name: string; progress: number; status: string }[]>([])
+
+const handleSelectVideo = () => {
+  alert('选择视频')
+}
 </script>
 
 <template>
@@ -22,12 +26,12 @@ const uploadList = ref<{ name: string; progress: number; status: string }[]>([])
 
     <div class="grid grid-cols-3 gap-6">
       <div class="col-span-2 bg-white rounded-lg border border-gray-200 p-6">
-        <div class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-blue-400 transition-colors cursor-pointer">
+<div class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-blue-400 transition-colors cursor-pointer" @click="handleSelectVideo">
           <div class="text-5xl mb-4">🎬</div>
           <p class="text-lg font-medium text-gray-700">拖拽视频到此处上传</p>
           <p class="text-sm text-gray-500 mt-2">或点击选择文件</p>
           <p class="text-xs text-gray-400 mt-4">支持 MP4、MOV 格式，单文件最大 500MB</p>
-          <button class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSelectVideo">
             选择视频
           </button>
         </div>

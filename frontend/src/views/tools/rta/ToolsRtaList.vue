@@ -23,6 +23,14 @@ const getStatusConfig = (status: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleEdit = (item: typeof rtaList.value[0]) => {
+  alert(`编辑策略: ${item.name}`)
+}
+
+const handleMonitor = (item: typeof rtaList.value[0]) => {
+  alert(`查看监控: ${item.name}`)
+}
 </script>
 
 <template>
@@ -87,8 +95,8 @@ const handlePageChange = (page: number) => {
               <td class="px-6 py-4 text-sm text-gray-900">{{ item.avgLatency }}ms</td>
               <td class="px-6 py-4 text-sm text-gray-900">{{ item.qps.toLocaleString() }}</td>
               <td class="px-6 py-4 text-sm">
-                <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-                <button class="text-gray-600 hover:text-gray-800">监控</button>
+<button @click="handleEdit(item)" class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
+                <button @click="handleMonitor(item)" class="text-gray-600 hover:text-gray-800">监控</button>
               </td>
             </tr>
           </tbody>

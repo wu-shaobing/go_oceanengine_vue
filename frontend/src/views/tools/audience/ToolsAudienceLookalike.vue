@@ -19,6 +19,14 @@ const scales = [
   { value: 'medium', label: '平衡', coverage: '约1000万', similarity: '中等相似度', icon: '⚖️' },
   { value: 'large', label: '扩展', coverage: '约2000万', similarity: '较低相似度', icon: '🚀' }
 ]
+
+const handleCancel = () => {
+  alert('取消')
+}
+
+const handleCreate = () => {
+  alert(`创建Lookalike扩展包: ${formData.value.name}`)
+}
 </script>
 
 <template>
@@ -69,9 +77,9 @@ const scales = [
           </div>
         </div>
 
-        <div class="flex justify-end gap-4">
-          <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
-          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建扩展包</button>
+<div class="flex justify-end gap-4">
+          <button @click="handleCancel" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
+          <button @click="handleCreate" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建Lookalike扩展包</button>
         </div>
       </div>
 

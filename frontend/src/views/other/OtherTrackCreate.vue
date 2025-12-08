@@ -14,6 +14,18 @@ const trackTypes = [
   { value: 'impression', label: '曝光追踪', desc: '追踪广告展示行为' },
   { value: 'conversion', label: '转化追踪', desc: '追踪用户转化行为' }
 ]
+
+const handleCancel = () => {
+  alert('取消')
+}
+
+const handleCreateLink = () => {
+  alert('创建链接')
+}
+
+const handleCopyPreviewLink = () => {
+  alert('复制链接')
+}
 </script>
 
 <template>
@@ -67,8 +79,8 @@ const trackTypes = [
           </div>
 
           <div class="flex justify-end gap-4 pt-4 border-t">
-            <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
-            <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建链接</button>
+            <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50" @click="handleCancel">取消</button>
+            <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreateLink">创建链接</button>
           </div>
         </div>
       </div>
@@ -81,7 +93,7 @@ const trackTypes = [
               https://track.oceanengine.com/c/{{ formData.name ? formData.name.replace(/\s/g, '-') : 'example' }}
             </code>
           </div>
-          <button class="mt-3 w-full px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm">
+          <button class="mt-3 w-full px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm" @click="handleCopyPreviewLink">
             复制链接
           </button>
         </div>

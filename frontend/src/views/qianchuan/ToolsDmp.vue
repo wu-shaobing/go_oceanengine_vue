@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">DMP人群管理</h1>
         <p class="text-gray-600 mt-1">管理和使用DMP人群包</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">创建人群</button>
+<button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" @click="handleCreate">创建人群</button>
     </div>
 
     <div class="bg-white rounded-lg shadow">
@@ -35,8 +35,8 @@
             <td class="px-4 py-3 text-sm text-gray-500">{{ item.updateTime }}</td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
-                <button class="text-blue-600 hover:text-blue-800 text-sm">推送</button>
+<button class="text-blue-600 hover:text-blue-800 text-sm" @click="handleDetail(item)">详情</button>
+                <button class="text-blue-600 hover:text-blue-800 text-sm" @click="handlePush(item)">推送</button>
               </div>
             </td>
           </tr>
@@ -60,4 +60,16 @@ const audiences = ref([
   { id: 3, name: '直播间互动用户', type: '行为人群', coverage: 860000, status: 'ready', updateTime: '2024-06-16' },
   { id: 4, name: '竞品用户', type: '自定义人群', coverage: 450000, status: 'pending', updateTime: '2024-06-15' }
 ])
+
+const handleCreate = () => {
+  alert('创建DMP人群')
+}
+
+const handleDetail = (item: typeof audiences.value[0]) => {
+  alert(`查看详情: ${item.name}`)
+}
+
+const handlePush = (item: typeof audiences.value[0]) => {
+  alert(`推送人群: ${item.name}`)
+}
 </script>

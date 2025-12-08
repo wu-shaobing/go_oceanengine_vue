@@ -19,6 +19,34 @@ const componentList = ref([
   { id: 'video', name: '视频模块', icon: '🎬' },
   { id: 'footer', name: '页面底部', icon: '📌' }
 ])
+
+const handlePreview = () => {
+  alert('预览页面')
+}
+
+const handleSave = () => {
+  alert('保存成功')
+}
+
+const handlePublish = () => {
+  alert('发布成功')
+}
+
+const handleEditComponent = (compId: string) => {
+  alert(`编辑组件: ${compId}`)
+}
+
+const handleDeleteComponent = (compId: string) => {
+  if (confirm('确定删除该组件?')) {
+    siteData.value.components = siteData.value.components.filter(c => c !== compId)
+  }
+}
+
+const handleAddComponent = (comp: typeof componentList.value[0]) => {
+  if (!siteData.value.components.includes(comp.id)) {
+    siteData.value.components.push(comp.id)
+  }
+}
 </script>
 
 <template>
@@ -31,9 +59,9 @@ const componentList = ref([
           <p class="mt-2 text-gray-600">ID: {{ siteData.id }}</p>
         </div>
         <div class="flex gap-3">
-          <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">预览</button>
-          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">保存</button>
-          <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">发布</button>
+          <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50" @click="handlePreview">预览</button>
+          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSave">保存</button>
+          <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700" @click="handlePublish">发布</button>
         </div>
       </div>
     </div>
@@ -43,7 +71,8 @@ const componentList = ref([
         <h4 class="font-medium text-gray-900 mb-4">组件库</h4>
         <div class="space-y-2">
           <div v-for="comp in componentList" :key="comp.id"
-               class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+               class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100"
+               @click="handleAddComponent(comp)">
             <span class="text-xl">{{ comp.icon }}</span>
             <span class="text-sm text-gray-700">{{ comp.name }}</span>
           </div>
@@ -62,8 +91,8 @@ const componentList = ref([
               </span>
             </div>
             <div class="flex gap-2">
-              <button class="text-blue-600 text-sm hover:text-blue-800">编辑</button>
-              <button class="text-red-600 text-sm hover:text-red-800">删除</button>
+              <button class="text-blue-600 text-sm hover:text-blue-800" @click="handleEditComponent(comp)">编辑</button>
+              <button class="text-red-600 text-sm hover:text-red-800" @click="handleDeleteComponent(comp)">删除</button>
             </div>
           </div>
           <div class="text-center text-gray-400 py-4">

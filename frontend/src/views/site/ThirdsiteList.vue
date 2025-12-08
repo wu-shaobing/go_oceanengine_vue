@@ -15,6 +15,20 @@ const sites = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleAddThirdsite = () => {
+  alert('添加第三方落地页')
+}
+
+const handleEditSite = (site: typeof sites.value[0]) => {
+  alert(`编辑: ${site.name}`)
+}
+
+const handleDeleteSite = (site: typeof sites.value[0]) => {
+  if (confirm(`确定删除 ${site.name}?`)) {
+    alert('删除成功')
+  }
+}
 </script>
 
 <template>
@@ -26,7 +40,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">第三方落地页</h1>
           <p class="mt-2 text-gray-600">管理第三方平台落地页</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleAddThirdsite">
           添加第三方落地页
         </button>
       </div>
@@ -84,8 +98,8 @@ const handlePageChange = (page: number) => {
             </td>
             <td class="px-6 py-4 text-sm text-gray-500">{{ site.createdAt }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button class="text-red-600 hover:text-red-800">删除</button>
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleEditSite(site)">编辑</button>
+              <button class="text-red-600 hover:text-red-800" @click="handleDeleteSite(site)">删除</button>
             </td>
           </tr>
         </tbody>

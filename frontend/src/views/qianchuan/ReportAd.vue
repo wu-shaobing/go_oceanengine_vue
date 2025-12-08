@@ -18,8 +18,8 @@
           <option value="enable">投放中</option>
           <option value="disable">已暂停</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
-        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
+<button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" @click="handleQuery">查询</button>
+        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50" @click="handleExport">导出</button>
       </div>
     </div>
 
@@ -88,6 +88,14 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const filters = ref({ startDate: '', endDate: '', status: '' })
+
+const handleQuery = () => {
+  alert('查询广告报表')
+}
+
+const handleExport = () => {
+  alert('导出广告报表')
+}
 
 const summary = ref({
   cost: 125680,

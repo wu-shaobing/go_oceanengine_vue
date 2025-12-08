@@ -14,6 +14,18 @@ const invoices = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleApplyInvoice = () => {
+  alert('申请发票')
+}
+
+const handleDownloadInvoice = (invoice: any) => {
+  alert(`下载发票: ${invoice.id}`)
+}
+
+const handleViewInvoice = (invoice: any) => {
+  alert(`查看发票详情: ${invoice.id}`)
+}
 </script>
 
 <template>
@@ -25,7 +37,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">发票管理</h1>
           <p class="mt-2 text-gray-600">申请和管理发票</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleApplyInvoice">
           申请发票
         </button>
       </div>
@@ -76,9 +88,9 @@ const handlePageChange = (page: number) => {
                 {{ invoice.status === 'issued' ? '已开具' : '处理中' }}
               </span>
             </td>
-            <td class="px-6 py-4 text-sm">
-              <button v-if="invoice.status === 'issued'" class="text-blue-600 hover:text-blue-800 mr-3">下载</button>
-              <button class="text-gray-600 hover:text-gray-800">详情</button>
+<td class="px-6 py-4 text-sm">
+              <button v-if="invoice.status === 'issued'" class="text-blue-600 hover:text-blue-800 mr-3" @click="handleDownloadInvoice(invoice)">下载</button>
+              <button class="text-gray-600 hover:text-gray-800" @click="handleViewInvoice(invoice)">详情</button>
             </td>
           </tr>
         </tbody>

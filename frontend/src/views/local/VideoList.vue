@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">视频管理</h1>
         <p class="text-gray-600 mt-1">管理本地推广告素材视频</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center">
+      <button @click="showUploadModal = true" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center">
         <span class="mr-2">+</span> 上传视频
       </button>
     </div>
@@ -36,8 +36,8 @@
             <input type="date" v-model="filters.endDate" class="border border-gray-300 rounded px-3 py-2">
           </div>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
-        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">重置</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+        <button @click="handleReset" class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">重置</button>
       </div>
     </div>
 
@@ -69,9 +69,9 @@
               <span class="text-xs text-gray-400">{{ video.uploadTime }}</span>
             </div>
             <div class="mt-3 pt-3 border-t flex justify-end space-x-3">
-              <button class="text-blue-600 text-xs hover:underline">预览</button>
-              <button class="text-blue-600 text-xs hover:underline">使用</button>
-              <button class="text-red-600 text-xs hover:underline">删除</button>
+              <button @click="handlePreview(video)" class="text-blue-600 text-xs hover:underline">预览</button>
+              <button @click="handleUse(video)" class="text-blue-600 text-xs hover:underline">使用</button>
+              <button @click="handleDelete(video)" class="text-red-600 text-xs hover:underline">删除</button>
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@
       <div v-if="videos.length === 0" class="py-16 text-center">
         <div class="text-5xl mb-4">📹</div>
         <div class="text-gray-500 mb-4">暂无视频素材</div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">上传视频</button>
+        <button @click="showUploadModal = true" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">上传视频</button>
       </div>
 
       <div class="p-4 border-t">
@@ -97,19 +97,19 @@
           <button @click="showUploadModal = false" class="text-gray-400 hover:text-gray-600">✕</button>
         </div>
         <div class="p-6">
-          <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-500 cursor-pointer">
+<div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-500 cursor-pointer" @click="handleSelectFile">
             <div class="text-4xl mb-4">📤</div>
             <div class="text-gray-600 mb-2">点击或拖拽视频到此处上传</div>
             <div class="text-xs text-gray-400">支持 MP4、MOV 格式，最大 500MB</div>
           </div>
           <div class="mt-4">
             <label class="block text-sm text-gray-700 mb-2">视频名称</label>
-            <input type="text" class="w-full border border-gray-300 rounded px-3 py-2" placeholder="请输入视频名称">
+            <input v-model="uploadForm.name" type="text" class="w-full border border-gray-300 rounded px-3 py-2" placeholder="请输入视频名称">
           </div>
         </div>
         <div class="flex justify-end space-x-3 p-4 border-t bg-gray-50">
           <button @click="showUploadModal = false" class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">取消</button>
-          <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">确认上传</button>
+          <button @click="handleUpload" :disabled="uploading" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50">{{ uploading ? '上传中...' : '确认上传' }}</button>
         </div>
       </div>
     </div>
@@ -129,6 +129,11 @@ const filters = ref({
 })
 
 const showUploadModal = ref(false)
+const uploading = ref(false)
+const uploadForm = ref({
+  name: '',
+  file: null as File | null
+})
 
 const videos = ref([
   { id: 'V001', name: '618大促限时特惠活动宣传', duration: '00:30', size: '15.6MB', resolution: '1080x1920', auditStatus: 'approved', uploadTime: '2024-06-01' },
@@ -157,5 +162,46 @@ const getStatusText = (status: string) => {
     rejected: '已拒绝'
   }
   return texts[status] || '未知'
+}
+
+const handleSearch = () => {
+  console.log('搜索:', filters.value)
+  alert('查询完成')
+}
+
+const handleReset = () => {
+  filters.value = { keyword: '', auditStatus: '', startDate: '', endDate: '' }
+}
+
+const handlePreview = (video: typeof videos.value[0]) => {
+  alert(`预览视频: ${video.name}`)
+}
+
+const handleUse = (video: typeof videos.value[0]) => {
+  alert(`已选择使用视频: ${video.name}`)
+}
+
+const handleDelete = (video: typeof videos.value[0]) => {
+  if (confirm(`确定删除视频「${video.name}」吗？`)) {
+    const idx = videos.value.findIndex(v => v.id === video.id)
+    if (idx > -1) videos.value.splice(idx, 1)
+    alert('删除成功')
+  }
+}
+
+const handleSelectFile = () => {
+  alert('选择视频文件')
+}
+
+const handleUpload = async () => {
+  uploading.value = true
+  try {
+    await new Promise(r => setTimeout(r, 1000))
+    alert('视频上传成功')
+    showUploadModal.value = false
+    uploadForm.value = { name: '', file: null }
+  } finally {
+    uploading.value = false
+  }
 }
 </script>

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
+
+const router = useRouter()
+const loading = ref(false)
 
 const formData = ref({
   name: '',
@@ -18,6 +22,29 @@ const couponTypes = [
   { value: 'percent', label: '折扣券', icon: '📊' },
   { value: 'gift', label: '赠品券', icon: '🎁' }
 ]
+
+const handleCancel = () => {
+  router.back()
+}
+
+const handleCreate = async () => {
+  if (!formData.value.name.trim()) {
+    alert('请输入优惠券名称')
+    return
+  }
+  if (!formData.value.value) {
+    alert('请输入优惠金额或折扣')
+    return
+  }
+  loading.value = true
+  try {
+    await new Promise(r => setTimeout(r, 500))
+    alert('优惠券创建成功！')
+    router.back()
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 <template>
@@ -98,8 +125,8 @@ const couponTypes = [
         </div>
 
         <div class="flex justify-end gap-4 pt-4 border-t">
-          <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
-          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建优惠券</button>
+          <button @click="handleCancel" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
+          <button @click="handleCreate" :disabled="loading" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50">{{ loading ? '创建中...' : '创建优惠券' }}</button>
         </div>
       </div>
     </div>

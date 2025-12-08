@@ -2,6 +2,10 @@
 import { ref } from 'vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 
+const filterCategory = ref('')
+const sortBy = ref('')
+const searchKeyword = ref('')
+
 const categories = ref([
   { id: 'creative', name: '创意服务', icon: '🎨', count: 45 },
   { id: 'data', name: '数据服务', icon: '📊', count: 32 },
@@ -15,6 +19,14 @@ const services = ref([
   { id: 'SM003', name: 'API对接服务', provider: '技术先锋', category: '技术服务', price: 3000, rating: 4.9, orders: 78 },
   { id: 'SM004', name: '品牌策划', provider: '品牌大师', category: '营销服务', price: 5000, rating: 4.7, orders: 145 }
 ])
+
+const handleConsult = (service: typeof services.value[0]) => {
+  alert(`咨询服务: ${service.name}`)
+}
+
+const handleViewCategory = (cat: typeof categories.value[0]) => {
+  alert(`查看分类: ${cat.name}`)
+}
 </script>
 
 <template>
@@ -27,7 +39,8 @@ const services = ref([
 
     <div class="grid grid-cols-4 gap-4">
       <div v-for="cat in categories" :key="cat.id"
-           class="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow cursor-pointer">
+           class="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow cursor-pointer"
+           @click="handleViewCategory(cat)">
         <div class="flex items-center gap-3">
           <span class="text-3xl">{{ cat.icon }}</span>
           <div>
@@ -40,17 +53,17 @@ const services = ref([
 
     <div class="bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex gap-4">
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterCategory" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部分类</option>
           <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
         </select>
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="sortBy" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">按评分排序</option>
           <option value="rating_desc">评分从高到低</option>
           <option value="price_asc">价格从低到高</option>
           <option value="orders_desc">订单量从高到低</option>
         </select>
-        <input type="text" placeholder="搜索服务..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
+        <input v-model="searchKeyword" type="text" placeholder="搜索服务..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
       </div>
     </div>
 
@@ -73,7 +86,7 @@ const services = ref([
         </div>
         <div class="mt-4 flex items-center justify-between">
           <p class="text-xl font-bold text-gray-900">¥{{ service.price.toLocaleString() }}<span class="text-sm font-normal text-gray-500">/次</span></p>
-          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm" @click="handleConsult(service)">
             立即咨询
           </button>
         </div>

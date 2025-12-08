@@ -30,8 +30,8 @@
           <div class="text-right">
             <div class="text-sm text-gray-500">到期时间: {{ sub.expireDate }}</div>
             <div class="flex space-x-2 mt-2">
-              <button class="px-3 py-1 text-sm text-blue-600 border border-blue-600 rounded hover:bg-blue-50">续费</button>
-              <button class="px-3 py-1 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-50">取消</button>
+              <button @click="handleRenew(sub)" class="px-3 py-1 text-sm text-blue-600 border border-blue-600 rounded hover:bg-blue-50">续费</button>
+              <button @click="handleCancelSub(sub)" class="px-3 py-1 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-50">取消</button>
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@
               <p class="text-sm text-gray-400">已于 {{ sub.expireDate }} 到期</p>
             </div>
           </div>
-          <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">重新订阅</button>
+          <button @click="handleResubscribe(sub)" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">重新订阅</button>
         </div>
       </div>
     </div>
@@ -84,7 +84,7 @@
             <td class="px-4 py-3 text-sm text-gray-500">{{ sub.expireDate }}</td>
             <td class="px-4 py-3 text-sm text-right">¥{{ sub.price }}/月</td>
             <td class="px-4 py-3">
-              <button class="text-blue-600 hover:text-blue-800 text-sm">{{ sub.status === 'active' ? '续费' : '订阅' }}</button>
+              <button @click="handleTableAction(sub)" class="text-blue-600 hover:text-blue-800 text-sm">{{ sub.status === 'active' ? '续费' : '订阅' }}</button>
             </td>
           </tr>
         </tbody>
@@ -98,6 +98,24 @@ import { ref } from 'vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 
 const currentTab = ref('active')
+
+const handleRenew = (sub: typeof activeSubscriptions.value[0]) => {
+  alert(`续费: ${sub.name}`)
+}
+
+const handleCancelSub = (sub: typeof activeSubscriptions.value[0]) => {
+  if (confirm(`确定取消订阅 ${sub.name} 吗？`)) {
+    alert(`已取消: ${sub.name}`)
+  }
+}
+
+const handleResubscribe = (sub: typeof expiredSubscriptions.value[0]) => {
+  alert(`重新订阅: ${sub.name}`)
+}
+
+const handleTableAction = (sub: any) => {
+  alert(`${sub.status === 'active' ? '续费' : '订阅'}: ${sub.name}`)
+}
 const tabs = [
   { key: 'active', label: '使用中' },
   { key: 'expired', label: '已过期' },

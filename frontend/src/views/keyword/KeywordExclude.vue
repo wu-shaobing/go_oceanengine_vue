@@ -15,6 +15,18 @@ const excludeKeywords = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleAddExclude = () => {
+  alert('添加否定词')
+}
+
+const handleEdit = (kw: typeof excludeKeywords.value[0]) => {
+  alert(`编辑否定词: ${kw.keyword}`)
+}
+
+const handleDelete = (kw: typeof excludeKeywords.value[0]) => {
+  alert(`删除否定词: ${kw.keyword}`)
+}
 </script>
 
 <template>
@@ -26,7 +38,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">否定关键词</h1>
           <p class="mt-2 text-gray-600">管理广告否定关键词，排除无效流量</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleAddExclude" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           添加否定词
         </button>
       </div>
@@ -82,8 +94,8 @@ const handlePageChange = (page: number) => {
             <td class="px-6 py-4 text-sm text-gray-600">{{ kw.campaigns }} 个</td>
             <td class="px-6 py-4 text-sm text-gray-500">{{ kw.createdAt }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button class="text-red-600 hover:text-red-800">删除</button>
+<button @click="handleEdit(kw)" class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
+              <button @click="handleDelete(kw)" class="text-red-600 hover:text-red-800">删除</button>
             </td>
           </tr>
         </tbody>

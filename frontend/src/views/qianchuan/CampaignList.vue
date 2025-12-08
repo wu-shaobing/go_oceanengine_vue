@@ -28,16 +28,16 @@
           <option value="video">短视频带货</option>
           <option value="product">商品推广</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
-        <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">重置</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <button @click="handleReset" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">重置</button>
       </div>
     </div>
 
     <!-- 批量操作 -->
     <div class="flex items-center gap-4 mb-4">
-      <button class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 text-sm">批量启用</button>
-      <button class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 text-sm">批量暂停</button>
-      <button class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 text-sm">批量删除</button>
+      <button @click="handleBatchEnable" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 text-sm">批量启用</button>
+      <button @click="handleBatchPause" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 text-sm">批量暂停</button>
+      <button @click="handleBatchDelete" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 text-sm">批量删除</button>
     </div>
 
     <!-- 计划列表 -->
@@ -73,10 +73,10 @@
             <td class="px-4 py-3 text-sm">{{ campaign.conversions }}</td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
-                <button class="text-blue-600 hover:text-blue-800 text-sm">数据</button>
-                <button v-if="campaign.status === 'enable'" class="text-orange-600 hover:text-orange-800 text-sm">暂停</button>
-                <button v-else class="text-green-600 hover:text-green-800 text-sm">启用</button>
+                <button @click="handleEdit(campaign)" class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
+                <button @click="handleViewData(campaign)" class="text-blue-600 hover:text-blue-800 text-sm">数据</button>
+                <button v-if="campaign.status === 'enable'" @click="handlePause(campaign)" class="text-orange-600 hover:text-orange-800 text-sm">暂停</button>
+                <button v-else @click="handleEnable(campaign)" class="text-green-600 hover:text-green-800 text-sm">启用</button>
               </div>
             </td>
           </tr>
@@ -124,5 +124,46 @@ const getStatusText = (status: string) => {
     delete: '已删除'
   }
   return texts[status] || status
+}
+
+const handleSearch = () => {
+  console.log('搜索:', filters.value)
+  alert('查询完成')
+}
+
+const handleReset = () => {
+  filters.value = { keyword: '', status: '', marketingGoal: '' }
+}
+
+const handleBatchEnable = () => {
+  alert('批量启用已选计划')
+}
+
+const handleBatchPause = () => {
+  alert('批量暂停已选计划')
+}
+
+const handleBatchDelete = () => {
+  if (confirm('确定批量删除已选计划吗？')) {
+    alert('删除成功')
+  }
+}
+
+const handleEdit = (campaign: typeof campaigns.value[0]) => {
+  alert(`编辑计划: ${campaign.name}`)
+}
+
+const handleViewData = (campaign: typeof campaigns.value[0]) => {
+  alert(`查看数据: ${campaign.name}\n消耗: ¥${campaign.cost.toLocaleString()}\n转化: ${campaign.conversions}`)
+}
+
+const handlePause = (campaign: typeof campaigns.value[0]) => {
+  campaign.status = 'disable'
+  alert(`计划「${campaign.name}」已暂停`)
+}
+
+const handleEnable = (campaign: typeof campaigns.value[0]) => {
+  campaign.status = 'enable'
+  alert(`计划「${campaign.name}」已启用`)
 }
 </script>

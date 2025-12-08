@@ -15,6 +15,24 @@ const grayConfigs = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreate = () => {
+  alert('创建灰度发布')
+}
+
+const handleEdit = (config: typeof grayConfigs.value[0]) => {
+  alert(`编辑灰度: ${config.name}`)
+}
+
+const handlePause = (config: typeof grayConfigs.value[0]) => {
+  config.status = 'paused'
+  alert(`已暂停: ${config.name}`)
+}
+
+const handleResume = (config: typeof grayConfigs.value[0]) => {
+  config.status = 'running'
+  alert(`已恢复: ${config.name}`)
+}
 </script>
 
 <template>
@@ -26,7 +44,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">灰度发布</h1>
           <p class="mt-2 text-gray-600">管理功能灰度发布配置</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleCreate" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           创建灰度
         </button>
       </div>
@@ -89,9 +107,9 @@ const handlePageChange = (page: number) => {
             </td>
             <td class="px-6 py-4 text-sm text-gray-500">{{ config.startAt }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button v-if="config.status === 'running'" class="text-yellow-600 hover:text-yellow-800">暂停</button>
-              <button v-else-if="config.status === 'paused'" class="text-green-600 hover:text-green-800">恢复</button>
+<button @click="handleEdit(config)" class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
+              <button v-if="config.status === 'running'" @click="handlePause(config)" class="text-yellow-600 hover:text-yellow-800">暂停</button>
+              <button v-else-if="config.status === 'paused'" @click="handleResume(config)" class="text-green-600 hover:text-green-800">恢复</button>
             </td>
           </tr>
         </tbody>

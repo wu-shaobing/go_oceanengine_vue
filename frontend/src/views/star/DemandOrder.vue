@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">需求单管理</h1>
         <p class="text-gray-600 mt-1">管理达人合作需求单</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">创建需求单</button>
+      <button @click="handleCreate" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">创建需求单</button>
     </div>
 
     <div class="bg-white rounded-lg shadow p-4 mb-6">
@@ -20,7 +20,7 @@
           <option value="approved">已通过</option>
           <option value="rejected">已拒绝</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
       </div>
     </div>
 
@@ -50,9 +50,9 @@
             <td class="px-4 py-3 text-sm text-gray-500">{{ order.createTime }}</td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">查看</button>
-                <button v-if="order.status === 'draft'" class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
-                <button v-if="order.status === 'draft'" class="text-red-600 hover:text-red-800 text-sm">删除</button>
+                <button @click="handleView(order)" class="text-blue-600 hover:text-blue-800 text-sm">查看</button>
+                <button v-if="order.status === 'draft'" @click="handleEdit(order)" class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
+                <button v-if="order.status === 'draft'" @click="handleDelete(order)" class="text-red-600 hover:text-red-800 text-sm">删除</button>
               </div>
             </td>
           </tr>
@@ -67,9 +67,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
+const router = useRouter()
 const filters = ref({ keyword: '', status: '' })
 
 const orders = ref([
@@ -87,5 +89,30 @@ const getStatusClass = (status: string) => {
 const getStatusText = (status: string) => {
   const texts: Record<string, string> = { draft: '草稿', pending: '待审核', approved: '已通过', rejected: '已拒绝' }
   return texts[status] || status
+}
+
+const handleCreate = () => {
+  router.push('/star/demand/create')
+}
+
+const handleSearch = () => {
+  console.log('搜索:', filters.value)
+  alert('查询完成')
+}
+
+const handleView = (order: typeof orders.value[0]) => {
+  alert(`查看需求单: ${order.title}`)
+}
+
+const handleEdit = (order: typeof orders.value[0]) => {
+  alert(`编辑需求单: ${order.title}`)
+}
+
+const handleDelete = (order: typeof orders.value[0]) => {
+  if (confirm(`确定删除需求单「${order.title}」吗？`)) {
+    const idx = orders.value.findIndex(o => o.id === order.id)
+    if (idx > -1) orders.value.splice(idx, 1)
+    alert('删除成功')
+  }
 }
 </script>

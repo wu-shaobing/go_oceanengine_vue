@@ -110,8 +110,20 @@
       <!-- 操作按钮 -->
       <div class="flex justify-end space-x-4">
         <router-link to="/qianchuan/campaign" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</router-link>
-        <button class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">保存草稿</button>
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">下一步</button>
+        <button 
+          @click="saveDraft" 
+          :disabled="loading"
+          class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 disabled:opacity-50"
+        >
+          {{ loading ? '保存中...' : '保存草稿' }}
+        </button>
+        <button 
+          @click="handleNext" 
+          :disabled="loading"
+          class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+        >
+          {{ loading ? '提交中...' : '提交创建' }}
+        </button>
       </div>
     </div>
   </div>
@@ -119,7 +131,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
+
+const router = useRouter()
 
 const marketingGoals = [
   { value: 'live', label: '直播带货', desc: '为直播间引流，提升成交', icon: '📺' },
@@ -140,4 +155,72 @@ const form = ref({
   bidType: 'ocpm',
   convertType: 'pay'
 })
+
+const loading = ref(false)
+const errors = ref<Record<string, string>>({})
+
+// 表单验证
+const validateForm = () => {
+  errors.value = {}
+  
+  if (!form.value.name.trim()) {
+    errors.value.name = '请输入计划名称'
+    return false
+  }
+  
+  if (!form.value.shopId) {
+    errors.value.shopId = '请选择关联店铺'
+    return false
+  }
+  
+  if (form.value.budgetType === 'limited' && (!form.value.budget || form.value.budget < 100)) {
+    errors.value.budget = '日预算最低100元'
+    return false
+  }
+  
+  return true
+}
+
+// 保存草稿
+const saveDraft = async () => {
+  if (!form.value.name.trim()) {
+    alert('请先输入计划名称')
+    return
+  }
+  
+  loading.value = true
+  try {
+    // TODO: 调用API保存草稿
+    await new Promise(resolve => setTimeout(resolve, 500))
+    alert('草稿保存成功')
+  } catch (error) {
+    alert('保存失败，请重试')
+  } finally {
+    loading.value = false
+  }
+}
+
+// 下一步
+const handleNext = async () => {
+  if (!validateForm()) {
+    // 显示验证错误
+    const firstError = Object.values(errors.value)[0]
+    if (firstError) {
+      alert(firstError)
+    }
+    return
+  }
+  
+  loading.value = true
+  try {
+    // TODO: 调用API创建计划
+    await new Promise(resolve => setTimeout(resolve, 500))
+    alert('广告计划创建成功！')
+    router.push('/qianchuan/campaign')
+  } catch (error) {
+    alert('创建失败，请重试')
+  } finally {
+    loading.value = false
+  }
+}
 </script>

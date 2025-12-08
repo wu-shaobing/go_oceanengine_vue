@@ -18,6 +18,39 @@ const stats = ref({ totalRules: 45, activeRules: 38, blockedToday: 67, blockedTo
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleAddRule = () => {
+  alert('创建新的过滤规则')
+}
+
+const handleQuickAdd = () => {
+  if (!newKeyword.value.trim()) {
+    alert('请输入关键词')
+    return
+  }
+  filterRules.value.unshift({
+    id: `FR${String(filterRules.value.length + 1).padStart(3, '0')}`,
+    keyword: newKeyword.value,
+    type: 'block',
+    matchType: 'contain',
+    blockedCount: 0,
+    status: 'active'
+  })
+  newKeyword.value = ''
+  alert('规则添加成功')
+}
+
+const handleEditRule = (rule: typeof filterRules.value[0]) => {
+  alert(`编辑规则: ${rule.keyword}`)
+}
+
+const handleDeleteRule = (rule: typeof filterRules.value[0]) => {
+  if (confirm(`确定删除规则「${rule.keyword}」吗？`)) {
+    const idx = filterRules.value.findIndex(r => r.id === rule.id)
+    if (idx > -1) filterRules.value.splice(idx, 1)
+    alert('删除成功')
+  }
+}
 </script>
 
 <template>
@@ -29,7 +62,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">评论过滤规则</h1>
           <p class="mt-2 text-gray-600">管理评论过滤关键词和规则</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button @click="handleAddRule" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           添加规则
         </button>
       </div>
@@ -58,7 +91,7 @@ const handlePageChange = (page: number) => {
       <div class="flex gap-4">
         <input v-model="newKeyword" type="text" placeholder="输入关键词快速添加..."
                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">添加</button>
+        <button @click="handleQuickAdd" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">添加</button>
       </div>
     </div>
 
@@ -89,8 +122,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button class="text-red-600 hover:text-red-800">删除</button>
+              <button @click="handleEditRule(rule)" class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
+              <button @click="handleDeleteRule(rule)" class="text-red-600 hover:text-red-800">删除</button>
             </td>
           </tr>
         </tbody>

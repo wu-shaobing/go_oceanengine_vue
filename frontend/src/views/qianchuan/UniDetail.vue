@@ -8,9 +8,9 @@
         <p class="text-gray-600 mt-1">推广ID: {{ detail.id }}</p>
       </div>
       <div class="flex space-x-3">
-        <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">编辑</button>
-        <button v-if="detail.status === 'running'" class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">暂停</button>
-        <button v-else class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">启动</button>
+<button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50" @click="handleEdit">编辑</button>
+        <button v-if="detail.status === 'running'" class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600" @click="handlePause">暂停</button>
+        <button v-else class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600" @click="handleStart">启动</button>
       </div>
     </div>
 
@@ -150,4 +150,16 @@ const topMaterials = ref([
   { id: 3, name: '商品展示', cover: 'https://via.placeholder.com/96x64', cost: 5400, conversions: 98, roi: '4.9' },
   { id: 4, name: '达人推荐', cover: 'https://via.placeholder.com/96x64', cost: 4200, conversions: 86, roi: '5.1' }
 ])
+
+const handleEdit = () => {
+  alert(`编辑推广: ${detail.value.name}`)
+}
+
+const handlePause = () => {
+  alert(`暂停推广: ${detail.value.name}`)
+}
+
+const handleStart = () => {
+  alert(`启动推广: ${detail.value.name}`)
+}
 </script>

@@ -14,6 +14,14 @@ const alerts = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleMarkAllRead = () => {
+  alert('标记全部已读')
+}
+
+const handleProcessAlert = (alert: any) => {
+  alert(`处理预警: ${alert.title}`)
+}
 </script>
 
 <template>
@@ -25,7 +33,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">预警中心</h1>
           <p class="mt-2 text-gray-600">查看系统预警和通知</p>
         </div>
-        <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+<button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50" @click="handleMarkAllRead">
           全部已读
         </button>
       </div>
@@ -77,7 +85,7 @@ const handlePageChange = (page: number) => {
             <span>{{ alert.time }}</span>
           </div>
         </div>
-        <button class="px-3 py-1 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-50">
+<button class="px-3 py-1 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-50" @click="handleProcessAlert(alert)">
           处理
         </button>
       </div>

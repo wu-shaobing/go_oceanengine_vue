@@ -40,6 +40,20 @@ export const protectedRoutes: RouteRecordRaw[] = [
         component: () => import('@/views/dashboard/DashboardView.vue'),
         meta: { title: '工作台', icon: 'home' }
       },
+      // 个人设置
+      {
+        path: 'settings',
+        name: 'Settings',
+        component: () => import('@/views/settings/Settings.vue'),
+        meta: { title: '个人设置', hidden: true }
+      },
+      // 账户信息
+      {
+        path: 'account',
+        name: 'Account',
+        component: () => import('@/views/settings/Account.vue'),
+        meta: { title: '账户信息', hidden: true }
+      },
       // 广告主管理
       {
         path: 'advertisers',

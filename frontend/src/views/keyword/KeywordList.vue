@@ -20,6 +20,10 @@ const getMatchTypeLabel = (type: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleDelete = (kw: typeof keywords.value[0]) => {
+  alert(`确定删除关键词: ${kw.keyword}?`)
+}
 </script>
 
 <template>
@@ -91,7 +95,7 @@ const handlePageChange = (page: number) => {
             </td>
             <td class="px-6 py-4 text-sm">
               <router-link :to="`/keyword/edit/${kw.id}`" class="text-blue-600 hover:text-blue-800 mr-3">编辑</router-link>
-              <button class="text-gray-600 hover:text-gray-800">删除</button>
+<button @click="handleDelete(kw)" class="text-gray-600 hover:text-gray-800">删除</button>
             </td>
           </tr>
         </tbody>

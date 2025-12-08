@@ -77,7 +77,7 @@
           <p class="text-sm text-gray-500 mb-3">{{ service.desc }}</p>
           <div class="flex justify-between items-center">
             <span class="text-blue-600 font-medium">¥{{ service.price }}/月</span>
-            <button class="px-3 py-1 text-sm text-blue-600 border border-blue-600 rounded hover:bg-blue-50">订阅</button>
+            <button @click="handleSubscribe(service)" class="px-3 py-1 text-sm text-blue-600 border border-blue-600 rounded hover:bg-blue-50">订阅</button>
           </div>
         </div>
       </div>
@@ -90,6 +90,10 @@ import { ref } from 'vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 
 const stats = ref({ subscribed: 5, orders: 3, points: 12500, spent: 25680 })
+
+const handleSubscribe = (service: typeof hotServices.value[0]) => {
+  alert(`订阅服务: ${service.name}`)
+}
 
 const subscribedServices = ref([
   { id: 1, name: '智能投放助手', icon: '🤖', expireDate: '2024-12-31' },

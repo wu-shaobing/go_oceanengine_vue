@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
+
+const router = useRouter()
+const loading = ref(false)
 
 const formData = ref({
   name: '',
@@ -17,6 +21,34 @@ const workTimes = [
   { value: 'business', label: '工作时间', desc: '9:00-18:00' },
   { value: 'custom', label: '自定义', desc: '设置特定时段' }
 ]
+
+const validateForm = () => {
+  if (!formData.value.name.trim()) {
+    alert('请输入配置名称')
+    return false
+  }
+  if (!formData.value.phoneNumber.trim()) {
+    alert('请输入接听号码')
+    return false
+  }
+  return true
+}
+
+const handleCancel = () => {
+  router.push('/clue/smartphone/list')
+}
+
+const handleCreate = async () => {
+  if (!validateForm()) return
+  loading.value = true
+  try {
+    await new Promise(r => setTimeout(r, 500))
+    alert('智能电话配置创建成功')
+    router.push('/clue/smartphone/list')
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 <template>
@@ -88,8 +120,8 @@ const workTimes = [
         </div>
 
         <div class="flex justify-end gap-4 pt-4 border-t">
-          <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
-          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建配置</button>
+          <button @click="handleCancel" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</button>
+          <button @click="handleCreate" :disabled="loading" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50">{{ loading ? '创建中...' : '创建配置' }}</button>
         </div>
       </div>
     </div>

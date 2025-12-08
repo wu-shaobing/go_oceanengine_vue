@@ -32,6 +32,10 @@ const getSeverityClass = (severity: string) => {
     default: return 'bg-blue-100 text-blue-700'
   }
 }
+
+const handleAccept = (issue: { type: string; suggestion: string }) => {
+  alert(`采纳建议: ${issue.type} - ${issue.suggestion}`)
+}
 </script>
 
 <template>
@@ -91,7 +95,7 @@ const getSeverityClass = (severity: string) => {
                 <span class="font-medium text-blue-600">建议：</span>{{ issue.suggestion }}
               </p>
             </div>
-            <button class="px-4 py-1.5 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
+<button class="px-4 py-1.5 bg-blue-600 text-white text-sm rounded hover:bg-blue-700" @click="handleAccept(issue)">
               一键采纳
             </button>
           </div>

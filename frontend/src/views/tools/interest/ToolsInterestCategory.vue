@@ -52,6 +52,11 @@ const toggleExpand = (id: string) => {
     expandedCategories.value.push(id)
   }
 }
+
+const handleCopyId = (id: string) => {
+  navigator.clipboard.writeText(id)
+  alert(`已复制ID: ${id}`)
+}
 </script>
 
 <template>
@@ -91,7 +96,7 @@ const toggleExpand = (id: string) => {
             <span class="text-sm text-gray-700">{{ child.name }}</span>
             <div class="flex items-center gap-2">
               <span class="text-xs text-gray-400">{{ child.id }}</span>
-              <button class="opacity-0 group-hover:opacity-100 text-blue-500 text-xs">复制ID</button>
+<button @click.stop="handleCopyId(child.id)" class="opacity-0 group-hover:opacity-100 text-blue-500 text-xs">复制ID</button>
             </div>
           </div>
         </div>

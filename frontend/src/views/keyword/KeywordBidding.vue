@@ -15,6 +15,14 @@ const biddings = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleBatchAdjust = () => {
+  alert('批量调价')
+}
+
+const handleAdjustBid = (bid: typeof biddings.value[0]) => {
+  alert(`调整出价: ${bid.keyword}`)
+}
 </script>
 
 <template>
@@ -26,7 +34,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">关键词出价管理</h1>
           <p class="mt-2 text-gray-600">优化关键词出价，提升广告效果</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleBatchAdjust" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           批量调价
         </button>
       </div>
@@ -86,7 +94,7 @@ const handlePageChange = (page: number) => {
             <td class="px-6 py-4 text-sm text-gray-600">{{ bid.clicks.toLocaleString() }}</td>
             <td class="px-6 py-4 text-sm" :class="bid.ctr >= 3 ? 'text-green-600' : 'text-yellow-600'">{{ bid.ctr }}%</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800">调价</button>
+<button @click="handleAdjustBid(bid)" class="text-blue-600 hover:text-blue-800">调价</button>
             </td>
           </tr>
         </tbody>

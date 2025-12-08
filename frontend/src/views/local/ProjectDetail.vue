@@ -8,8 +8,8 @@
         <p class="text-gray-600 mt-1">项目ID: {{ project.id }}</p>
       </div>
       <div class="flex space-x-2">
-        <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">编辑</button>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">新建推广</button>
+        <button @click="handleEdit" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">编辑</button>
+        <button @click="handleCreatePromo" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">新建推广</button>
       </div>
     </div>
 
@@ -126,6 +126,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
+
+const handleEdit = () => {
+  alert('编辑项目')
+}
+
+const handleCreatePromo = () => {
+  alert('新建推广')
+}
 
 const project = ref({
   id: 'LP001',

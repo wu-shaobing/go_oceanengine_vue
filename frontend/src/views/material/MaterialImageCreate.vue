@@ -9,6 +9,14 @@ const formData = ref({
 })
 
 const previewImages = ref<string[]>([])
+
+const handleSelectImages = () => {
+  alert('选择图片')
+}
+
+const handleStartUpload = () => {
+  alert('开始上传')
+}
 </script>
 
 <template>
@@ -21,12 +29,12 @@ const previewImages = ref<string[]>([])
 
     <div class="grid grid-cols-3 gap-6">
       <div class="col-span-2 bg-white rounded-lg border border-gray-200 p-6">
-        <div class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-blue-400 transition-colors cursor-pointer">
+<div class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-blue-400 transition-colors cursor-pointer" @click="handleSelectImages">
           <div class="text-5xl mb-4">🖼️</div>
           <p class="text-lg font-medium text-gray-700">拖拽图片到此处上传</p>
           <p class="text-sm text-gray-500 mt-2">或点击选择文件，支持批量上传</p>
           <p class="text-xs text-gray-400 mt-4">支持 JPG、PNG、GIF 格式，单张最大 10MB</p>
-          <button class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSelectImages">
             选择图片
           </button>
         </div>
@@ -37,7 +45,7 @@ const previewImages = ref<string[]>([])
             <div v-for="(img, index) in previewImages" :key="index"
                  class="aspect-square bg-gray-100 rounded-lg relative group">
               <img :src="img" class="w-full h-full object-cover rounded-lg">
-              <button class="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+              <button @click.stop="previewImages.splice(index, 1)" class="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
                 ×
               </button>
             </div>
@@ -81,7 +89,7 @@ const previewImages = ref<string[]>([])
           </ul>
         </div>
 
-        <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleStartUpload">
           开始上传
         </button>
       </div>

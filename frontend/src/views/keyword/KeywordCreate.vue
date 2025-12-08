@@ -19,6 +19,10 @@ const parseKeywords = () => {
 const handleSubmit = () => {
   console.log('Submit keywords:', form, keywordList.value)
 }
+
+const handleCancel = () => {
+  alert('取消创建')
+}
 </script>
 
 <template>
@@ -69,7 +73,7 @@ const handleSubmit = () => {
             <button type="submit" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
               创建关键词
             </button>
-            <button type="button" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+<button type="button" @click="handleCancel" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
               取消
             </button>
           </div>

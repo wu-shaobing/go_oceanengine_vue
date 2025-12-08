@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
+
+const router = useRouter()
 
 const pagination = reactive({ page: 1, pageSize: 10, total: 28 })
 
@@ -22,6 +25,18 @@ const formatDuration = (seconds: number) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleApply = () => {
+  router.push('/clue/smartphone/create')
+}
+
+const handleConfig = (phone: typeof phones.value[0]) => {
+  alert(`配置智能电话: ${phone.name}`)
+}
+
+const handleCallRecords = (phone: typeof phones.value[0]) => {
+  alert(`查看「${phone.name}」的通话记录`)
+}
 </script>
 
 <template>
@@ -33,7 +48,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">智能电话管理</h1>
           <p class="mt-2 text-gray-600">管理广告投放电话号码</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button @click="handleApply" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           申请号码
         </button>
       </div>
@@ -92,8 +107,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">配置</button>
-              <button class="text-gray-600 hover:text-gray-800">通话记录</button>
+              <button @click="handleConfig(phone)" class="text-blue-600 hover:text-blue-800 mr-3">配置</button>
+              <button @click="handleCallRecords(phone)" class="text-gray-600 hover:text-gray-800">通话记录</button>
             </td>
           </tr>
         </tbody>

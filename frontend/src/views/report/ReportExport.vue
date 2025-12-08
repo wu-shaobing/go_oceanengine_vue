@@ -15,6 +15,14 @@ const exportTasks = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreate = () => {
+  alert('创建导出任务')
+}
+
+const handleDownload = (task: typeof exportTasks.value[0]) => {
+  alert(`下载: ${task.name}`)
+}
 </script>
 
 <template>
@@ -26,7 +34,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">报表导出</h1>
           <p class="mt-2 text-gray-600">管理报表导出任务</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreate">
           创建导出任务
         </button>
       </div>
@@ -85,7 +93,7 @@ const handlePageChange = (page: number) => {
             <td class="px-6 py-4 text-sm text-gray-600">{{ task.fileSize }}</td>
             <td class="px-6 py-4 text-sm text-gray-500">{{ task.createdAt }}</td>
             <td class="px-6 py-4 text-sm">
-              <button v-if="task.status === 'completed'" class="text-blue-600 hover:text-blue-800">下载</button>
+<button v-if="task.status === 'completed'" class="text-blue-600 hover:text-blue-800" @click="handleDownload(task)">下载</button>
               <span v-else class="text-gray-400">等待中...</span>
             </td>
           </tr>

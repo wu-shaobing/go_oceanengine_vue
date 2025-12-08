@@ -16,14 +16,14 @@
           <option value="beauty">美妆护肤</option>
           <option value="food">食品饮料</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">获取推荐</button>
+<button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" @click="handleGetRecommend">获取推荐</button>
       </div>
     </div>
 
     <div class="bg-white rounded-lg shadow">
       <div class="p-4 border-b flex justify-between items-center">
         <h3 class="font-medium">推荐关键词</h3>
-        <button class="text-blue-600 text-sm">批量添加</button>
+<button class="text-blue-600 text-sm" @click="handleBatchAdd">批量添加</button>
       </div>
       <table class="min-w-full">
         <thead class="bg-gray-50">
@@ -53,7 +53,7 @@
             </td>
             <td class="px-4 py-3 text-sm text-right">¥{{ kw.bidPrice }}</td>
             <td class="px-4 py-3">
-              <button class="text-blue-600 hover:text-blue-800 text-sm">添加</button>
+<button class="text-blue-600 hover:text-blue-800 text-sm" @click="handleAddKeyword(kw)">添加</button>
             </td>
           </tr>
         </tbody>
@@ -77,4 +77,16 @@ const keywords = ref([
   { word: '限时折扣', heat: 75, competition: '中', bidPrice: 1.6 },
   { word: '品牌特卖', heat: 70, competition: '低', bidPrice: 1.0 }
 ])
+
+const handleGetRecommend = () => {
+  alert(`获取推荐: ${seedWord.value}`)
+}
+
+const handleBatchAdd = () => {
+  alert('批量添加关键词')
+}
+
+const handleAddKeyword = (kw: typeof keywords.value[0]) => {
+  alert(`添加关键词: ${kw.word}`)
+}
 </script>

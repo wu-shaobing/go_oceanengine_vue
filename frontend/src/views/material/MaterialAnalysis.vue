@@ -23,6 +23,10 @@ const formatNumber = (num: number) => {
   if (num >= 10000) return (num / 10000).toFixed(1) + '万'
   return num.toLocaleString()
 }
+
+const handleViewDetail = (item: typeof topMaterials.value[0]) => {
+  alert(`查看详情: ${item.name}`)
+}
 </script>
 
 <template>
@@ -96,7 +100,7 @@ const formatNumber = (num: number) => {
             <td class="px-4 py-3 text-sm font-medium text-blue-600">{{ item.cvr }}%</td>
             <td class="px-4 py-3 text-sm text-gray-900">¥{{ item.cost }}</td>
             <td class="px-4 py-3">
-              <button class="text-sm text-blue-600 hover:text-blue-800">详情</button>
+              <button class="text-sm text-blue-600 hover:text-blue-800" @click="handleViewDetail(item)">详情</button>
             </td>
           </tr>
         </tbody>

@@ -23,6 +23,14 @@ const getPlatformLabel = (platform: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleDetail = (app: typeof apps.value[0]) => {
+  alert(`查看详情: ${app.name}`)
+}
+
+const handleData = (app: typeof apps.value[0]) => {
+  alert(`查看数据: ${app.name}`)
+}
 </script>
 
 <template>
@@ -97,8 +105,8 @@ const handlePageChange = (page: number) => {
                 </span>
               </td>
               <td class="px-6 py-4 text-sm">
-                <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-                <button class="text-gray-600 hover:text-gray-800">数据</button>
+<button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleDetail(app)">详情</button>
+                <button class="text-gray-600 hover:text-gray-800" @click="handleData(app)">数据</button>
               </td>
             </tr>
           </tbody>

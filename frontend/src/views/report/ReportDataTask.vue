@@ -33,6 +33,22 @@ const getStatusConfig = (status: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreate = () => {
+  alert('创建数据任务')
+}
+
+const handleDownload = (task: typeof tasks.value[0]) => {
+  alert(`下载任务: ${task.name}`)
+}
+
+const handleRetry = (task: typeof tasks.value[0]) => {
+  alert(`重试任务: ${task.name}`)
+}
+
+const handleDetail = (task: typeof tasks.value[0]) => {
+  alert(`查看详情: ${task.name}`)
+}
 </script>
 
 <template>
@@ -44,7 +60,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">数据任务</h1>
           <p class="mt-2 text-gray-600">查看数据导入导出及分析任务</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreate">
           创建任务
         </button>
       </div>
@@ -110,9 +126,9 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button v-if="task.status === 'completed'" class="text-blue-600 hover:text-blue-800 mr-3">下载</button>
-              <button v-if="task.status === 'failed'" class="text-orange-600 hover:text-orange-800 mr-3">重试</button>
-              <button class="text-gray-600 hover:text-gray-800">详情</button>
+<button v-if="task.status === 'completed'" class="text-blue-600 hover:text-blue-800 mr-3" @click="handleDownload(task)">下载</button>
+              <button v-if="task.status === 'failed'" class="text-orange-600 hover:text-orange-800 mr-3" @click="handleRetry(task)">重试</button>
+              <button class="text-gray-600 hover:text-gray-800" @click="handleDetail(task)">详情</button>
             </td>
           </tr>
         </tbody>

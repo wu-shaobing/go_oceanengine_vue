@@ -4,6 +4,8 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 10, total: 128 })
+const filterCategory = ref('')
+const searchKeyword = ref('')
 
 const actions = ref([
   { id: 'IA001', name: '电商购物', category: '消费行为', coverage: 85000000, usageCount: 1256, status: 'active' },
@@ -14,6 +16,18 @@ const actions = ref([
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleSearch = () => {
+  alert('搜索行为标签')
+}
+
+const handleApply = (action: typeof actions.value[0]) => {
+  alert(`应用行为: ${action.name}`)
+}
+
+const handleDetail = (action: typeof actions.value[0]) => {
+  alert(`查看详情: ${action.name}`)
 }
 </script>
 
@@ -46,15 +60,15 @@ const handlePageChange = (page: number) => {
 
     <div class="bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex gap-4">
-        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <select v-model="filterCategory" class="px-4 py-2 border border-gray-300 rounded-lg">
           <option value="">全部分类</option>
           <option value="consume">消费行为</option>
           <option value="content">内容消费</option>
           <option value="game">游戏行为</option>
           <option value="social">社交行为</option>
         </select>
-        <input type="text" placeholder="搜索行为标签..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <input v-model="searchKeyword" type="text" placeholder="搜索行为标签..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
+<button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -85,8 +99,8 @@ const handlePageChange = (page: number) => {
               <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">可用</span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">应用</button>
-              <button class="text-gray-600 hover:text-gray-800">详情</button>
+<button @click="handleApply(action)" class="text-blue-600 hover:text-blue-800 mr-3">应用</button>
+              <button @click="handleDetail(action)" class="text-gray-600 hover:text-gray-800">详情</button>
             </td>
           </tr>
         </tbody>

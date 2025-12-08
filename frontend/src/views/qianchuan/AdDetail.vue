@@ -8,8 +8,8 @@
         <p class="text-gray-600 mt-1">广告ID: {{ adDetail.id }}</p>
       </div>
       <div class="flex space-x-3">
-        <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">编辑</button>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">复制广告</button>
+<button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50" @click="handleEdit">编辑</button>
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCopy">复制广告</button>
       </div>
     </div>
 
@@ -142,6 +142,14 @@ const coreStats = ref([
   { label: '转化', value: '128', trend: 22.1 },
   { label: 'ROI', value: '3.85', trend: 5.6 }
 ])
+
+const handleEdit = () => {
+  alert(`编辑广告: ${adDetail.value.name}`)
+}
+
+const handleCopy = () => {
+  alert(`复制广告: ${adDetail.value.name}`)
+}
 
 const adDetail = ref({
   id: '20001',

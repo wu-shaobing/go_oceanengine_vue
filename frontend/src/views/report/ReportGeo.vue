@@ -4,6 +4,10 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 
 const dateRange = ref('7d')
 
+const handleExport = () => {
+  alert('导出地域报表')
+}
+
 const geoData = ref([
   { id: 1, name: '广东省', impressions: 2560000, clicks: 89600, cost: 35680, conversions: 1256, ctr: 3.5 },
   { id: 2, name: '江苏省', impressions: 1980000, clicks: 69300, cost: 28560, conversions: 986, ctr: 3.5 },
@@ -28,7 +32,7 @@ const geoData = ref([
             <option value="30d">最近30天</option>
             <option value="90d">最近90天</option>
           </select>
-          <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">导出</button>
+<button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50" @click="handleExport">导出</button>
         </div>
       </div>
     </div>

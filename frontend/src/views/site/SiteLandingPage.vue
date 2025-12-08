@@ -14,6 +14,22 @@ const pages = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreateLandingPage = () => {
+  alert('创建落地页')
+}
+
+const handleEditPage = (page: typeof pages.value[0]) => {
+  alert(`编辑: ${page.name}`)
+}
+
+const handlePreviewPage = (page: typeof pages.value[0]) => {
+  alert(`预览: ${page.name}`)
+}
+
+const handleViewPageData = (page: typeof pages.value[0]) => {
+  alert(`查看数据: ${page.name}`)
+}
 </script>
 
 <template>
@@ -25,7 +41,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">落地页管理</h1>
           <p class="mt-2 text-gray-600">管理广告落地页</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreateLandingPage">
           创建落地页
         </button>
       </div>
@@ -82,9 +98,9 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button class="text-gray-600 hover:text-gray-800 mr-3">预览</button>
-              <button class="text-gray-600 hover:text-gray-800">数据</button>
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleEditPage(page)">编辑</button>
+              <button class="text-gray-600 hover:text-gray-800 mr-3" @click="handlePreviewPage(page)">预览</button>
+              <button class="text-gray-600 hover:text-gray-800" @click="handleViewPageData(page)">数据</button>
             </td>
           </tr>
         </tbody>

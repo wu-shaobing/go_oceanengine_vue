@@ -21,6 +21,18 @@ const tabs = [
   { key: 'security', label: '安全设置' },
   { key: 'privacy', label: '隐私设置' }
 ]
+
+const handleChangePassword = () => {
+  alert('修改密码')
+}
+
+const handleEnable2FA = () => {
+  alert('启用双因素认证')
+}
+
+const handleSaveSettings = () => {
+  alert('设置已保存')
+}
 </script>
 
 <template>
@@ -111,12 +123,12 @@ const tabs = [
           <div class="p-4 bg-gray-50 rounded-lg">
             <p class="font-medium text-gray-900">修改密码</p>
             <p class="text-sm text-gray-500 mt-1">定期更换密码以确保账号安全</p>
-            <button class="mt-3 px-4 py-2 border border-gray-300 rounded-lg hover:bg-white">修改密码</button>
+            <button class="mt-3 px-4 py-2 border border-gray-300 rounded-lg hover:bg-white" @click="handleChangePassword">修改密码</button>
           </div>
           <div class="p-4 bg-gray-50 rounded-lg">
             <p class="font-medium text-gray-900">双因素认证</p>
             <p class="text-sm text-gray-500 mt-1">启用后需要手机验证码登录</p>
-            <button class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">启用</button>
+            <button class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleEnable2FA">启用</button>
           </div>
         </div>
 
@@ -128,7 +140,7 @@ const tabs = [
         </div>
 
         <div class="flex justify-end pt-6 mt-6 border-t">
-          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">保存设置</button>
+          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSaveSettings">保存设置</button>
         </div>
       </div>
     </div>

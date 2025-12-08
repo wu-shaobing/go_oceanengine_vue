@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">视频素材</h1>
         <p class="text-gray-600 mt-1">管理视频广告素材</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleUpload" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
         上传视频
       </button>
     </div>
@@ -29,7 +29,7 @@
           <option value="30-60">30-60秒</option>
           <option value="60+">60秒以上</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+<button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -74,9 +74,9 @@
             <td class="px-4 py-3 text-sm">{{ video.createTime }}</td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">预览</button>
-                <button class="text-blue-600 hover:text-blue-800 text-sm">使用</button>
-                <button class="text-red-600 hover:text-red-800 text-sm">删除</button>
+<button @click="handlePreview(video)" class="text-blue-600 hover:text-blue-800 text-sm">预览</button>
+                <button @click="handleUse(video)" class="text-blue-600 hover:text-blue-800 text-sm">使用</button>
+                <button @click="handleDelete(video)" class="text-red-600 hover:text-red-800 text-sm">删除</button>
               </div>
             </td>
           </tr>
@@ -107,4 +107,24 @@ const videos = ref([
   { id: 'V004', name: '产品使用教程', cover: 'https://via.placeholder.com/160x90', duration: '00:45', resolution: '720x1280', size: '42.3MB', source: '本地上传', useCount: 6, createTime: '2024-03-13' },
   { id: 'V005', name: '用户好评合集', cover: 'https://via.placeholder.com/160x90', duration: '01:00', resolution: '1080x1080', size: '56.8MB', source: '本地上传', useCount: 4, createTime: '2024-03-12' }
 ])
+
+const handleUpload = () => {
+  alert('上传视频')
+}
+
+const handleSearch = () => {
+  alert('搜索视频')
+}
+
+const handlePreview = (video: typeof videos.value[0]) => {
+  alert(`预览视频: ${video.name}`)
+}
+
+const handleUse = (video: typeof videos.value[0]) => {
+  alert(`使用视频: ${video.name}`)
+}
+
+const handleDelete = (video: typeof videos.value[0]) => {
+  alert(`删除视频: ${video.name}`)
+}
 </script>

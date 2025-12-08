@@ -26,6 +26,10 @@ const formatNumber = (num: number) => {
   if (num >= 10000) return (num / 10000).toFixed(1) + '万'
   return num.toLocaleString()
 }
+
+const handleAddTarget = () => {
+  alert(`添加定向: ${authorInfo.value.name}`)
+}
 </script>
 
 <template>
@@ -54,7 +58,7 @@ const formatNumber = (num: number) => {
             <div><span class="text-xl font-bold text-blue-600">{{ authorInfo.videos }}</span><span class="text-gray-500 text-sm ml-1">作品</span></div>
           </div>
         </div>
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleAddTarget" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           添加定向
         </button>
       </div>

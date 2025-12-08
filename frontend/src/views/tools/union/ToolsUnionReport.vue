@@ -10,6 +10,10 @@ const reportData = ref([
   { date: '2025-11-25', impressions: 5650000, clicks: 113000, revenue: 108750, ecpm: 19.2 },
   { date: '2025-11-24', impressions: 5980000, clicks: 119600, revenue: 113620, ecpm: 19.0 }
 ])
+
+const handleExport = () => {
+  alert('导出报表')
+}
 </script>
 
 <template>
@@ -27,7 +31,7 @@ const reportData = ref([
             <option value="30d">最近30天</option>
             <option value="90d">最近90天</option>
           </select>
-          <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+<button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50" @click="handleExport">
             导出报表
           </button>
         </div>

@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">绑定管理</h1>
         <p class="text-gray-600 mt-1">管理企业号绑定的账号和应用</p>
       </div>
-      <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">添加绑定</button>
+      <button @click="handleAddBind" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">添加绑定</button>
     </div>
 
     <div class="bg-white rounded-lg shadow">
@@ -41,8 +41,8 @@
             <td class="px-4 py-3 text-sm text-gray-500">{{ item.bindTime }}</td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
-                <button class="text-red-600 hover:text-red-800 text-sm">解绑</button>
+                <button @click="handleBindDetail(item)" class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
+                <button @click="handleUnbind(item)" class="text-red-600 hover:text-red-800 text-sm">解绑</button>
               </div>
             </td>
           </tr>
@@ -59,6 +59,20 @@
 import { ref } from 'vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
+
+const handleAddBind = () => {
+  alert('添加绑定')
+}
+
+const handleBindDetail = (item: typeof bindings.value[0]) => {
+  alert(`绑定详情: ${item.name}`)
+}
+
+const handleUnbind = (item: typeof bindings.value[0]) => {
+  if (confirm(`确定解绑 ${item.name} 吗？`)) {
+    alert(`已解绑: ${item.name}`)
+  }
+}
 
 const bindings = ref([
   { id: 1, name: '品牌官方账号', accountId: 'brand_001', avatar: 'https://via.placeholder.com/40', type: '抖音号', status: 'active', bindTime: '2024-01-15' },

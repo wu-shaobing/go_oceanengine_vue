@@ -24,6 +24,18 @@ const getTypeConfig = (type: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreateCard = () => {
+  alert('创建新的推广卡片')
+}
+
+const handleEditCard = (card: typeof cards.value[0]) => {
+  alert(`编辑卡片: ${card.name}`)
+}
+
+const handleViewData = (card: typeof cards.value[0]) => {
+  alert(`卡片「${card.name}」数据:\n点击: ${(card.clicks / 1000).toFixed(0)}K\nCTR: ${card.ctr}%`)
+}
 </script>
 
 <template>
@@ -35,7 +47,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">推广卡片管理</h1>
           <p class="mt-2 text-gray-600">创建和管理广告推广卡片</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button @click="handleCreateCard" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           创建卡片
         </button>
       </div>
@@ -88,8 +100,8 @@ const handlePageChange = (page: number) => {
             </div>
           </div>
           <div class="flex gap-2 mt-4">
-            <button class="flex-1 py-2 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-50">编辑</button>
-            <button class="flex-1 py-2 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-50">数据</button>
+            <button @click="handleEditCard(card)" class="flex-1 py-2 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-50">编辑</button>
+            <button @click="handleViewData(card)" class="flex-1 py-2 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-50">数据</button>
           </div>
         </div>
       </div>

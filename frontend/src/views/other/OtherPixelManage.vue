@@ -14,6 +14,24 @@ const pixels = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreatePixel = () => {
+  alert('创建像素')
+}
+
+const handleViewCode = (pixel: typeof pixels.value[0]) => {
+  alert(`查看像素代码: ${pixel.name}`)
+}
+
+const handleEditPixel = (pixel: typeof pixels.value[0]) => {
+  alert(`编辑像素: ${pixel.name}`)
+}
+
+const handleDeletePixel = (pixel: typeof pixels.value[0]) => {
+  if (confirm(`确定删除像素 ${pixel.name}?`)) {
+    alert('删除成功')
+  }
+}
 </script>
 
 <template>
@@ -25,7 +43,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">像素管理</h1>
           <p class="mt-2 text-gray-600">管理追踪像素代码</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreatePixel">
           创建像素
         </button>
       </div>
@@ -82,9 +100,9 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">代码</button>
-              <button class="text-gray-600 hover:text-gray-800 mr-3">编辑</button>
-              <button class="text-red-600 hover:text-red-800">删除</button>
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleViewCode(pixel)">代码</button>
+              <button class="text-gray-600 hover:text-gray-800 mr-3" @click="handleEditPixel(pixel)">编辑</button>
+              <button class="text-red-600 hover:text-red-800" @click="handleDeletePixel(pixel)">删除</button>
             </td>
           </tr>
         </tbody>

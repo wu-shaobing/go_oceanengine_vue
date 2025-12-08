@@ -27,6 +27,16 @@ const getStatusConfig = (status: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handlePreviewVideo = (video: typeof videos.value[0]) => {
+  alert(`预览视频: ${video.name}`)
+}
+
+const handleDeleteVideo = (video: typeof videos.value[0]) => {
+  if (confirm(`确定删除视频 ${video.name}?`)) {
+    alert('删除成功')
+  }
+}
 </script>
 
 <template>
@@ -125,8 +135,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">预览</button>
-              <button class="text-gray-600 hover:text-gray-800">删除</button>
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handlePreviewVideo(video)">预览</button>
+              <button class="text-gray-600 hover:text-gray-800" @click="handleDeleteVideo(video)">删除</button>
             </td>
           </tr>
         </tbody>

@@ -113,6 +113,24 @@ onMounted(() => {
   // 默认展开所有有子菜单的项
   expandedIds.value = [2, 3, 6]
 })
+
+const handleCreateMenu = () => {
+  alert('创建新菜单')
+}
+
+const handleEditMenu = (menu: Menu) => {
+  alert(`编辑菜单: ${menu.name}`)
+}
+
+const handleAddChild = (menu: Menu) => {
+  alert(`为「${menu.name}」添加子菜单`)
+}
+
+const handleDeleteMenu = (menu: Menu) => {
+  if (confirm(`确定删除菜单「${menu.name}」吗？`)) {
+    alert('删除成功')
+  }
+}
 </script>
 
 <template>
@@ -124,7 +142,7 @@ onMounted(() => {
           <h1 class="text-3xl font-bold text-gray-900">菜单管理</h1>
           <p class="mt-2 text-gray-600">管理系统导航菜单配置</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
+        <button @click="handleCreateMenu" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
           </svg>
@@ -194,9 +212,9 @@ onMounted(() => {
                   :text="menu.status === 'active' ? '启用' : '禁用'"
                 />
                 <div class="flex items-center gap-2">
-                  <button class="text-sm text-blue-600 hover:text-blue-800">编辑</button>
-                  <button class="text-sm text-green-600 hover:text-green-800" v-if="!menu.children?.length">添加子菜单</button>
-                  <button class="text-sm text-red-600 hover:text-red-800">删除</button>
+                  <button @click="handleEditMenu(menu)" class="text-sm text-blue-600 hover:text-blue-800">编辑</button>
+                  <button @click="handleAddChild(menu)" class="text-sm text-green-600 hover:text-green-800" v-if="!menu.children?.length">添加子菜单</button>
+                  <button @click="handleDeleteMenu(menu)" class="text-sm text-red-600 hover:text-red-800">删除</button>
                 </div>
               </div>
             </div>
@@ -229,8 +247,8 @@ onMounted(() => {
                     :text="child.status === 'active' ? '启用' : '禁用'"
                   />
                   <div class="flex items-center gap-2">
-                    <button class="text-sm text-blue-600 hover:text-blue-800">编辑</button>
-                    <button class="text-sm text-red-600 hover:text-red-800">删除</button>
+                    <button @click="handleEditMenu(child)" class="text-sm text-blue-600 hover:text-blue-800">编辑</button>
+                    <button @click="handleDeleteMenu(child)" class="text-sm text-red-600 hover:text-red-800">删除</button>
                   </div>
                 </div>
               </div>

@@ -14,6 +14,14 @@ const mockExpand = () => {
     { word: '手机维修', heat: 65, related: ['换屏幕', '换电池', '维修店'] }
   ]
 }
+
+const handleAddToLibrary = (item: typeof expandedWords.value[0]) => {
+  alert(`添加到词库: ${item.word}`)
+}
+
+const handleUse = (item: typeof expandedWords.value[0]) => {
+  alert(`使用词汇: ${item.word}`)
+}
 </script>
 
 <template>
@@ -60,10 +68,10 @@ const mockExpand = () => {
             </div>
           </div>
           <div class="mt-3 flex gap-2">
-            <button class="flex-1 py-1.5 text-xs text-blue-600 border border-blue-300 rounded hover:bg-blue-50">
+<button class="flex-1 py-1.5 text-xs text-blue-600 border border-blue-300 rounded hover:bg-blue-50" @click="handleAddToLibrary(item)">
               添加到词库
             </button>
-            <button class="flex-1 py-1.5 text-xs text-white bg-blue-600 rounded hover:bg-blue-700">
+            <button class="flex-1 py-1.5 text-xs text-white bg-blue-600 rounded hover:bg-blue-700" @click="handleUse(item)">
               使用
             </button>
           </div>

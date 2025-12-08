@@ -185,6 +185,18 @@ const formatNumber = (value: number) => value.toLocaleString()
 onMounted(() => {
   fetchReportData()
 })
+
+const handleExport = () => {
+  alert('正在导出报告...')
+}
+
+const handleFilter = () => {
+  alert('打开筛选面板')
+}
+
+const handleColumnSettings = () => {
+  alert('打开列设置')
+}
 </script>
 
 <template>
@@ -211,7 +223,7 @@ onMounted(() => {
               {{ range.label }}
             </button>
           </div>
-          <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2">
+          <button @click="handleExport" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
             </svg>
@@ -309,10 +321,10 @@ onMounted(() => {
       <div class="p-6 border-b border-gray-200 flex items-center justify-between">
         <h3 class="text-lg font-semibold text-gray-900">广告系列明细</h3>
         <div class="flex items-center gap-3">
-          <button class="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 rounded border border-gray-300">
+          <button @click="handleFilter" class="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 rounded border border-gray-300">
             筛选
           </button>
-          <button class="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 rounded border border-gray-300">
+          <button @click="handleColumnSettings" class="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 rounded border border-gray-300">
             列设置
           </button>
         </div>

@@ -14,6 +14,22 @@ const contracts = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreateContract = () => {
+  alert('创建合同')
+}
+
+const handleViewContract = (contract: typeof contracts.value[0]) => {
+  alert(`查看合同: ${contract.name}`)
+}
+
+const handleDownloadContract = (contract: typeof contracts.value[0]) => {
+  alert(`下载合同: ${contract.name}`)
+}
+
+const handleRenewContract = (contract: typeof contracts.value[0]) => {
+  alert(`续约合同: ${contract.name}`)
+}
 </script>
 
 <template>
@@ -25,7 +41,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">广告主合同</h1>
           <p class="mt-2 text-gray-600">管理广告主投放合同</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button @click="handleCreateContract" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           创建合同
         </button>
       </div>
@@ -78,9 +94,9 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">查看</button>
-              <button class="text-gray-600 hover:text-gray-800 mr-3">下载</button>
-              <button v-if="contract.status === 'active'" class="text-green-600 hover:text-green-800">续约</button>
+              <button @click="handleViewContract(contract)" class="text-blue-600 hover:text-blue-800 mr-3">查看</button>
+              <button @click="handleDownloadContract(contract)" class="text-gray-600 hover:text-gray-800 mr-3">下载</button>
+              <button v-if="contract.status === 'active'" @click="handleRenewContract(contract)" class="text-green-600 hover:text-green-800">续约</button>
             </td>
           </tr>
         </tbody>

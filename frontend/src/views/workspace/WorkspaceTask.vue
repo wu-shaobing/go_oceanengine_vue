@@ -14,6 +14,18 @@ const tasks = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreateTask = () => {
+  alert('创建任务')
+}
+
+const handleEditTask = (task: any) => {
+  alert(`编辑任务: ${task.name}`)
+}
+
+const handleViewTask = (task: any) => {
+  alert(`查看任务详情: ${task.name}`)
+}
 </script>
 
 <template>
@@ -25,7 +37,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">任务管理</h1>
           <p class="mt-2 text-gray-600">管理团队任务和待办事项</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreateTask">
           创建任务
         </button>
       </div>
@@ -88,9 +100,9 @@ const handlePageChange = (page: number) => {
                 {{ task.status === 'completed' ? '已完成' : task.status === 'in_progress' ? '进行中' : '待处理' }}
               </span>
             </td>
-            <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button class="text-gray-600 hover:text-gray-800">详情</button>
+<td class="px-6 py-4 text-sm">
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleEditTask(task)">编辑</button>
+              <button class="text-gray-600 hover:text-gray-800" @click="handleViewTask(task)">详情</button>
             </td>
           </tr>
         </tbody>

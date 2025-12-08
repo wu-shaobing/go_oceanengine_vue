@@ -49,7 +49,7 @@
           <option value="fans">涨粉</option>
           <option value="product">商品购买</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSearch">搜索</button>
       </div>
     </div>
 
@@ -92,7 +92,7 @@
             <td class="px-4 py-3">
               <div class="flex space-x-2">
                 <router-link :to="`/qianchuan/aweme-order/${order.id}`" class="text-blue-600 hover:text-blue-800 text-sm">详情</router-link>
-                <button v-if="order.status === 'running'" class="text-orange-600 hover:text-orange-800 text-sm">停止</button>
+<button v-if="order.status === 'running'" class="text-orange-600 hover:text-orange-800 text-sm" @click="handleStop(order)">停止</button>
               </div>
             </td>
           </tr>
@@ -147,5 +147,13 @@ const getStatusText = (status: string) => {
     failed: '投放失败'
   }
   return texts[status] || status
+}
+
+const handleSearch = () => {
+  alert(`搜索: ${filters.value.keyword}`)
+}
+
+const handleStop = (order: typeof orders.value[0]) => {
+  alert(`停止订单: ${order.id}`)
 }
 </script>

@@ -13,8 +13,8 @@
         <div class="text-sm opacity-80">账户余额</div>
         <div class="text-3xl font-bold mt-2">¥{{ balance.available.toLocaleString() }}</div>
         <div class="flex space-x-3 mt-4">
-          <button class="px-4 py-1 bg-white text-blue-600 rounded text-sm font-medium">充值</button>
-          <button class="px-4 py-1 bg-white bg-opacity-20 text-white rounded text-sm">提现</button>
+<button @click="handleRecharge" class="px-4 py-1 bg-white text-blue-600 rounded text-sm font-medium">充值</button>
+          <button @click="handleWithdraw" class="px-4 py-1 bg-white bg-opacity-20 text-white rounded text-sm">提现</button>
         </div>
       </div>
       <div class="bg-white rounded-lg shadow p-6">
@@ -119,5 +119,13 @@ const getTypeText = (type: string) => {
     refund: '退款'
   }
   return texts[type] || type
+}
+
+const handleRecharge = () => {
+  alert('账户充值')
+}
+
+const handleWithdraw = () => {
+  alert('账户提现')
 }
 </script>

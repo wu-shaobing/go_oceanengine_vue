@@ -66,6 +66,18 @@ const isSelected = (id: string) => selectedItems.value.includes(id)
 onMounted(() => {
   fetchMedias()
 })
+
+const handleUpload = () => {
+  alert('上传素材')
+}
+
+const handleDownload = (media: any) => {
+  alert(`下载: ${media.name}`)
+}
+
+const handleDelete = (media: any) => {
+  alert(`删除: ${media.name}`)
+}
 </script>
 
 <template>
@@ -77,8 +89,9 @@ onMounted(() => {
           <h1 class="text-3xl font-bold text-gray-900">素材库</h1>
           <p class="mt-2 text-gray-600">管理您的图片和视频素材</p>
         </div>
-        <button
+<button
           class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+          @click="handleUpload"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
@@ -236,13 +249,13 @@ onMounted(() => {
           <p class="text-sm text-gray-500">{{ media.size }} · {{ media.dimensions }}</p>
         </div>
         <div class="text-sm text-gray-500">{{ media.uploadTime }}</div>
-        <div class="flex items-center gap-2">
-          <button class="p-2 text-gray-400 hover:text-gray-600">
+<div class="flex items-center gap-2">
+          <button class="p-2 text-gray-400 hover:text-gray-600" @click.stop="handleDownload(media)">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
             </svg>
           </button>
-          <button class="p-2 text-gray-400 hover:text-red-600">
+          <button class="p-2 text-gray-400 hover:text-red-600" @click.stop="handleDelete(media)">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
             </svg>

@@ -71,8 +71,8 @@
       </div>
 
       <div class="flex justify-end space-x-4">
-        <button class="px-6 py-2 border border-gray-300 rounded hover:bg-gray-50">取消</button>
-        <button class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">创建项目</button>
+        <button @click="handleCancel" class="px-6 py-2 border border-gray-300 rounded hover:bg-gray-50">取消</button>
+        <button @click="handleCreate" class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">创建项目</button>
       </div>
     </div>
   </div>
@@ -81,6 +81,18 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
+
+const handleCancel = () => {
+  alert('取消创建')
+}
+
+const handleCreate = () => {
+  if (!form.value.name) {
+    alert('请输入项目名称')
+    return
+  }
+  alert(`创建项目: ${form.value.name}`)
+}
 
 const form = ref({
   name: '',

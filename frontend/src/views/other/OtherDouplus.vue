@@ -31,6 +31,20 @@ const getStatusConfig = (status: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreateOrder = () => {
+  alert('创建Dou+投放')
+}
+
+const handleViewDetail = (order: typeof orders.value[0]) => {
+  alert(`查看详情: ${order.videoTitle}`)
+}
+
+const handleStopOrder = (order: typeof orders.value[0]) => {
+  if (confirm(`确定停止投放 ${order.videoTitle}?`)) {
+    alert('已停止投放')
+  }
+}
 </script>
 
 <template>
@@ -42,7 +56,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">Dou+投放管理</h1>
           <p class="mt-2 text-gray-600">管理抖音Dou+投放订单</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreateOrder">
           创建投放
         </button>
       </div>
@@ -100,8 +114,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-              <button v-if="order.status === 'running'" class="text-red-600 hover:text-red-800">停止</button>
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleViewDetail(order)">详情</button>
+              <button v-if="order.status === 'running'" class="text-red-600 hover:text-red-800" @click="handleStopOrder(order)">停止</button>
             </td>
           </tr>
         </tbody>

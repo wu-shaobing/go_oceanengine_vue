@@ -11,7 +11,7 @@
         <router-link to="/qianchuan/keyword/recommend" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
           关键词推荐
         </router-link>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleAddKeyword" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           添加关键词
         </button>
       </div>
@@ -32,7 +32,7 @@
           <option value="enable">已启用</option>
           <option value="disable">已暂停</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+<button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -74,9 +74,9 @@
             <td class="px-4 py-3 text-sm text-right">{{ kw.conversion }}</td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
-                <button v-if="kw.status === 'enable'" class="text-orange-600 hover:text-orange-800 text-sm">暂停</button>
-                <button v-else class="text-green-600 hover:text-green-800 text-sm">启用</button>
+<button @click="handleEdit(kw)" class="text-blue-600 hover:text-blue-800 text-sm">编辑</button>
+                <button v-if="kw.status === 'enable'" @click="handlePause(kw)" class="text-orange-600 hover:text-orange-800 text-sm">暂停</button>
+                <button v-else @click="handleEnable(kw)" class="text-green-600 hover:text-green-800 text-sm">启用</button>
               </div>
             </td>
           </tr>
@@ -107,4 +107,26 @@ const keywords = ref([
   { id: 4, word: '夏季连衣裙', matchType: '广泛匹配', status: 'disable', qualityScore: 7, bid: 1.8, cost: 860, impression: 15800, click: 456, conversion: 22 },
   { id: 5, word: '无线耳机', matchType: '短语匹配', status: 'enable', qualityScore: 8, bid: 2.2, cost: 1680, impression: 28900, click: 768, conversion: 35 }
 ])
+
+const handleAddKeyword = () => {
+  alert('添加关键词')
+}
+
+const handleSearch = () => {
+  alert('搜索关键词')
+}
+
+const handleEdit = (kw: typeof keywords.value[0]) => {
+  alert(`编辑关键词: ${kw.word}`)
+}
+
+const handlePause = (kw: typeof keywords.value[0]) => {
+  kw.status = 'disable'
+  alert(`已暂停: ${kw.word}`)
+}
+
+const handleEnable = (kw: typeof keywords.value[0]) => {
+  kw.status = 'enable'
+  alert(`已启用: ${kw.word}`)
+}
 </script>

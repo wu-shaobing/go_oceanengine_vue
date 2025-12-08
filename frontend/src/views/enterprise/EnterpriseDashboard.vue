@@ -65,8 +65,8 @@
             </div>
             <div class="text-sm text-gray-700">{{ comment.content }}</div>
             <div class="flex space-x-2 mt-2">
-              <button class="text-blue-600 text-xs">回复</button>
-              <button class="text-gray-500 text-xs">隐藏</button>
+              <button @click="handleReplyComment(comment)" class="text-blue-600 text-xs">回复</button>
+              <button @click="handleHideComment(comment)" class="text-gray-500 text-xs">隐藏</button>
             </div>
           </div>
         </div>
@@ -107,6 +107,14 @@ const topVideos = ref([
   { id: 4, title: '用户故事分享', cover: 'https://via.placeholder.com/64x80', plays: '65.8w', likes: '4.3w' },
   { id: 5, title: '限时优惠活动', cover: 'https://via.placeholder.com/64x80', plays: '52.3w', likes: '3.8w' }
 ])
+
+const handleReplyComment = (comment: typeof pendingComments.value[0]) => {
+  alert(`回复评论: ${comment.content}`)
+}
+
+const handleHideComment = (comment: typeof pendingComments.value[0]) => {
+  alert(`隐藏评论: ${comment.content}`)
+}
 
 const pendingComments = ref([
   { id: 1, user: '小明', avatar: 'https://via.placeholder.com/32', content: '产品质量真的很好，已经回购三次了！', time: '5分钟前' },

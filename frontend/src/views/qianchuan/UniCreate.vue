@@ -111,7 +111,7 @@
             <label class="block text-sm font-medium text-gray-700 mb-1">上传素材</label>
             <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
               <div class="text-gray-400 mb-2">点击或拖拽上传视频素材</div>
-              <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">选择文件</button>
+              <button @click="selectFile" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">选择文件</button>
             </div>
           </div>
         </div>
@@ -120,7 +120,7 @@
       <!-- 操作按钮 -->
       <div class="flex justify-end space-x-4">
         <router-link to="/qianchuan/uni" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">取消</router-link>
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">创建推广</button>
+        <button @click="handleCreate" :disabled="loading" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50">{{ loading ? '创建中...' : '创建推广' }}</button>
       </div>
     </div>
   </div>
@@ -128,7 +128,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
+
+const router = useRouter()
+const loading = ref(false)
 
 const form = ref({
   type: 'live',
@@ -140,4 +144,40 @@ const form = ref({
   scheduleType: 'unlimited',
   materialSource: 'auto'
 })
+
+const validateForm = () => {
+  if (!form.value.name.trim()) {
+    alert('请输入推广名称')
+    return false
+  }
+  if (!form.value.shopId) {
+    alert('请选择关联店铺')
+    return false
+  }
+  if (form.value.type === 'live' && !form.value.liveRoomId) {
+    alert('请选择直播间')
+    return false
+  }
+  if (!form.value.budget || form.value.budget < 300) {
+    alert('日预算最低300元')
+    return false
+  }
+  return true
+}
+
+const handleCreate = async () => {
+  if (!validateForm()) return
+  loading.value = true
+  try {
+    await new Promise(r => setTimeout(r, 500))
+    alert('全域推广创建成功！')
+    router.push('/qianchuan/uni')
+  } finally {
+    loading.value = false
+  }
+}
+
+const selectFile = () => {
+  alert('文件上传功能开发中...')
+}
 </script>

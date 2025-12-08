@@ -14,6 +14,17 @@ const bidSuggestions = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleApplySuggestion = (bid: typeof bidSuggestions.value[0]) => {
+  bid.currentBid = bid.suggestBid
+  bid.status = 'optimal'
+  bid.change = '0%'
+  alert(`已应用建议出价: ¥${bid.suggestBid.toFixed(2)}`)
+}
+
+const handleDetail = (bid: typeof bidSuggestions.value[0]) => {
+  alert(`查看详情: ${bid.adName}`)
+}
 </script>
 
 <template>
@@ -74,8 +85,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button v-if="bid.status !== 'optimal'" class="text-blue-600 hover:text-blue-800 mr-3">应用建议</button>
-              <button class="text-gray-600 hover:text-gray-800">详情</button>
+<button v-if="bid.status !== 'optimal'" @click="handleApplySuggestion(bid)" class="text-blue-600 hover:text-blue-800 mr-3">应用建议</button>
+              <button @click="handleDetail(bid)" class="text-gray-600 hover:text-gray-800">详情</button>
             </td>
           </tr>
         </tbody>

@@ -19,6 +19,18 @@ const templates = ref([
   { id: 'T005', name: '活动推广模板', category: 'ecommerce', uses: 768, preview: '🎉' },
   { id: 'T006', name: '产品详情模板', category: 'ecommerce', uses: 656, preview: '📦' }
 ])
+
+const handleUseTemplate = (template: any) => {
+  alert(`使用模板: ${template.name}`)
+}
+
+const handleLoadMore = () => {
+  alert('加载更多模板')
+}
+
+const handlePreviewTemplate = (template: any) => {
+  alert(`预览模板: ${template.name}`)
+}
 </script>
 
 <template>
@@ -40,7 +52,8 @@ const templates = ref([
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <div v-for="template in templates" :key="template.id"
-           class="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+           class="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+           @click="handlePreviewTemplate(template)">
         <div class="aspect-[9/16] bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
           <span class="text-6xl">{{ template.preview }}</span>
         </div>
@@ -49,14 +62,14 @@ const templates = ref([
           <h4 class="font-medium text-gray-900">{{ template.name }}</h4>
           <div class="flex items-center justify-between mt-3">
             <span class="text-xs text-gray-500">{{ template.uses.toLocaleString() }} 次使用</span>
-            <button class="px-3 py-1 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-50">使用</button>
+<button class="px-3 py-1 text-sm text-blue-600 border border-blue-300 rounded hover:bg-blue-50" @click.stop="handleUseTemplate(template)">使用</button>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="flex justify-center">
-      <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+<div class="flex justify-center">
+      <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50" @click="handleLoadMore">
         加载更多
       </button>
     </div>

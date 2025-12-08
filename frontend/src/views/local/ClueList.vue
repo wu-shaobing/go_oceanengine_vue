@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">线索管理</h1>
         <p class="text-gray-600 mt-1">管理获取的潜在客户线索</p>
       </div>
-      <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+      <button @click="handleExport" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
         导出线索
       </button>
     </div>
@@ -49,7 +49,7 @@
           <option value="phone">电话咨询</option>
           <option value="chat">在线咨询</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 
@@ -86,9 +86,9 @@
             <td class="px-4 py-3 text-sm">{{ clue.follower || '-' }}</td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">跟进</button>
-                <button class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
-                <button class="text-red-600 hover:text-red-800 text-sm">无效</button>
+                <button @click="handleFollow(clue)" class="text-blue-600 hover:text-blue-800 text-sm">跟进</button>
+                <button @click="handleDetail(clue)" class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
+                <button @click="handleInvalid(clue)" class="text-red-600 hover:text-red-800 text-sm">无效</button>
               </div>
             </td>
           </tr>
@@ -145,5 +145,29 @@ const getStatusText = (status: string) => {
     invalid: '无效'
   }
   return texts[status] || status
+}
+
+const handleSearch = () => {
+  console.log('搜索线索:', filters.value)
+  alert('查询完成')
+}
+
+const handleExport = () => {
+  alert('线索导出中...')
+}
+
+const handleFollow = (clue: typeof clues.value[0]) => {
+  alert(`开始跟进线索: ${clue.name}`)
+}
+
+const handleDetail = (clue: typeof clues.value[0]) => {
+  alert(`查看线索详情: ${clue.name}\n电话: ${clue.phone}\n来源: ${clue.source}`)
+}
+
+const handleInvalid = (clue: typeof clues.value[0]) => {
+  if (confirm(`确定将线索「${clue.name}」标记为无效吗？`)) {
+    clue.status = 'invalid'
+    alert('已标记为无效')
+  }
 }
 </script>

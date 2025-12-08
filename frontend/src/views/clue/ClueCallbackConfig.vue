@@ -14,6 +14,28 @@ const configs = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleAddConfig = () => {
+  alert('添加配置功能开发中...')
+}
+
+const handleTest = (config: any) => {
+  alert(`正在测试配置: ${config.name}`)
+}
+
+const handleEdit = (config: any) => {
+  alert(`编辑配置: ${config.name}`)
+}
+
+const handleDelete = (config: any) => {
+  if (confirm(`确定要删除配置 "${config.name}" 吗？`)) {
+    const index = configs.value.findIndex(c => c.id === config.id)
+    if (index > -1) {
+      configs.value.splice(index, 1)
+      alert('删除成功')
+    }
+  }
+}
 </script>
 
 <template>
@@ -25,7 +47,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">线索回传配置</h1>
           <p class="mt-2 text-gray-600">配置线索数据回传接口</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button @click="handleAddConfig" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           添加配置
         </button>
       </div>
@@ -88,9 +110,9 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">测试</button>
-              <button class="text-gray-600 hover:text-gray-800 mr-3">编辑</button>
-              <button class="text-red-600 hover:text-red-800">删除</button>
+              <button @click="handleTest(config)" class="text-blue-600 hover:text-blue-800 mr-3">测试</button>
+              <button @click="handleEdit(config)" class="text-gray-600 hover:text-gray-800 mr-3">编辑</button>
+              <button @click="handleDelete(config)" class="text-red-600 hover:text-red-800">删除</button>
             </td>
           </tr>
         </tbody>

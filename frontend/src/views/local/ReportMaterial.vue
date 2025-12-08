@@ -26,8 +26,8 @@
             <option value="image">图片</option>
           </select>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
-        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+        <button @click="handleExport" class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
       </div>
     </div>
 
@@ -91,7 +91,7 @@
             </div>
             <div class="mt-3 pt-3 border-t flex justify-between items-center">
               <span class="text-xs text-gray-400">{{ item.createdAt }}</span>
-              <button class="text-blue-600 text-xs hover:underline">查看详情</button>
+              <button @click="handleMaterialDetail(item)" class="text-blue-600 text-xs hover:underline">查看详情</button>
             </div>
           </div>
         </div>
@@ -107,6 +107,18 @@
 import { ref } from 'vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
+
+const handleSearch = () => {
+  alert('查询素材报表')
+}
+
+const handleExport = () => {
+  alert('导出报表')
+}
+
+const handleMaterialDetail = (item: typeof materials.value[0]) => {
+  alert(`素材详情: ${item.name}`)
+}
 
 const filters = ref({
   startDate: '',

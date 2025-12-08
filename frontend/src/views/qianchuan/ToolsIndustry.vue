@@ -23,7 +23,7 @@
           <option value="30d">近30天</option>
           <option value="90d">近90天</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+<button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" @click="handleQuery">查询</button>
       </div>
     </div>
 
@@ -99,6 +99,10 @@ import { ref } from 'vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 
 const filters = ref({ industry: '', period: '7d' })
+
+const handleQuery = () => {
+  alert('查询行业数据')
+}
 
 const industryData = ref({
   avgCpm: 25.6,

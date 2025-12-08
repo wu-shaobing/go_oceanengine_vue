@@ -20,6 +20,10 @@ const reviews = ref([
   { id: 'R002', user: '广告主B', rating: 4, content: '功能很实用，希望增加更多分析维度', date: '2025-11-20' },
   { id: 'R003', user: '广告主C', rating: 5, content: '省时省力，强烈推荐', date: '2025-11-15' }
 ])
+
+const handleUseService = () => {
+  alert(`开始使用服务: ${service.value.name}`)
+}
 </script>
 
 <template>
@@ -39,7 +43,7 @@ const reviews = ref([
               <h1 class="text-2xl font-bold text-gray-900">{{ service.name }}</h1>
               <p class="text-gray-500 mt-1">{{ service.provider }} · {{ service.category }}</p>
             </div>
-            <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleUseService">
               立即使用
             </button>
           </div>

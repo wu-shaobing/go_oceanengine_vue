@@ -29,6 +29,18 @@ const toggleSelect = (id: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleBatchReply = () => {
+  alert(`批量回复 ${selectedComments.value.length} 条评论`)
+}
+
+const handleSendReply = () => {
+  if (!replyTemplate.value.trim()) {
+    alert('请输入回复内容')
+    return
+  }
+  alert(`发送回复: ${replyTemplate.value}`)
+}
 </script>
 
 <template>
@@ -44,7 +56,7 @@ const handlePageChange = (page: number) => {
         <div class="bg-white rounded-lg border border-gray-200 p-4">
           <div class="flex items-center justify-between mb-4">
             <span class="text-sm text-gray-500">待回复 {{ comments.filter(c => c.status === 'pending').length }} 条</span>
-            <button v-if="selectedComments.length > 0" class="px-4 py-1.5 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
+<button v-if="selectedComments.length > 0" @click="handleBatchReply" class="px-4 py-1.5 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
               批量回复 ({{ selectedComments.length }})
             </button>
           </div>
@@ -96,7 +108,7 @@ const handlePageChange = (page: number) => {
           <h4 class="font-medium text-gray-900 mb-3">回复内容</h4>
           <textarea v-model="replyTemplate" rows="4" placeholder="请输入回复内容..."
                     class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"></textarea>
-          <button class="w-full mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleSendReply" class="w-full mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
             发送回复
           </button>
         </div>

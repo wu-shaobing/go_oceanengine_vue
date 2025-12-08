@@ -15,6 +15,14 @@ const reviews = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleView = (review: typeof reviews.value[0]) => {
+  alert(`查看创意: ${review.name}`)
+}
+
+const handleResubmit = (review: typeof reviews.value[0]) => {
+  alert(`重新提交: ${review.name}`)
+}
 </script>
 
 <template>
@@ -94,8 +102,8 @@ const handlePageChange = (page: number) => {
             </td>
             <td class="px-6 py-4 text-sm text-red-600">{{ review.reason || '-' }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">查看</button>
-              <button v-if="review.status === 'rejected'" class="text-green-600 hover:text-green-800">重新提交</button>
+<button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleView(review)">查看</button>
+              <button v-if="review.status === 'rejected'" class="text-green-600 hover:text-green-800" @click="handleResubmit(review)">重新提交</button>
             </td>
           </tr>
         </tbody>

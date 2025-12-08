@@ -18,6 +18,24 @@ const dictItems = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleAddField = () => {
+  alert('添加字段')
+}
+
+const handleSearch = () => {
+  alert('搜索字段')
+}
+
+const handleEditField = (item: typeof dictItems.value[0]) => {
+  alert(`编辑字段: ${item.field}`)
+}
+
+const handleDeleteField = (item: typeof dictItems.value[0]) => {
+  if (confirm(`确定删除字段 ${item.field}?`)) {
+    alert('删除成功')
+  }
+}
 </script>
 
 <template>
@@ -29,7 +47,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">商品词典</h1>
           <p class="mt-2 text-gray-600">定义商品数据字段映射</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleAddField">
           添加字段
         </button>
       </div>
@@ -39,7 +57,7 @@ const handlePageChange = (page: number) => {
       <div class="flex gap-4">
         <input v-model="searchKeyword" type="text" placeholder="搜索字段名..."
                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSearch">搜索</button>
       </div>
     </div>
 
@@ -85,8 +103,8 @@ const handlePageChange = (page: number) => {
             </td>
             <td class="px-6 py-4 text-sm text-gray-500 truncate max-w-xs">{{ item.example }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button class="text-red-600 hover:text-red-800">删除</button>
+              <button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleEditField(item)">编辑</button>
+              <button class="text-red-600 hover:text-red-800" @click="handleDeleteField(item)">删除</button>
             </td>
           </tr>
         </tbody>

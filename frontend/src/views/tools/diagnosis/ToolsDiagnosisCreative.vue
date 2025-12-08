@@ -14,6 +14,18 @@ const creatives = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleUpload = () => {
+  alert('上传创意分析')
+}
+
+const handleDetail = (creative: typeof creatives.value[0]) => {
+  alert(`查看详情: ${creative.name}`)
+}
+
+const handleSuggestion = (creative: typeof creatives.value[0]) => {
+  alert(`优化建议: ${creative.name}`)
+}
 </script>
 
 <template>
@@ -25,7 +37,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">创意诊断</h1>
           <p class="mt-2 text-gray-600">分析广告创意效果并提供优化建议</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleUpload">
           上传创意分析
         </button>
       </div>
@@ -104,8 +116,8 @@ const handlePageChange = (page: number) => {
               </div>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-              <button class="text-green-600 hover:text-green-800">优化建议</button>
+<button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleDetail(creative)">详情</button>
+              <button class="text-green-600 hover:text-green-800" @click="handleSuggestion(creative)">优化建议</button>
             </td>
           </tr>
         </tbody>

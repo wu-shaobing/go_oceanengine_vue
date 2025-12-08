@@ -4,6 +4,8 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 10, total: 15 })
+const searchKeyword = ref('')
+const filterType = ref('')
 
 const authList = ref([
   { id: 1, awemeId: '28745612', nickname: '品牌官方号', avatar: '', authType: '授权', advertisers: 5, createdAt: '2025-10-15' },
@@ -13,6 +15,18 @@ const authList = ref([
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleSearch = () => {
+  alert(`搜索: ${searchKeyword.value}`)
+}
+
+const handleDetail = (item: typeof authList.value[0]) => {
+  alert(`查看详情: ${item.nickname}`)
+}
+
+const handleUnbind = (item: typeof authList.value[0]) => {
+  alert(`解除授权: ${item.nickname}`)
 }
 </script>
 
@@ -42,16 +56,16 @@ const handlePageChange = (page: number) => {
     <div class="bg-white rounded-lg border border-gray-200">
       <div class="p-4 border-b border-gray-200">
         <div class="flex flex-wrap gap-4">
-          <input type="text" placeholder="搜索抖音号" class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg">
-          <select class="px-4 py-2 border border-gray-300 rounded-lg">
+<input v-model="searchKeyword" type="text" placeholder="搜索抖音号" class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg">
+          <select v-model="filterType" class="px-4 py-2 border border-gray-300 rounded-lg">
             <option value="">全部类型</option>
             <option value="auth">授权号</option>
             <option value="daren">达人号</option>
             <option value="enterprise">企业号</option>
           </select>
-          <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
-        </div>
-      </div>
+<button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          搜索
+        </button>
       <div class="overflow-x-auto">
         <table class="w-full">
           <thead class="bg-gray-50 border-b border-gray-200">
@@ -86,8 +100,8 @@ const handlePageChange = (page: number) => {
               <td class="px-6 py-4 text-sm text-gray-900">{{ item.advertisers }} 个</td>
               <td class="px-6 py-4 text-sm text-gray-500">{{ item.createdAt }}</td>
               <td class="px-6 py-4 text-sm">
-                <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-                <button class="text-red-600 hover:text-red-800">解除</button>
+<button @click="handleDetail(item)" class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
+              <button @click="handleUnbind(item)" class="text-red-600 hover:text-red-800">解除</button>
               </td>
             </tr>
           </tbody>

@@ -5,6 +5,10 @@ import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 10, total: 56 })
 
+const searchKeyword = ref('')
+const filterType = ref('')
+const filterDate = ref('')
+
 const records = ref([
   { id: 'T20251111001', from: '代理商账户', to: '北京科技有限公司', amount: 100000, time: '2025-11-11 14:30', status: '成功', type: '充值' },
   { id: 'T20251111002', from: '代理商账户', to: '上海网络公司', amount: 50000, time: '2025-11-11 10:15', status: '成功', type: '充值' },
@@ -14,6 +18,10 @@ const records = ref([
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleSearch = () => {
+  alert('搜索转账记录')
 }
 </script>
 
@@ -28,15 +36,15 @@ const handlePageChange = (page: number) => {
     <!-- Filter -->
     <div class="bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex flex-wrap gap-4">
-        <input type="text" placeholder="搜索交易单号" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 w-48">
-        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <input v-model="searchKeyword" type="text" placeholder="搜索交易单号" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 w-48">
+        <select v-model="filterType" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
           <option value="">全部类型</option>
           <option value="recharge">充值</option>
           <option value="refund">退款</option>
           <option value="transfer">转账</option>
         </select>
-        <input type="date" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        <input v-model="filterDate" type="date" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <button @click="handleSearch" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
       </div>
     </div>
 

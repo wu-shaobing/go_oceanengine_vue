@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 
+const searchKeyword = ref('')
+
 const categories = ref([
   { id: 'C01', name: '生活', icon: '🏠', count: 15600, children: ['美食', '旅行', '家居', '宠物'] },
   { id: 'C02', name: '娱乐', icon: '🎬', count: 23400, children: ['搞笑', '剧情', '音乐', '舞蹈'] },
@@ -21,6 +23,10 @@ const toggleExpand = (id: string) => {
     expandedCategories.value.push(id)
   }
 }
+
+const handleSelectTag = (tag: string) => {
+  alert(`选择标签: ${tag}`)
+}
 </script>
 
 <template>
@@ -32,7 +38,7 @@ const toggleExpand = (id: string) => {
     </div>
 
     <div class="bg-white rounded-lg border border-gray-200 p-4">
-      <input type="text" placeholder="搜索分类..."
+      <input v-model="searchKeyword" type="text" placeholder="搜索分类..."
              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
     </div>
 
@@ -58,8 +64,9 @@ const toggleExpand = (id: string) => {
         </div>
         <div v-if="expandedCategories.includes(cat.id)" class="p-4">
           <div class="flex flex-wrap gap-2">
-            <span v-for="child in cat.children" :key="child"
-                  class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-sm cursor-pointer hover:bg-blue-100">
+<span v-for="child in cat.children" :key="child"
+                  class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-sm cursor-pointer hover:bg-blue-100"
+                  @click="handleSelectTag(child)">
               {{ child }}
             </span>
           </div>

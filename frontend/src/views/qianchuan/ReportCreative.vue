@@ -18,8 +18,8 @@
           <option value="video">视频</option>
           <option value="image">图片</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
-        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+        <button @click="handleExport" class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
       </div>
     </div>
 
@@ -58,6 +58,21 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const filters = ref({ startDate: '', endDate: '', type: '' })
+const loading = ref(false)
+
+const handleSearch = async () => {
+  loading.value = true
+  try {
+    await new Promise(r => setTimeout(r, 500))
+    alert('数据已刷新')
+  } finally {
+    loading.value = false
+  }
+}
+
+const handleExport = () => {
+  alert('导出功能开发中...')
+}
 
 const creatives = ref([
   { id: 'C001', cover: 'https://via.placeholder.com/300x160', type: 'video', cost: 15680, show: 850000, click: 25800, ctr: 3.04, convert: 586, cvr: 2.27 },

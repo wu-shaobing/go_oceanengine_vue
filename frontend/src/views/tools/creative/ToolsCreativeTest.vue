@@ -14,6 +14,22 @@ const tests = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreate = () => {
+  alert('创建A/B测试')
+}
+
+const handleDetail = (test: typeof tests.value[0]) => {
+  alert(`查看测试详情: ${test.name}`)
+}
+
+const handleStart = (test: typeof tests.value[0]) => {
+  alert(`启动测试: ${test.name}`)
+}
+
+const handleStop = (test: typeof tests.value[0]) => {
+  alert(`停止测试: ${test.name}`)
+}
 </script>
 
 <template>
@@ -25,7 +41,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">创意A/B测试</h1>
           <p class="mt-2 text-gray-600">对比测试不同创意效果</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleCreate">
           创建测试
         </button>
       </div>
@@ -84,9 +100,9 @@ const handlePageChange = (page: number) => {
             </td>
             <td class="px-6 py-4 text-sm font-medium text-green-600">{{ test.improvement }}</td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">详情</button>
-              <button v-if="test.status === 'draft'" class="text-green-600 hover:text-green-800">启动</button>
-              <button v-if="test.status === 'running'" class="text-yellow-600 hover:text-yellow-800">停止</button>
+<button class="text-blue-600 hover:text-blue-800 mr-3" @click="handleDetail(test)">详情</button>
+              <button v-if="test.status === 'draft'" class="text-green-600 hover:text-green-800" @click="handleStart(test)">启动</button>
+              <button v-if="test.status === 'running'" class="text-yellow-600 hover:text-yellow-800" @click="handleStop(test)">停止</button>
             </td>
           </tr>
         </tbody>

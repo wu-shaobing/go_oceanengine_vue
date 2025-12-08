@@ -4,6 +4,9 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const pagination = reactive({ page: 1, pageSize: 10, total: 45 })
+const searchKeyword = ref('')
+const filterType = ref('')
+const filterStatus = ref('')
 
 const targets = ref([
   { id: '1234567', name: '北京科技有限公司', type: 'advertiser', balance: 1250000, status: 'normal' },
@@ -15,6 +18,10 @@ const targets = ref([
 
 const handlePageChange = (page: number) => {
   pagination.page = page
+}
+
+const handleSearch = () => {
+  alert('搜索转账目标')
 }
 </script>
 
@@ -28,19 +35,19 @@ const handlePageChange = (page: number) => {
 
     <div class="bg-white rounded-lg border border-gray-200 p-4">
       <div class="flex flex-wrap gap-4">
-        <input type="text" placeholder="搜索账户名称或ID" class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <input v-model="searchKeyword" type="text" placeholder="搜索账户名称或ID" class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <select v-model="filterType" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
           <option value="">全部类型</option>
           <option value="advertiser">广告主</option>
           <option value="agent">子代理</option>
         </select>
-        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <select v-model="filterStatus" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
           <option value="">全部状态</option>
           <option value="normal">正常</option>
           <option value="low_balance">余额不足</option>
           <option value="frozen">已冻结</option>
         </select>
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+<button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" @click="handleSearch">搜索</button>
       </div>
     </div>
 

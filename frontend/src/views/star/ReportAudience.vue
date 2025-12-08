@@ -17,7 +17,7 @@
         <input type="date" v-model="filters.startDate" class="border border-gray-300 rounded px-3 py-2">
         <span>至</span>
         <input type="date" v-model="filters.endDate" class="border border-gray-300 rounded px-3 py-2">
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+<button @click="handleQuery" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
       </div>
     </div>
 
@@ -105,6 +105,10 @@ import { ref } from 'vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 
 const filters = ref({ task: '', startDate: '', endDate: '' })
+
+const handleQuery = () => {
+  alert('查询受众分析')
+}
 
 const stats = ref({ reach: 5680000, interaction: 286000, conversion: 3560, costPerInteraction: 0.35 })
 

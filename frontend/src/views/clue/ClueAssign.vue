@@ -14,6 +14,22 @@ const rules = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleAddRule = () => {
+  alert('创建新分配规则')
+}
+
+const handleEditRule = (rule: typeof rules.value[0]) => {
+  alert(`编辑规则: ${rule.name}`)
+}
+
+const handleToggleRule = (rule: typeof rules.value[0]) => {
+  const action = rule.status === 'active' ? '禁用' : '启用'
+  if (confirm(`确定${action}规则「${rule.name}」吗？`)) {
+    rule.status = rule.status === 'active' ? 'inactive' : 'active'
+    alert(`规则已${action}`)
+  }
+}
 </script>
 
 <template>
@@ -25,7 +41,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">线索分配</h1>
           <p class="mt-2 text-gray-600">配置线索自动分配规则</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button @click="handleAddRule" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           添加规则
         </button>
       </div>
@@ -90,8 +106,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button :class="rule.status === 'active' ? 'text-yellow-600 hover:text-yellow-800' : 'text-green-600 hover:text-green-800'">
+              <button @click="handleEditRule(rule)" class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
+              <button @click="handleToggleRule(rule)" :class="rule.status === 'active' ? 'text-yellow-600 hover:text-yellow-800' : 'text-green-600 hover:text-green-800'">
                 {{ rule.status === 'active' ? '禁用' : '启用' }}
               </button>
             </td>

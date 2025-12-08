@@ -16,7 +16,7 @@
           <option value="processing">进行中</option>
           <option value="completed">已完成</option>
         </select>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+        <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
       </div>
     </div>
 
@@ -46,8 +46,8 @@
             <td class="px-4 py-3 text-sm text-gray-500">{{ order.createTime }}</td>
             <td class="px-4 py-3">
               <div class="flex space-x-2">
-                <button class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
-                <button v-if="order.status === 'pending'" class="text-red-600 hover:text-red-800 text-sm">取消</button>
+                <button @click="handleOrderDetail(order)" class="text-blue-600 hover:text-blue-800 text-sm">详情</button>
+                <button v-if="order.status === 'pending'" @click="handleCancelOrder(order)" class="text-red-600 hover:text-red-800 text-sm">取消</button>
               </div>
             </td>
           </tr>
@@ -66,6 +66,20 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const filters = ref({ keyword: '', status: '' })
+
+const handleSearch = () => {
+  alert('查询订单')
+}
+
+const handleOrderDetail = (order: typeof orders.value[0]) => {
+  alert(`订单详情: ${order.name}`)
+}
+
+const handleCancelOrder = (order: typeof orders.value[0]) => {
+  if (confirm(`确定取消订单 ${order.name} 吗？`)) {
+    alert(`已取消: ${order.name}`)
+  }
+}
 
 const orders = ref([
   { id: 'SM202406180001', name: '视频制作服务-618专题', type: '视频制作', amount: 2980, status: 'processing', createTime: '2024-06-18 10:30' },

@@ -14,8 +14,8 @@
         <span>至</span>
         <input type="date" v-model="filters.endDate" class="border border-gray-300 rounded px-3 py-2">
         <input type="text" v-model="filters.keyword" placeholder="搜索关键词" class="border border-gray-300 rounded px-3 py-2 w-48">
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
-        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
+<button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" @click="handleQuery">查询</button>
+        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50" @click="handleExport">导出</button>
       </div>
     </div>
 
@@ -66,6 +66,14 @@ import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
 const filters = ref({ startDate: '', endDate: '', keyword: '' })
+
+const handleQuery = () => {
+  alert('查询关键词报表')
+}
+
+const handleExport = () => {
+  alert('导出关键词报表')
+}
 
 const keywords = ref([
   { id: 1, keyword: '618大促', matchType: '精准匹配', cost: 8560, show: 450000, click: 13800, ctr: 3.07, convert: 286, convertCost: 29.9, roi: 3.5 },

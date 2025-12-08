@@ -14,6 +14,18 @@ const promotions = ref([
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreate = () => {
+  alert('创建推广')
+}
+
+const handleEdit = (promo: typeof promotions.value[0]) => {
+  alert(`编辑推广: ${promo.app}`)
+}
+
+const handleData = (promo: typeof promotions.value[0]) => {
+  alert(`查看数据: ${promo.app}`)
+}
 </script>
 
 <template>
@@ -25,7 +37,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">应用推广</h1>
           <p class="mt-2 text-gray-600">管理应用推广计划</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleCreate" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           创建推广
         </button>
       </div>
@@ -94,8 +106,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button class="text-gray-600 hover:text-gray-800">数据</button>
+<button @click="handleEdit(promo)" class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
+              <button @click="handleData(promo)" class="text-gray-600 hover:text-gray-800">数据</button>
             </td>
           </tr>
         </tbody>

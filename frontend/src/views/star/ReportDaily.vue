@@ -17,8 +17,8 @@
         <input type="date" v-model="filters.startDate" class="border border-gray-300 rounded px-3 py-2">
         <span>至</span>
         <input type="date" v-model="filters.endDate" class="border border-gray-300 rounded px-3 py-2">
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
-        <button class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
+<button @click="handleQuery" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">查询</button>
+        <button @click="handleExport" class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">导出</button>
       </div>
     </div>
 
@@ -105,4 +105,12 @@ const dailyData = ref([
   { date: '2024-06-15', views: 680000, likes: 31500, comments: 2280, shares: 1050, conversions: 425, engagementRate: 5.1 },
   { date: '2024-06-14', views: 745000, likes: 34200, comments: 2480, shares: 1120, conversions: 468, engagementRate: 5.1 }
 ])
+
+const handleQuery = () => {
+  alert('查询每日报告')
+}
+
+const handleExport = () => {
+  alert('导出每日报告')
+}
 </script>

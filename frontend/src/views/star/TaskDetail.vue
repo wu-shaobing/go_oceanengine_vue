@@ -65,7 +65,7 @@
                 </td>
                 <td class="px-4 py-3 text-right">¥{{ influencer.fee.toLocaleString() }}</td>
                 <td class="px-4 py-3">
-                  <button class="text-blue-600 hover:text-blue-800 text-sm">查看内容</button>
+<button @click="handleViewContent(influencer)" class="text-blue-600 hover:text-blue-800 text-sm">查看内容</button>
                 </td>
               </tr>
             </tbody>
@@ -152,5 +152,9 @@ const getStatusClass = (status: string) => {
 const getStatusText = (status: string) => {
   const texts: Record<string, string> = { pending: '待开始', processing: '进行中', completed: '已完成' }
   return texts[status] || status
+}
+
+const handleViewContent = (influencer: typeof task.value.influencers[0]) => {
+  alert(`查看达人内容: ${influencer.name}`)
 }
 </script>

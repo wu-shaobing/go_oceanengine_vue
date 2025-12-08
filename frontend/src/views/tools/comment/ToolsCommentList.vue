@@ -31,6 +31,15 @@ const getSentimentConfig = (sentiment: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleReply = (comment: typeof comments.value[0]) => {
+  alert(`回复评论: ${comment.content}`)
+}
+
+const handleHide = (comment: typeof comments.value[0]) => {
+  comment.status = 'hidden'
+  alert(`已隐藏评论: ${comment.content}`)
+}
 </script>
 
 <template>
@@ -88,8 +97,8 @@ const handlePageChange = (page: number) => {
               <p class="text-gray-700">{{ comment.content }}</p>
               <div class="flex items-center gap-4 mt-2">
                 <span class="text-xs text-gray-500">来自: {{ comment.adName }}</span>
-                <button class="text-blue-600 text-xs hover:text-blue-800">回复</button>
-                <button class="text-gray-500 text-xs hover:text-gray-700">隐藏</button>
+<button @click="handleReply(comment)" class="text-blue-600 text-xs hover:text-blue-800">回复</button>
+                <button @click="handleHide(comment)" class="text-gray-500 text-xs hover:text-gray-700">隐藏</button>
               </div>
             </div>
             <span :class="['px-2 py-1 rounded text-xs',

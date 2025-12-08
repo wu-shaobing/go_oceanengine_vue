@@ -24,6 +24,18 @@ const getTypeConfig = (type: string) => {
 const handlePageChange = (page: number) => {
   pagination.page = page
 }
+
+const handleCreate = () => {
+  alert('创建原生锚点')
+}
+
+const handleEdit = (anchor: typeof anchors.value[0]) => {
+  alert(`编辑锚点: ${anchor.name}`)
+}
+
+const handleData = (anchor: typeof anchors.value[0]) => {
+  alert(`查看数据: ${anchor.name}`)
+}
 </script>
 
 <template>
@@ -35,7 +47,7 @@ const handlePageChange = (page: number) => {
           <h1 class="text-3xl font-bold text-gray-900">原生锚点管理</h1>
           <p class="mt-2 text-gray-600">创建和管理广告原生锚点组件</p>
         </div>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+<button @click="handleCreate" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           创建锚点
         </button>
       </div>
@@ -94,8 +106,8 @@ const handlePageChange = (page: number) => {
               </span>
             </td>
             <td class="px-6 py-4 text-sm">
-              <button class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
-              <button class="text-gray-600 hover:text-gray-800">数据</button>
+<button @click="handleEdit(anchor)" class="text-blue-600 hover:text-blue-800 mr-3">编辑</button>
+              <button @click="handleData(anchor)" class="text-gray-600 hover:text-gray-800">数据</button>
             </td>
           </tr>
         </tbody>

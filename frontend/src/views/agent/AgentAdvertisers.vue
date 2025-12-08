@@ -32,6 +32,18 @@ const handlePageChange = (page: number) => {
   pagination.page = page
   handleSearch()
 }
+
+const handleAdvDetail = (adv: typeof advertisers.value[0]) => {
+  alert(`广告主详情: ${adv.name} (ID: ${adv.id})`)
+}
+
+const handleAdvRecharge = (adv: typeof advertisers.value[0]) => {
+  alert(`为 ${adv.name} 充值`)
+}
+
+const handleAdvEdit = (adv: typeof advertisers.value[0]) => {
+  alert(`编辑广告主: ${adv.name}`)
+}
 </script>
 
 <template>
@@ -126,9 +138,9 @@ const handlePageChange = (page: number) => {
               </td>
               <td class="px-6 py-4 text-sm text-gray-500">{{ adv.createdAt }}</td>
               <td class="px-6 py-4 text-sm">
-                <button class="text-blue-600 hover:text-blue-900 mr-3">详情</button>
-                <button class="text-green-600 hover:text-green-900 mr-3">充值</button>
-                <button class="text-gray-600 hover:text-gray-900">编辑</button>
+                <button @click="handleAdvDetail(adv)" class="text-blue-600 hover:text-blue-900 mr-3">详情</button>
+                <button @click="handleAdvRecharge(adv)" class="text-green-600 hover:text-green-900 mr-3">充值</button>
+                <button @click="handleAdvEdit(adv)" class="text-gray-600 hover:text-gray-900">编辑</button>
               </td>
             </tr>
           </tbody>
