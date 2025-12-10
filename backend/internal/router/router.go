@@ -94,9 +94,11 @@ func (r *Router) Setup(mode string) *gin.Engine {
 		// 公开路由
 		r.registerPublicRoutes(apiV1)
 
-		// 需要认证的路由
+	// 需要认证的路由
 		protected := apiV1.Group("")
 		protected.Use(middleware.JWTAuth(r.jwtManager))
+		// 操作日志中间件（在 JWT 认证之后，可获取用户信息）
+		protected.Use(middleware.OperationLog(r.db, nil))
 		r.registerProtectedRoutes(protected)
 	}
 
@@ -228,12 +230,18 @@ func (r *Router) registerSystemRoutes(rg *gin.RouterGroup) {
 	roleService := service.NewRoleService(r.db)
 	menuService := service.NewMenuService(r.db)
 	logService := service.NewOperationLogService(r.db)
+	settingService := service.NewSettingService(r.db)
+	notificationService := service.NewNotificationService(r.db)
+	dictService := service.NewDictService(r.db)
 
 	// 初始化 API
 	userAPI := adminApi.NewUserAPI(userService)
 	roleAPI := adminApi.NewRoleAPI(roleService)
 	menuAPI := adminApi.NewMenuAPI(menuService)
 	logAPI := adminApi.NewOperationLogAPI(logService)
+	settingAPI := adminApi.NewSettingAPI(settingService)
+	notificationAPI := adminApi.NewNotificationAPI(notificationService)
+	dictAPI := adminApi.NewDictAPI(dictService)
 
 	system := rg.Group("/system")
 	{
@@ -280,6 +288,46 @@ func (r *Router) registerSystemRoutes(rg *gin.RouterGroup) {
 			logs.GET("/operation", logAPI.GetList)
 			logs.GET("/modules", logAPI.GetModules)
 			logs.DELETE("/operation", logAPI.Delete)
+		}
+
+		// 用户设置
+		settings := system.Group("/settings")
+		{
+			settings.GET("", settingAPI.Get)
+			settings.PUT("", settingAPI.Update)
+		}
+
+		// 消息通知
+		notifications := system.Group("/notifications")
+		{
+			notifications.GET("", notificationAPI.GetList)
+			notifications.GET("/stats", notificationAPI.GetStats)
+			notifications.POST("/read", notificationAPI.MarkAsRead)
+			notifications.POST("/read-all", notificationAPI.MarkAllAsRead)
+			notifications.DELETE("", notificationAPI.Delete)
+		}
+
+		// 字典管理
+		dict := system.Group("/dict")
+		{
+			// 字典类型
+			types := dict.Group("/types")
+			{
+				types.GET("", dictAPI.GetTypeList)
+				types.POST("", dictAPI.CreateType)
+				types.GET("/:id", dictAPI.GetTypeByID)
+				types.PUT("/:id", dictAPI.UpdateType)
+				types.DELETE("/:id", dictAPI.DeleteType)
+			}
+			// 字典数据
+			data := dict.Group("/data")
+			{
+				data.GET("", dictAPI.GetDataList)
+				data.GET("/:type", dictAPI.GetDataByType)
+				data.POST("", dictAPI.CreateData)
+				data.PUT("/:id", dictAPI.UpdateData)
+				data.DELETE("/:id", dictAPI.DeleteData)
+			}
 		}
 	}
 }

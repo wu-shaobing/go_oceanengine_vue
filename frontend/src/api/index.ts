@@ -3,6 +3,25 @@ export { default as request, type PageResponse, type ApiResponse } from './reque
 
 // 基础模块
 export { authApi, type LoginRequest, type LoginResponse, type UserInfo } from './auth'
+
+// 系统管理
+export {
+  systemApi,
+  type User,
+  type UserListParams,
+  type UserCreateParams,
+  type UserUpdateParams,
+  type Role,
+  type RoleListParams,
+  type RoleCreateParams,
+  type RoleUpdateParams,
+  type Menu,
+  type MenuTree,
+  type MenuCreateParams,
+  type MenuUpdateParams,
+  type OperationLog,
+  type OperationLogListParams
+} from './system'
 export { advertiserApi, type Advertiser, type AdvertiserListParams } from './advertiser'
 export { campaignApi, type Campaign, type CampaignCreateRequest, type CampaignListParams } from './campaign'
 export { reportApi, type ReportData, type ReportParams } from './report'

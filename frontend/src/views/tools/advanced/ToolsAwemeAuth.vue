@@ -56,16 +56,16 @@ const handleUnbind = (item: typeof authList.value[0]) => {
     <div class="bg-white rounded-lg border border-gray-200">
       <div class="p-4 border-b border-gray-200">
         <div class="flex flex-wrap gap-4">
-<input v-model="searchKeyword" type="text" placeholder="搜索抖音号" class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg">
+          <input v-model="searchKeyword" type="text" placeholder="搜索抖音号" class="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg">
           <select v-model="filterType" class="px-4 py-2 border border-gray-300 rounded-lg">
             <option value="">全部类型</option>
             <option value="auth">授权号</option>
             <option value="daren">达人号</option>
             <option value="enterprise">企业号</option>
           </select>
-<button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-          搜索
-        </button>
+          <button @click="handleSearch" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">搜索</button>
+        </div>
+      </div>
       <div class="overflow-x-auto">
         <table class="w-full">
           <thead class="bg-gray-50 border-b border-gray-200">

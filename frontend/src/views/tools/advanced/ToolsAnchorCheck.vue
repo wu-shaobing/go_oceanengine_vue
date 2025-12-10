@@ -44,9 +44,9 @@ const handleRecheck = (item: typeof checkResults.value[0]) => {
       <div class="flex gap-4">
         <input v-model="checkUrl" type="url" placeholder="输入落地页URL进行检测..."
                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-<button @click="handleStartCheck" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-          开始检测
-        </button>
+        <button @click="handleStartCheck" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">开始检测</button>
+      </div>
+    </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       <div class="bg-white rounded-lg border border-gray-200 p-4">

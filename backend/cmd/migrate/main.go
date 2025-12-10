@@ -66,12 +66,16 @@ func runMigrate(log *zap.Logger, db *gorm.DB) {
 
 	// 迁移所有模型
 	models := []interface{}{
-		// 系统管理模块
+	// 系统管理模块
 		&adminModel.User{},
 		&adminModel.Role{},
 		&adminModel.Menu{},
 		&adminModel.RoleMenu{},
 		&adminModel.OperationLog{},
+		&adminModel.UserSetting{},
+		&adminModel.Notification{},
+		&adminModel.DictType{},
+		&adminModel.DictData{},
 		// 广告主模块
 		&advertiserModel.Advertiser{},
 		&advertiserModel.AdvertiserFund{},
@@ -111,6 +115,7 @@ func runFresh(log *zap.Logger, db *gorm.DB) {
 	// 获取所有表
 	tables := []string{
 		"sys_user", "sys_role", "sys_menu", "sys_role_menu", "sys_operation_log",
+		"sys_user_setting", "sys_notification", "sys_dict_type", "sys_dict_data",
 		"ad_advertiser", "ad_advertiser_fund",
 		"ad_campaign", "ad_ad", "ad_creative",
 		"rpt_advertiser_daily", "rpt_campaign_daily", "rpt_ad_daily",
